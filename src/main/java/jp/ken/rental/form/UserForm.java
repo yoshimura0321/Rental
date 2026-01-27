@@ -3,6 +3,7 @@ package jp.ken.rental.form;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotEmpty;
+import jp.ken.rental.common.annotation.EmailExists;
 import lombok.Data;
 
 @Data
