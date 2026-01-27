@@ -15,7 +15,7 @@ public class UserForm implements Serializable {
 	private String userName;
 	
 	@NotEmpty
-	@EmailExists
+	@EmailExists(message = "email")
 	private String email;
 	
 	@NotEmpty

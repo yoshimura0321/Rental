@@ -24,7 +24,7 @@ public class UserInsertService {
 		
 		entity = convert(form);
 		
-		int resultRow = UserRepository.regist(entity);
+		int resultRow = userRepository.regist(entity);
 		
 		return resultRow;
 	}
