@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>会員登録完了画面</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/session.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+		 	<h1>会員登録完了画面</h1>
+		 	<hr>
+		</header>
+		<main>
+			<div id="form-area">
+				<span th:text="${message}"></span>
+				<p><a th:href="@{/finish}">ログアウト</a></p>
+			</div>
+		</main>
+		<footer th:insert="~{footer :: _area}"></footer>
+	</div>
+</body>
+</html>

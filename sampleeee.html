@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>新規登録画面</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h2><span class="section_title">新規登録</span><br></h2>
+		  <hr>
+		</header>
+		<main>
+			<div id="form-area">
+			<form th:action="@{/regist}" th:object="${validationForm}" method="post">
+				<!--表つくれる？-->
+				
+				<div class="form-row">
+					<label for="name" class="disp-block">氏名</label>
+					<input th:field="*{name}" size="20">
+					<span th:if="${#fields.hasErrors('name')}"th:errors="*{name}" class="errors"></span>
+				</div>
+				<div class="form-row">
+					<label for="email" class="disp-block">メールアドレス</label>
+					<input th:field="*{email}" size="30">
+					<span th:if="${#fields.hasErrors('email')}"th:errors="*{email}" class="errors"></span>
+				</div>
+				
+				<div class="form-row">
+					<label for="phoneNumber" class="disp-block">電話番号</label>
+					<input th:field="*{phoneNumber}" size="20" placeholder="ハイフンなし">
+					<span th:if="${#fields.hasErrors('phoneNumber')}"th:errors="*{phoneNumber}" class="errors"></span>
+				</div>
+				
+				<div class="form-row">
+					<label for="birthday" class="disp-block">誕生日</label>
+					<input th:field="*{birthday}" size="15" placeholder="YYYY/MM/DD">
+					<span th:if="${#fields.hasErrors('birthday')}"th:errors="*{birthday}" class="errors"></span>
+				</div>
+				
+				<div class="form-row">
+					<label for="password" class="disp-block">パスワード</label>
+					<input th:field="*{password}" size="15">
+					<span th:if="${#fields.hasErrors('password')}"th:errors="*{password}" class="errors"></span>
+				</div>
+				
+				<div class="form-row">
+					<label for="credit" class="disp-block">クレジットカード</label>
+					<div class="content">
+						<label>
+							<input type="radio" th:field="*{credit}" value="visa">Visa</label>
+						<label>
+							<input type="radio" th:field="*{credit}" value="master">Master</label>
+						<label>
+							<input type="radio" th:field="*{credit}" value="jcb">JBC</label>
+						<label>
+							<input type="radio" th:field="*{credit}" value="rakuten">楽天</label>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<label for="creditnumber" class="disp-block">カード番号</label>
+					<input th:field="*{creditnumber}" size="30" placeholder="ハイフンなし">
+				</div>
+				
+				<div class="form-row">
+					<label for="plan" class="disp-block">プラン</label>
+					<div class="content">
+						<label>
+							<input type="radio" th:field="*{plan}" value="try">お試しプラン</label>
+						<label>
+							<input type="radio" th:field="*{plan}" value="bronze">Bronzeプラン</label>
+						<label>
+							<input type="radio" th:field="*{plan}" value="silver">Silverプラン</label>
+						<label>
+							<input type="radio" th:field="*{plan}" value="gold">Goldプラン</label>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<input type="submit" value="登録" class="btn">
+				</div>
+			</form>
+		  </div>
+		</main>
+		<footer th:insert="~{footer :: _area}"></footer>
+	</div>
+</body>
+</html>
+	</div>
+</body>
+</html>
