@@ -1,13 +1,16 @@
 package jp.ken.rental.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-@Controller
+
+@SessionAttributes("UserForm")
 public class RentalController {
 
+
 	@GetMapping("/home")
-	public String test() {
+	public String home() {
 		return "home";
 	}
+
 }
