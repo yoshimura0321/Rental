@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>エラーページ</title>
+		<link th:href="#" rel="stylesheet" type="text/css">
+		
+	</head>
+<body>
+	<div id="container">
+		<header>
+		<h1>システムエラー</h1>
+		</header>
+		<main>
+		<p class="errors" th:text="${error}"></p>
+		<p><a th:href="@{/regist}">戻る</a></p>
+		</main>
+		<footer th:insert="~{footer  :: footer_area}"></footer>
+	</div>
+</body>
+</html>
