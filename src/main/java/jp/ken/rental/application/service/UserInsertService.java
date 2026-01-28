@@ -6,15 +6,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.ken.rental.form.UserEntity;
 import jp.ken.rental.form.UserForm;
+import jp.ken.rental.repository.UserRepository;
 
 @Service
 public class UserInsertService {
 
-	private Repository Repository;
+	private UserRepository userRepository;
 	private ModelMapper modelMapper;
 	
-	public UserInsertService(Repository Repository,ModelMapper modelMapper) {
-		this.Repository = Repository;
+	public UserInsertService(UserRepository userRepository,ModelMapper modelMapper) {
+		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
 	}
 	@Transactional(rollbackFor = Exception.class)
@@ -23,7 +24,7 @@ public class UserInsertService {
 		
 		entity = convert(form);
 		
-		int resultRow = Repository./*repositoryのメソッド名*/(entity);
+		int resultRow = userRepository.regist(entity);
 		
 		return resultRow;
 	}
