@@ -1,5 +1,49 @@
 package jp.ken.rental.repository;
 
-public class ProductRepository {
 
+
+import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import jp.ken.rental.form.ProductEntity;
+import jp.ken.rental.infrastructure.mapper.ProductRowMapper;
+
+@Repository
+public class ProductRepository {
+	
+	private RowMapper<ProductEntity> productMapper = new ProductRowMapper();
+	private JdbcTemplate jdbcTemplate;
+	
+	public ProductRepository(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate=jdbcTemplate;
+	}
+	
+	public List<ProductEntity> getProductByName(String name)throws Exception{
+		
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE product_name");
+		sb.append(" LIKE ?");
+		sb.append(" ORDER BY date, release_date");
+		String sql = sb.toString();
+		
+		name = name.replace("%", "\\%").replace("_", "\\_");
+		name = "%" + name + "%";
+		
+		List<ProductEntity> productList = jdbcTemplate.query(sql, productMapper,name);
+		
+		return productList;
+	}
+	
+	private StringBuilder createCommonSQL() {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT");
+		sb.append(" , product_id, product_category, product_name, arrival_date, release_date");
+		sb.append(" FROM items");
+		
+		return sb;
+	}
 }
