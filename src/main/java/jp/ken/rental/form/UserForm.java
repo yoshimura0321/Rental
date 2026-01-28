@@ -33,7 +33,7 @@ public class UserForm implements Serializable {
 	@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}",message="生年月日はYYYY/MM/DDの形式で入力してください",groups=ValidGroup2.class)
 	private String birth;
 	
-	@NotEmpty(message="住所は必須入力です",groups=ValidGroup1.class)
+	//@NotEmpty(message="住所は必須入力です",groups=ValidGroup1.class)
 	private String address;
 	
 	
