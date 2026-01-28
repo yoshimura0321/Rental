@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import jp.ken.rental.form.UserForm;
 
 @Controller
-@SessionAttributes({"UserForm"})
+@SessionAttributes({"userForm"})
 public class RegistController {
 
 	
-	@ModelAttribute("UserForm")
+	@ModelAttribute("userForm")
 	public UserForm setupUserForm() {
 		return new UserForm();
 	}
-	@GetMapping("/UserRegist")
+	@GetMapping("/regist")
 	public String toRegist() {
-		return "UserRegist";
+		return "userRegist";
 	}
 	
-	@PostMapping("/UserRegist")
-	public String toConfirm(@Validated @ModelAttribute UserForm uForm, BindingResult result,Model model) {
+	@PostMapping("/regist")
+	public String toConfirm(@Validated @ModelAttribute UserForm userForm, BindingResult result,Model model) {
 		if(result.hasErrors()) {
-			return "UserRegist";
+			return "userRegist";
 		}else {
-		return "UserConfirm";
+		return "userConfirm";
 	}
 }
 	}
