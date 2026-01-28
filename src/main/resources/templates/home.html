@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>テスト</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ホーム画面</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	</head>
 <body>
-テスト
+	<div id="wrapper">
+		<header>
+			<h2><span class="section_title">HOME</span><br></h2>
+		  <hr>
+		</header>
+		<main>
+			<div id="form-area">
+				<form th:action="@{/home}" th:object="${userForm}" method="post">
+				</form>
+			</div>
+		</main>
+	</div>
 </body>
 </html>

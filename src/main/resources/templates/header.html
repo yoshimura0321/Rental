@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>header</title>
+	</head>
+<body>
+	<div th:fragment="header_area" th:remove="tag">
+		<h1>
+			<span th:text="${headline}"></span>
+		</h1>
+		<nav>
+			<div class="bar">
+				<a th:href="@{/home}">HOME</a>|
+				<a th:href="@{/search}">検索</a>|
+				<a th:href="@{/cart}">カート</a>|
+				<a th:href="@{/login}">ログイン|
+				<a th:href="@{/mypage}">マイページ</a>
+					
+				</a>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>

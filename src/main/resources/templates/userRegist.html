@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>新規登録画面</title>
 		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
 	<div id="wrapper">
@@ -12,79 +13,77 @@
 		  <hr>
 		</header>
 		<main>
-			<div id="form-area">
-			<form th:action="@{/regist}" th:object="${validationForm}" method="post">
-				<!--表つくれる？-->
-				
-				<div class="form-row">
-					<label for="name" class="disp-block">氏名</label>
-					<input th:field="*{name}" size="20">
-					<span th:if="${#fields.hasErrors('name')}"th:errors="*{name}" class="errors"></span>
-				</div>
-				<div class="form-row">
-					<label for="email" class="disp-block">メールアドレス</label>
-					<input th:field="*{email}" size="30">
-					<span th:if="${#fields.hasErrors('email')}"th:errors="*{email}" class="errors"></span>
-				</div>
-				
-				<div class="form-row">
-					<label for="phoneNumber" class="disp-block">電話番号</label>
-					<input th:field="*{phoneNumber}" size="20" placeholder="ハイフンなし">
-					<span th:if="${#fields.hasErrors('phoneNumber')}"th:errors="*{phoneNumber}" class="errors"></span>
-				</div>
-				
-				<div class="form-row">
-					<label for="birthday" class="disp-block">誕生日</label>
-					<input th:field="*{birthday}" size="15" placeholder="YYYY/MM/DD">
-					<span th:if="${#fields.hasErrors('birthday')}"th:errors="*{birthday}" class="errors"></span>
-				</div>
-				
-				<div class="form-row">
-					<label for="password" class="disp-block">パスワード</label>
-					<input th:field="*{password}" size="15">
-					<span th:if="${#fields.hasErrors('password')}"th:errors="*{password}" class="errors"></span>
-				</div>
-				
-				<div class="form-row">
-					<label for="credit" class="disp-block">クレジットカード</label>
-					<div class="content">
-						<label>
-							<input type="radio" th:field="*{credit}" value="visa">Visa</label>
-						<label>
-							<input type="radio" th:field="*{credit}" value="master">Master</label>
-						<label>
-							<input type="radio" th:field="*{credit}" value="jcb">JBC</label>
-						<label>
-							<input type="radio" th:field="*{credit}" value="rakuten">楽天</label>
-					</div>
-				</div>
-				
-				<div class="form-row">
-					<label for="creditnumber" class="disp-block">カード番号</label>
-					<input th:field="*{creditnumber}" size="30" placeholder="ハイフンなし">
-				</div>
-				
-				<div class="form-row">
-					<label for="plan" class="disp-block">プラン</label>
-					<div class="content">
-						<label>
-							<input type="radio" th:field="*{plan}" value="try">お試しプラン</label>
-						<label>
-							<input type="radio" th:field="*{plan}" value="bronze">Bronzeプラン</label>
-						<label>
-							<input type="radio" th:field="*{plan}" value="silver">Silverプラン</label>
-						<label>
-							<input type="radio" th:field="*{plan}" value="gold">Goldプラン</label>
-					</div>
-				</div>
-				
-				<div class="form-row">
-					<input type="submit" value="登録" class="btn">
+			<form th:action="@{/regist}" th:object="${userForm}" method="post">
+				<div id="form-area">
+					<table>
+						<tr>
+							<td colspan="2" class="bikou">必要な情報を入力後「確認」ボタンを押してください。</td>
+						</tr>
+						<tr>
+							<th><label for="userName" class="disp-block">氏名</label></th>
+							<td>
+								<input th:field="*{userName}" size="20">
+								<span th:if="${#fields.hasErrors('userName')}"th:errors="*{userName}" class="errors"></span>
+							</td>
+						</tr>
+						<tr>
+							<th><label for="email" class="disp-block">メールアドレス</label></th>
+							<td>
+								<input th:field="*{email}" size="30">
+								<span th:if="${#fields.hasErrors('email')}"th:errors="*{email}" class="errors"></span>
+							</td>
+						</tr>
+						<tr>
+							<th><label for="tel" class="disp-block">電話番号</label></th>
+							<td>
+								<input th:field="*{tel}" size="20" placeholder="ハイフンなし">
+								<span th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}" class="errors"></span>
+							</td>
+						</tr>
+						<tr>
+							<th><label for="birth" class="disp-block">誕生日</label></th>
+							<td>
+								<input th:field="*{birth}" size="15" placeholder="YYYY/MM/DD">
+								<span th:if="${#fields.hasErrors('birth')}"th:errors="*{birth}" class="errors"></span>
+							</td>
+						</tr>
+						<tr>
+							<th><label for="password" class="disp-block">パスワード</label></th>
+							<td>
+								<input th:field="*{password}" size="15">
+								<span th:if="${#fields.hasErrors('password')}"th:errors="*{password}" class="errors"></span>
+							</td>
+						</tr>
+						<tr>
+							<th><label for="credit" class="disp-block">クレジットカード</label></th>
+							<td>
+								<input th:field="*{credit}" size="30" placeholder="ハイフンなし">
+							</td>
+						</tr>
+						<tr>
+							<th><label for="planName" class="disp-block">プラン</label></th>
+							<td>
+								<div class="content">
+									<label>
+										<input type="radio" th:field="*{planName}" value="try">お試しプラン</label>
+									<label>
+										<input type="radio" th:field="*{planName}" value="bronze">Bronzeプラン</label>
+									<label>
+										<input type="radio" th:field="*{planName}" value="silver">Silverプラン</label>
+									<label>
+										<input type="radio" th:field="*{planName}" value="gold">Goldプラン</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="bikou"><input type="submit" value="確認" class="btn"></td>
+						</tr>
+					</table>
 				</div>
 			</form>
 		  </div>
 		</main>
-		<footer th:insert="~{footer :: _area}"></footer>
+		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
 </body>
 </html>
