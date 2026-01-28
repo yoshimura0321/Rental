@@ -20,17 +20,17 @@ public class RegistController {
 	public UserForm setupUserForm() {
 		return new UserForm();
 	}
-	@GetMapping("/regist")
+	@GetMapping("/UserRegist")
 	public String toRegist() {
-		return "regist";
+		return "UserRegist";
 	}
 	
-	@PostMapping("/regist")
+	@PostMapping("/UserRegist")
 	public String toConfirm(@Validated @ModelAttribute UserForm uForm, BindingResult result,Model model) {
 		if(result.hasErrors()) {
-			return "regist";
+			return "UserRegist";
 		}else {
-		return "confirm";
+		return "UserConfirm";
 	}
 }
 	}
