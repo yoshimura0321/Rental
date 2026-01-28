@@ -35,7 +35,7 @@
 				<div class="form-row">
 					<label th:text="|プラン:${userForm.planName}|"></label>
 				 </div>
-				 <form action="@{/confirm}"method="post">
+				 <form th:action="@{/confirm}"method="post">
 				<div class="form-row">
 					<input type="submit" name="back" value="登録" class="btn">
 					<input type="submit" name="forward" value="戻る" class="btn">
