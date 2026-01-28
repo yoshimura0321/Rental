@@ -14,10 +14,11 @@
 		<main>
 			<div id="form-area">
 				<p>ご登録いただき、ありがとうございます。</p>
-				<p><a th:href="@{/home}">ホーム画面へ戻る</a></p>
 			</div>
+			<div class="form-row">
+					<p><a href="@{/home}">HOMEへ戻る</a></p>
 		</main>
-		<footer th:insert="~{footer :: _area}"></footer>
+		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
 </body>
 </html>

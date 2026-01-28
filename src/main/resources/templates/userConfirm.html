@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>会員登録確認画面</title>
 		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
 	<div id="wrapper">
@@ -14,38 +15,35 @@
 		<main>
 			<div id="form-area">
 				<div class="form-row">
-					<label th:text="|氏名:${userForm.name}|"></label>
+					<label th:text="|氏名:${userForm.userName}|"></label>
 				</div>
 				<div class="form-row">
 					<label th:text="|Email:${userForm.email}|"></label>
 				</div>
 				<div class="form-row">
-					<label th:text="|電話番号:${userForm.phoneNumber}|"></label>
+					<label th:text="|電話番号:${userForm.tel}|"></label>
 				</div>
 				<div class="form-row">
-					<label th:text="|誕生日:${userForm.birthday}|"></label>
+					<label th:text="|誕生日:${userForm.birth}|"></label>
 				</div>
 				<div class="form-row">
 					<label th:text="|パスワード:${userForm.password}|"></label>
 				</div>
 				<div class="form-row">
-					<label th:text="|クレジットカード:${userForm.credit}|"></label>
+					<label th:text="|クレジットカード${userForm.credit}|"></label>
 				</div>
 				<div class="form-row">
-					<label th:text="|カード番号:${userForm.creditnumber}|"></label>
+					<label th:text="|プラン:${userForm.planName}|"></label>
 				 </div>
-				 <div class="form-row">
-					<label th:text="|プラン:${userForm.plan}|"></label>
-					
+				 <form action="@{/confirm}"method="post">
 				<div class="form-row">
-					<p>ご登録ありがとうございました。</p>
-				</div>
-				<div class="form-row">
-					<p><a href="@{/regist}">戻る</a></p>
-				</div>
+					<input type="submit" name="back" value="登録" class="btn">
+					<input type="submit" name="forward" value="戻る" class="btn">
+ 				</div>
+				</form>
 			</div>
 		</main>
-		<footer th:insert="~{footer :: _area}"></footer>
+		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
 </body>
 </html>
