@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>mypage</title>
+<link href="@{/css/common.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	
+	 <div id="wrapper"></div>
+        <header>
+            <h2><span class="section_title">マイページ</span><br></h2>
+            <hr>
+        </header>
+        <main>
+            <div id="form-area">
+                <!-- DBから取得した情報を表示 -->
+                <table class="user-info-table">
+                    <tr>
+                        <th>氏名</th>
+                        <td th:text="${userName}"></td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td th:text="${email}"></td>
+                    </tr>
+                    tr>
+                        <th>電話番号</th>
+                        <td th:text="${tel}"></td>
+                    </tr>
+                    tr>
+                        <th>誕生日</th>
+                        <td th:text="${birth}"></td>
+                    </tr>
+                    tr>
+                        <th>住所</th>
+                        <td th:text="${address}"></td>
+                    </tr>
+                    tr>
+                        <th>クレジットカード</th>
+                        <td th:text="${credit}"></td>
+                    </tr>
+                    <tr>
+                        <th>加入プラン</th>
+                        <td th:text="${planName}"></td>
+                    </tr>
+                </table>
+
+				<!--退会ボタン-->
+				<!--退会確認画面が必要？PHP？-->
+					<form action="delete_process.php" method="POST">
+       					 <button type="submit">退会してデータをすべて削除する</button>
+					</form>
+            </div>
+        </main>
+
+</body>
+</html>
