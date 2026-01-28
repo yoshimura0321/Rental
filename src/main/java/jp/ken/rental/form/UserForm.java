@@ -5,10 +5,8 @@ import java.io.Serializable;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
-import jp.ken.rental.common.annotation.EmailExists;
 import jp.ken.rental.common.validator.groups.ValidGroup1;
 import jp.ken.rental.common.validator.groups.ValidGroup2;
-import jp.ken.rental.common.validator.groups.ValidGroup3;
 import lombok.Data;
 
 @Data
@@ -21,7 +19,7 @@ public class UserForm implements Serializable {
 	
 	@NotEmpty(message="メールアドレスは必須入力です",groups=ValidGroup1.class)
 	@Email(message="メールアドレス形式で入力してください",groups=ValidGroup2.class)
-	@EmailExists(message="既に登録されているメールアドレスです",groups=ValidGroup3.class)
+	//@EmailExists(message="既に登録されているメールアドレスです",groups=ValidGroup3.class)
 	private String email;
 	
 	@NotEmpty(message="電話番号は必須入力です",groups=ValidGroup1.class)
