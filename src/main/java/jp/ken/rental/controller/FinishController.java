@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@RequestMapping("/finish")
+@RequestMapping("/userFinish")
 @SessionAttributes({"userForm"})
 public class FinishController {
 	
