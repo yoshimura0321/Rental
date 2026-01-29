@@ -12,7 +12,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes({"userForm"})
 public class FinishController {
 	
-	
+	//
 	
 	@GetMapping
 	public String toLogout(SessionStatus status) {
