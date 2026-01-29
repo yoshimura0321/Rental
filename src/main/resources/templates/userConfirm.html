@@ -21,35 +21,35 @@
 						</tr>
 						<tr>
 							<th><label for="userName" class="disp-block">氏名</label></th>
-							<td><label th:text="|氏名:${userForm.userName}|"></label></td>
+							<td><label th:text="${userForm.userName}"></label></td>
 						</tr>
 						<tr>
 							<th><label for="email" class="disp-block">メールアドレス</label></th>
-							<td><label th:text="|Email:${userForm.email}|"></label></td>
+							<td><label th:text="${userForm.email}"></label></td>
 						</tr>
 						<tr>
 							<th><label for="address" class="disp-block">住所</label></th>
-							<td><label th:text="|住所:${userForm.address}|"></label></td>
+							<td><label th:text="${userForm.address}"></label></td>
 						</tr>
 						<tr>
 							<th><label for="tel" class="disp-block">電話番号</label></th>
-							<td><label th:text="|電話番号:${userForm.tel}|"></label></td>
+							<td><label th:text="${userForm.tel}"></label></td>
 						</tr>
 						<tr>
 							<th><label for="birth" class="disp-block">誕生日</label></th>
-							<td><label th:text="|誕生日:${userForm.birth}|"></label></td>
+							<td><label th:text="${userForm.birth}"></label></td>
 						</tr>
 						<tr>
 							<th><label for="password" class="disp-block">パスワード</label></th>
-							<td><label th:text="|パスワード:${userForm.password}|"></label></td>
+							<td><label th:text="${userForm.password}"></label></td>
 						</tr>	
 						<tr>
 							<th><label for="credit" class="disp-block">クレジットカード</label></th>
-							<td><label th:text="|クレジットカード${userForm.credit}|"></label></td>
+							<td><label th:text="${userForm.credit}"></label></td>
 						</tr>
 						<tr>
 							<th><label for="planName" class="disp-block">プラン</label></th>
-							<td><label th:text="|プラン:${userForm.planName}|"></label></td>
+							<td><label th:text="${userForm.planName}"></label></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="bikou"><input type="submit" name="forward" value="登録" class="btn"></td>
