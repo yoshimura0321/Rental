@@ -53,15 +53,20 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		public int regist (UserEntity userEntity) throws Exception{
 	
 			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO user ( user_id, user_name, email, tel, password, birth,");
-			sb.append(" address, credit, plan_name, rental_count, membership_month)");
-			sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			sb.append("INSERT INTO users_table ( user_name, email, tel, password, birth,");
+			sb.append(" address, credit, plan_name");
+					
+					//rental_count, membership_month)");
+			
+			sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?)");
 			String sql = sb.toString();
 			
-			Object[] parameters = { userEntity.getUserId(), userEntity.getUserName(),
+			Object[] parameters = { userEntity.getUserName(),
 					userEntity.getEmail(), userEntity.getTel(), userEntity.getPassword(),
-					userEntity.getBirth(), userEntity.getAddress(), userEntity.getCredit(), 
-					userEntity.getPlanName(), userEntity.getRentalCount(), userEntity.getMembershipMonth()};
+					userEntity.getBirth(),"福岡", userEntity.getCredit(), 
+					userEntity.getPlanName()};
+					
+					//userEntity.getRentalCount(), userEntity.getMembershipMonth()};
 	
 			int numberOfRow = 0;
 			numberOfRow = jdbcTemplate.update(sql,parameters);
