@@ -31,6 +31,7 @@ public class ConfirmController {
 	}
 	@PostMapping(params = "forward")
 	public String forFinish(@ModelAttribute UserForm userForm) throws Exception{
+		
 		int row = userInsertService.registUser(userForm);
 		
 		if(row == 0) {
