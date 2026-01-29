@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jp.ken.rental.common.validator.groups.ValidGroupOrder;
 import jp.ken.rental.form.UserForm;
 
 @Controller
@@ -26,7 +27,7 @@ public class RegistController {
 	}
 	
 	@PostMapping("/regist")
-	public String toConfirm(@Validated @ModelAttribute UserForm userForm, BindingResult result,Model model) {
+	public String toConfirm(@Validated(ValidGroupOrder.class) @ModelAttribute UserForm userForm, BindingResult result,Model model) {
 		if(result.hasErrors()) {
 			return "userRegist";
 		}else {
