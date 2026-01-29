@@ -9,41 +9,55 @@
 <body>
 	<div id="wrapper">
 		<header>
-			<h1>会員登録確認画面</h1>
+			<h2><span class="section_title">会員登録確認画面</span><br></h2>
 			<hr>
 		</header>
 		<main>
-			<div id="form-area">
-				<div class="form-row">
-					<label th:text="|氏名:${userForm.userName}|"></label>
+			<form action="@{/confirm}"method="post">
+				<div id="form-area">
+					<table>
+						<tr>
+							<td colspan="2" class="bikou">入力情報を確認後「登録」ボタンを押してください。</td>
+						</tr>
+						<tr>
+							<th><label for="userName" class="disp-block">氏名</label></th>
+							<td><label th:text="|氏名:${userForm.userName}|"></label></td>
+						</tr>
+						<tr>
+							<th><label for="email" class="disp-block">メールアドレス</label></th>
+							<td><label th:text="|Email:${userForm.email}|"></label></td>
+						</tr>
+						<tr>
+							<th><label for="address" class="disp-block">住所</label></th>
+							<td><label th:text="|住所:${userForm.address}|"></label></td>
+						</tr>
+						<tr>
+							<th><label for="tel" class="disp-block">電話番号</label></th>
+							<td><label th:text="|電話番号:${userForm.tel}|"></label></td>
+						</tr>
+						<tr>
+							<th><label for="birth" class="disp-block">誕生日</label></th>
+							<td><label th:text="|誕生日:${userForm.birth}|"></label></td>
+						</tr>
+						<tr>
+							<th><label for="password" class="disp-block">パスワード</label></th>
+							<td><label th:text="|パスワード:${userForm.password}|"></label></td>
+						</tr>	
+						<tr>
+							<th><label for="credit" class="disp-block">クレジットカード</label></th>
+							<td><label th:text="|クレジットカード${userForm.credit}|"></label></td>
+						</tr>
+						<tr>
+							<th><label for="planName" class="disp-block">プラン</label></th>
+							<td><label th:text="|プラン:${userForm.planName}|"></label></td>
+						</tr>
+						<tr>
+							
+							<td colspan="2" class="bikou"><input type="submit" name="back" value="登録" class="btn"></td>
+						</tr>	
+					</table>
 				</div>
 				<div class="form-row">
-					<label th:text="|Email:${userForm.email}|"></label>
-				</div>
-				<div class="form-row">
-					<label th:text="|電話番号:${userForm.tel}|"></label>
-				</div>
-				<div class="form-row">
-					<label th:text="|誕生日:${userForm.birth}|"></label>
-				</div>
-				<div class="form-row">
-					<label th:text="|パスワード:${userForm.password}|"></label>
-				</div>
-				<div class="form-row">
-					<label th:text="|クレジットカード${userForm.credit}|"></label>
-				</div>
-				<div class="form-row">
-					<label th:text="|プラン:${userForm.planName}|"></label>
-				 </div>
-				 <form th:action="@{/confirm}" method="post">
-					 
-   						 
-				<div class="form-row">
-					<input type="submit" name="back" value="戻る" class="btn">
-					<input type="submit" name="forward" value="登録" class="btn">
- 				</div>
-				</form>
-			</div>
 		</main>
 		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
