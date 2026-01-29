@@ -54,19 +54,17 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 	
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO users_table ( user_name, email, tel, password, birth,");
-			sb.append(" address, credit, plan_name");
+			sb.append(" address, credit, plan_name, membership_month)");
 					
-					//rental_count, membership_month)");
 			
-			sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?)");
+			sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			String sql = sb.toString();
 			
 			Object[] parameters = { userEntity.getUserName(),
 					userEntity.getEmail(), userEntity.getTel(), userEntity.getPassword(),
-					userEntity.getBirth(),"福岡", userEntity.getCredit(), 
-					userEntity.getPlanName()};
+					userEntity.getBirth(),userEntity.getAddress(), userEntity.getCredit(), 
+					userEntity.getPlanName(), "2000-12-12"};
 					
-					//userEntity.getRentalCount(), userEntity.getMembershipMonth()};
 	
 			int numberOfRow = 0;
 			numberOfRow = jdbcTemplate.update(sql,parameters);

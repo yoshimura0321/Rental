@@ -35,14 +35,8 @@
 				<div class="form-row">
 					<label th:text="|プラン:${userForm.planName}|"></label>
 				 </div>
-				 <form th:action="@{/confirm}" th:object="${userForm}" method="post">
-					 	<input type="hidden" th:field="*{userName}">
-						<input type="hidden" th:field="*{email}">
-    					<input type="hidden" th:field="*{tel}">
-    					<input type="hidden" th:field="*{birth}">
-    					<input type="hidden" th:field="*{password}">
-    					<input type="hidden" th:field="*{credit}">
-   						 <input type="hidden" th:field="*{planName}">
+				 <form th:action="@{/confirm}" method="post">
+					 
    						 
 				<div class="form-row">
 					<input type="submit" name="back" value="戻る" class="btn">
