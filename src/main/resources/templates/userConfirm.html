@@ -13,7 +13,7 @@
 			<hr>
 		</header>
 		<main>
-			<form action="@{/confirm}"method="post">
+			<form th:action="@{/confirm}"method="post">
 				<div id="form-area">
 					<table>
 						<tr>
@@ -52,12 +52,15 @@
 							<td><label th:text="|プラン:${userForm.planName}|"></label></td>
 						</tr>
 						<tr>
-							
-							<td colspan="2" class="bikou"><input type="submit" name="back" value="登録" class="btn"></td>
+							<td colspan="2" class="bikou"><input type="submit" name="forward" value="登録" class="btn"></td>
 						</tr>	
 					</table>
 				</div>
 				<div class="form-row">
+					<hr>
+					<input type="submit" name="back" value="戻る" class="btn">
+				</div>
+			</form>
 		</main>
 		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
