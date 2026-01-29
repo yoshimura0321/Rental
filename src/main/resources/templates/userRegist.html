@@ -34,6 +34,13 @@
 							</td>
 						</tr>
 						<tr>
+							<th><label for="address" class="disp-block">住所</label></th>
+							<td>
+								<input th:field="*{address}" size="30">
+								<span th:if="${#fields.hasErrors('address')}"th:errors="*{address}" class="errors"></span>
+							</td>
+						</tr>
+						<tr>
 							<th><label for="tel" class="disp-block">電話番号</label></th>
 							<td>
 								<input th:field="*{tel}" size="20" placeholder="ハイフンなし">
