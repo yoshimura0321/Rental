@@ -5,11 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.ken.rental.application.service.UserSearchService;
 import jp.ken.rental.form.UserForm;
 
 @Controller
+@SessionAttributes("UserForm")
 public class LoginController {
 
     private UserSearchService userSearchService;
