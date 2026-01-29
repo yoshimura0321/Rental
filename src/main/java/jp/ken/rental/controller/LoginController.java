@@ -12,7 +12,7 @@ import jp.ken.rental.form.UserForm;
 @Controller
 public class LoginController {
 
-    private final UserSearchService userSearchService;
+    private UserSearchService userSearchService;
 
     public LoginController(UserSearchService userSearchService) {
         this.userSearchService = userSearchService;
