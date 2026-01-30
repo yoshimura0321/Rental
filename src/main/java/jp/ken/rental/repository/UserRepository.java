@@ -46,7 +46,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			sb.append("SELECT");
 			sb.append(" user_id, user_name, email, tel, password, birth,");
 			sb.append(" address, credit, plan_name, rental_count, membership_month");
-			sb.append(" FROM user");
+			sb.append(" FROM users_table");
 		
 			return sb;
 		}
