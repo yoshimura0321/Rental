@@ -31,6 +31,8 @@ public class SecurityConfig {
 		
 		http.formLogin(login -> login
 				.defaultSuccessUrl("/home")
+				.loginPage("/login")
+				.failureUrl("/login?error")
 				.permitAll());
 		
 		
