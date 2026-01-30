@@ -21,7 +21,7 @@ public class ProductSearchService {
         this.modelMapper = modelMapper;
     }
     
-    // ★ POST：名前検索
+
     public List<ProductForm> getProductList(ProductForm form)throws Exception{
         
         String keyword = form.getProductName();
@@ -35,7 +35,7 @@ public class ProductSearchService {
         return convert(entityList);
     }
 
-    // ★ GET：最新5件検索（ここに追加）
+    
     public List<ProductForm> getLatest5Products() throws Exception {
         List<ProductEntity> entityList = productRepository.getProductByArrivalDate();
         return convert(entityList);

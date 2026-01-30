@@ -21,18 +21,16 @@ public class HomeController {
         this.productSearchService = productSearchService;
     }
 
-    // ★ GET：最新5件を表示
     @GetMapping("/home")
     public String home(Model model) throws Exception {
 
         List<ProductForm> productList = productSearchService.getLatest5Products();
         model.addAttribute("productList", productList);
-        model.addAttribute("productForm", new ProductForm()); // 検索フォーム用
+        model.addAttribute("productForm", new ProductForm()); 
 
         return "home";
     }
 
-    // ★ POST：名前検索
     @PostMapping("/home")
     public String search(@ModelAttribute ProductForm form, Model model) throws Exception {
 
