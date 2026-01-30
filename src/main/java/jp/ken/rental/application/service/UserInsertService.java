@@ -25,8 +25,9 @@ public class UserInsertService {
 		entity = convert(form);
 		
 		int resultRow = userRepository.regist(entity);
+		int resultRow2 = userRepository.securityregist(entity);
 		
-		return resultRow;
+		return resultRow*resultRow2;
 	}
 	
 	private UserEntity convert(UserForm form) {

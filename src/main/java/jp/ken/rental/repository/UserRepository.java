@@ -1,9 +1,11 @@
 package jp.ken.rental.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.rental.form.UserEntity;
@@ -11,7 +13,8 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 
 	@Repository
 	public class UserRepository {
-	
+		
+		BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
 		private RowMapper<UserEntity> userMapper = new UserRowMapper();
 		private JdbcTemplate jdbcTemplate;
 	
@@ -61,14 +64,33 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			String sql = sb.toString();
 			
 			Object[] parameters = { userEntity.getUserName(),
-					userEntity.getEmail(), userEntity.getTel(), userEntity.getPassword(),
+					userEntity.getEmail(), userEntity.getTel(), bcpe.encode(userEntity.getPassword()),
 					userEntity.getBirth(),userEntity.getAddress(), userEntity.getCredit(), 
-					userEntity.getPlanName(), "2000-12-12"};
+					userEntity.getPlanName(), LocalDate.now()};
 					
 	
 			int numberOfRow = 0;
 			numberOfRow = jdbcTemplate.update(sql,parameters);
 	
 			return numberOfRow;
+		}
+		
+		public int securityregist(UserEntity entity)throws Exception{
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("INSERT INTO users (username ,password,enabled) ");
+			sb.append(" VALUES (?,?,1)");
+			String sql = sb.toString();
+			
+			Object[] parameters = {entity.getEmail(),bcpe.encode(entity.getPassword())};
+			
+			StringBuilder sb2 = new StringBuilder();
+			sb2.append("INSERT INTO authorities (username,authority)");
+			sb2.append(" VALUES (?,'ROLE_USER')");
+			String sql2 = sb2.toString();
+			
+			int num = jdbcTemplate.update(sql,parameters) * jdbcTemplate.update(sql2,entity.getEmail());
+			
+			return num;
 		}
 	}

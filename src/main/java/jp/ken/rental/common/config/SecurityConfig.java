@@ -27,7 +27,7 @@ public class SecurityConfig {
 				.requestMatchers("/regist").permitAll()
 				.requestMatchers("/cart").authenticated()
 				.requestMatchers("/css/**").permitAll()
-				.anyRequest().authenticated());
+				.anyRequest().permitAll());
 		
 		http.formLogin(login -> login
 				.defaultSuccessUrl("/home")
