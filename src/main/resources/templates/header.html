@@ -12,7 +12,8 @@
 		<nav>
 			<div class="bar">
 				<a th:href="@{/home}">HOME</a>|
-				<a th:href="@{/search}">検索</a>|
+				<input th:field="*{productName}">
+				<input type="submit" name="search" value="検索" class="btn">
 				<a th:href="@{/cart}">カート</a>|
 				<a th:href="@{/login}">ログイン|
 				<a th:href="@{/mypage}">マイページ</a>
