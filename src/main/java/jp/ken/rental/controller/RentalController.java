@@ -1,3 +1,4 @@
+/*
 package jp.ken.rental.controller;
 
 import org.springframework.stereotype.Controller;
@@ -16,3 +17,4 @@ public class RentalController {
 	}
 
 }
+*/
