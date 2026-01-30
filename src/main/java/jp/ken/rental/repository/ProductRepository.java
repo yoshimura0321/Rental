@@ -37,11 +37,27 @@ public class ProductRepository {
 		return productList;
 	}
 	
+
+	public List<ProductEntity> getProductByArrivalDate() throws Exception {
+	    StringBuilder sb = createCommonSQL();
+	    
+	    sb.append(" ORDER BY arrival_date DESC");
+	    sb.append(" LIMIT 5");
+	    
+	    String sql = sb.toString();
+	    
+	    // パラメータがないため、query(sql, rowMapper) を使用
+	    List<ProductEntity> productList = jdbcTemplate.query(sql, productMapper);
+	    
+	    return productList;
+	}
+
+	
 	private StringBuilder createCommonSQL() {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		sb.append(" , product_id, product_category, product_name, arrival_date, release_date");
+		sb.append(" product_id, product_category, product_name, arrival_date, release_date");
 		sb.append(" FROM items");
 		
 		return sb;

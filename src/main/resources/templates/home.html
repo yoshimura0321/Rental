@@ -6,17 +6,31 @@
 		<link th:href="@{/common.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
-	<div id="wrapper">
-		<header>
-			<h2><span class="section_title">HOME</span><br></h2>
-		  <hr>
-		</header>
-		<main>
-			<div id="form-area">
-				<form th:action="@{/home}" th:object="${userForm}" method="post">
-				</form>
-			</div>
-		</main>
-	</div>
+<div id="wrapper">
+	<header th:insert="~{header :: header_area}"></header>
+	
+	<main> 
+		<div id="form-area">
+			<table>
+				<tr>
+					<th>プロダクトID</th>
+					<th>プロダクトカテゴリー</th>
+					<th>プロダクトネーム</th>
+					<th>アライバル</th>
+					<th>リリース</th>
+				</tr>
+			<th:block th:each="p : ${productList}">
+				<tr>
+					<td th:text="${p.productId}" class="productId"></td>
+					<td th:text="${p.productCategory}" class="productName"></td>
+					<td th:text="${p.productName}" class="productName"></td>
+					<td th:text="${p.arrivalDate}" class="arrivalDate"></td>
+					<td th:text="${p.releaseDate}" class="releaseDate"></td>
+				</tr>
+			</th:block>
+			</table>		
+		</div> 
+	</main>
+</div>
 </body>
 </html>
