@@ -12,40 +12,45 @@ import jp.ken.rental.repository.ProductRepository;
 
 @Service
 public class ProductSearchService {
-	
-	private ProductRepository productRepository;
-	private ModelMapper modelMapper;
-	
-	public ProductSearchService(ProductRepository productRepository, ModelMapper modelMapper) {
-		this.productRepository = productRepository;
-		this.modelMapper = modelMapper;
-	}
-	
-	public List<ProductForm> getProductList(ProductForm form)throws Exception{
-		
-		String keyword = form.getProductName();
+    
+    private ProductRepository productRepository;
+    private ModelMapper modelMapper;
+    
+    public ProductSearchService(ProductRepository productRepository, ModelMapper modelMapper) {
+        this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
+    }
+    
+    // ★ POST：名前検索
+    public List<ProductForm> getProductList(ProductForm form)throws Exception{
+        
+        String keyword = form.getProductName();
 
-		// null / 空文字対策
         if (keyword == null || keyword.isBlank()) {
             return List.of();
         }
 
         List<ProductEntity> entityList =
-        		productRepository.getProductByName(keyword);
+                productRepository.getProductByName(keyword);
         return convert(entityList);
     }
 
-	private List<ProductForm> convert(List<ProductEntity> entityList){
-		
-		List<ProductForm> formList = new ArrayList<ProductForm>();
-		
-		for(ProductEntity entity : entityList) {
-			ProductForm form = modelMapper.map(entity, ProductForm.class);
-			formList.add(form);
-		}
-		
-		return formList;
-		
-	}
+    // ★ GET：最新5件検索（ここに追加）
+    public List<ProductForm> getLatest5Products() throws Exception {
+        List<ProductEntity> entityList = productRepository.getProductByArrivalDate();
+        return convert(entityList);
+    }
 
+    private List<ProductForm> convert(List<ProductEntity> entityList){
+        
+        List<ProductForm> formList = new ArrayList<>();
+        
+        for(ProductEntity entity : entityList) {
+            ProductForm form = modelMapper.map(entity, ProductForm.class);
+            formList.add(form);
+        }
+        
+        return formList;
+    }
 }
+
