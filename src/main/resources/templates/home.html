@@ -6,17 +6,23 @@
 		<link th:href="@{/common.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
-	<div id="wrapper">
-		<header>
-			<h2><span class="section_title">HOME</span><br></h2>
-		  <hr>
-		</header>
-		<main>
-			<div id="form-area">
-				<form th:action="@{/home}" th:object="${userForm}" method="post">
-				</form>
+<div id="wrapper">
+	<header th:insert="~{header :: header_area}"></header>
+	
+	<main> 
+		<div id="form-area">
+			
+			<div th:block th:each="p : ${productList}" class="product-box">
+				<p><span th:text="${p.productId}"></span></p>
+				<p><span th:text="${p.productCategory}"></span></p>
+				<p><span th:text="${p.productName}"></span></p>
+				<p><span th:text="${p.arrivalDate}"></span></p>
+				<p><span th:text="${p.releaseDate}"></span></p>
+				<hr>
 			</div>
-		</main>
-	</div>
+			
+		</div> 
+	</main>
+</div>
 </body>
 </html>
