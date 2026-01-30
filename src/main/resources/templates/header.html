@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>header</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/padding.css}" rel="stylesheet" type="text/css">
+</head>
 <body>
-	<div th:fragment="header_area" th:remove="tag">
-		<h1>
-			<span th:text="${headline}"></span>
-		</h1>
-		<nav>
-			<div class="bar">
-				<a th:href="@{/home}">HOME</a>|
-				<a th:href="@{/cart}">カート</a>|
-				<a th:href="@{/login}">ログイン|
-				<a th:href="@{/mypage}">マイページ</a>
-					
-				</a>
-			</div>
-		</nav>
-	</div>
+<div th:fragment="header_area" class="header-area">
+    <h1>
+        <span th:text="${headline}"></span>
+    </h1>
+    <nav>
+        <div class="bar">
+            <a th:href="@{/home}">HOME</a>
+            <a th:href="@{/cart}">カート</a>
+            <a th:href="@{/login}">ログイン</a>
+            <a th:href="@{/mypage}">マイページ</a>
+        </div>
+    </nav>
+    <form th:action="@{/home}" method="post" class="search-form">
+        <label for="name">名前検索:</label>
+        <input type="text" id="name" name="name" placeholder="検索">
+        <button type="submit">検索</button>
+    </form>
+</div>
 </body>
 </html>
