@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>ログイン画面</title>
-		<link th:href="@{/common.css}" rel="stylesheet" type="text/css">
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>セキュリティー サンプル</title>
+	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+</head>
 <body>
 	<div id="wrapper">
 		<header>
@@ -13,34 +13,26 @@
 		</header>
 		<main>
 			<div id="form-area">
-				<form th:action="@{/login}" th:object="${userForm}" method="post">
-					<div class="form-row">
-						<label for="email" class="disp-block">メールアドレス</label>
-						<input th:field="*{email}" size="30">
-						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors"></span>
-					</div>
-					
-					<div class="form-row">
-						<label for="password" class="disp-block">パスワード</label>
-						<input type="password" th:field="*{password}" size="20">
-						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
-					</div>
-					
-					<div class="form-row">
-						<input type="submit" value="ログイン" class="btn">
-						<hr>
-						<p>はじめてご利用の方</p>
-						<!--ここわからない-->
-						<a class="" href="@{regist}">新規会員登録</a>
-					</div>
-					
-					<div class="form-row">
-						<span class="errors" th:text="${errorMessage}"></span>
-					</div>
-				</form>
+			<form th:action="@{/login}" method="post">
+				<div class="form-row">
+					<input type="text" name="username" th:value="${username}" size="50" placeholder="ユーザー名">
+				</div>
+				
+				<div class="form-row">
+					<input type="password" name="password" size="50" placeholder="パスワード">
+				</div>
+				
+				<div class="form-row">
+					<input type="submit" value="ログイン" class="btn">
+				</div>
+				
+				 <div class="form-row" th:if="${param.error}">
+					<span th:text="${error}" class="errors"></span>
+				</div>
+			</form>
 			</div>
 		</main>
-		<footer th:insert="~{footer :: footer_area}"></footer>
+		<footer></footer>
 	</div>
 </body>
 </html>
