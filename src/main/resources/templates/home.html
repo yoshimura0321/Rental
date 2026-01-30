@@ -11,16 +11,24 @@
 	
 	<main> 
 		<div id="form-area">
-			
-			<div th:block th:each="p : ${productList}" class="product-box">
-				<p><span th:text="${p.productId}"></span></p>
-				<p><span th:text="${p.productCategory}"></span></p>
-				<p><span th:text="${p.productName}"></span></p>
-				<p><span th:text="${p.arrivalDate}"></span></p>
-				<p><span th:text="${p.releaseDate}"></span></p>
-				<hr>
-			</div>
-			
+			<table>
+				<tr>
+					<th>プロダクトID</th>
+					<th>プロダクトカテゴリー</th>
+					<th>プロダクトネーム</th>
+					<th>アライバル</th>
+					<th>リリース</th>
+				</tr>
+			<th:block th:each="p : ${productList}">
+				<tr>
+					<td th:text="${p.productId}" class="productId"></td>
+					<td th:text="${p.productCategory}" class="productName"></td>
+					<td th:text="${p.productName}" class="productName"></td>
+					<td th:text="${p.arrivalDate}" class="arrivalDate"></td>
+					<td th:text="${p.releaseDate}" class="releaseDate"></td>
+				</tr>
+			</th:block>
+			</table>		
 		</div> 
 	</main>
 </div>
