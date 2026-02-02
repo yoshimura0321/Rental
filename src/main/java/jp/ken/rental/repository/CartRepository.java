@@ -1,20 +1,69 @@
-/*package jp.ken.rental.repository;
+package jp.ken.rental.repository;
 
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import jp.ken.rental.form.CartEntity;
+import jp.ken.rental.infrastructure.mapper.CartMapper;
 
 @Repository
 public class CartRepository {
 	
-	private 
+	private RowMapper<CartEntity> cartMapper = new CartMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public CartRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
+	
+	public List<CartEntity> getCartByUserId(String userId)throws Exception{
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE user_id = ?");
+		String sql = sb.toString();
+		
+		List<CartEntity> cartList = jdbcTemplate.query(sql,cartMapper,userId);
+		
+		return cartList;
+	}
+	
+	public int addCart(CartEntity cartEntity)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO cart");
+		sb.append("VALUES (?,?,?)");
+		String sql = sb.toString();
+		
+		Object[] parameters = { cartEntity.getUserId(),cartEntity.getProductId(),cartEntity.getStatus()};
+		
+		int num =0;
+		num = jdbcTemplate.update(sql,parameters);
+		
+		return num;
+	}
+	
+	public int deleteCart(CartEntity cartEntity)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("DELETE FROM cart");
+		sb.append("WHERE user_id = ? AND product_id = ?");
+		String sql = sb.toString();
+		
+		Object[] parameters = {cartEntity.getUserId(),cartEntity.getProductId()};
+		
+		int num = 0;
+		num = jdbcTemplate.update(sql,parameters);
+		
+		return num;
+	}
+	
+	private StringBuilder createCommonSQL() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT");
+		sb.append(" user_id, product_id, status");
+		sb.append("FROM cart");
+		
+		return sb;
+	}
+	
 }
-*/
