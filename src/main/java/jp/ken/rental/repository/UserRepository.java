@@ -58,8 +58,6 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO users_table ( user_name, email, tel, password, birth,");
 			sb.append(" address, credit, plan_name, membership_month)");
-					
-			
 			sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			String sql = sb.toString();
 			
@@ -93,4 +91,35 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			
 			return num;
 		}
+		
+		// userEntityごと渡されて、削除する
+		public int deleteUser(UserEntity userEntity) throws Exception{
+			StringBuilder sb = new StringBuilder();
+			sb.append("DELETE FROM users_table");
+			sb.append(" WHERE user_id = ?");
+			String sql = sb.toString();
+
+			int num = jdbcTemplate.update(sql, userEntity.getUserId());
+
+			return  num;
+		}
+		
+		//会員情報更新ボタン
+		public int updateUser(UserEntity userEntity) throws Exception{
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE users_table");
+			sb.append(" SET user_name = ?, email = ?, tel = ?, password = ?,");
+			sb.append(" birth = ?, address = ?, credit = ?, plan_name = ?");
+			sb.append(" WHERE user_id = ?");
+			String sql = sb.toString();
+
+			Object[] parameters = { userEntity.getUserName(), userEntity.getEmail(), userEntity.getTel(), bcpe.encode(userEntity.getPassword()),
+					userEntity.getBirth(),userEntity.getAddress(), userEntity.getCredit(),
+					userEntity.getPlanName(), userEntity.getUserId()};
+
+			int num = jdbcTemplate.update(sql, parameters);
+			
+			return num;
+		}
+
 	}
