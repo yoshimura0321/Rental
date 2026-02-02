@@ -12,4 +12,6 @@ public class CartForm implements Serializable {
 	private String productId;
 	
 	private String status;
+	
+	private ProductForm product;
 }
