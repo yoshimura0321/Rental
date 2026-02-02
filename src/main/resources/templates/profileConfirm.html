@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>マイページ登録情報確認</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		 <link th:href="@{/css/style.css}" rel="stylesheet">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			 <h2><span class="section_title">登録情報確認</span></h2>
+			 <hr>
+		</header>
+		<main>
+			<form th:action="@{/profileConfirm}" th:object="${userForm}"method="post">
+				<div id="form-area">
+					<table>
+						<tr>
+							<th>氏名</th>
+							<td th:text="*{userName}"></td>
+						</tr>
+						<tr>
+							<th>メールアドレス</th>
+							<td th:text="*{email}"></td>
+						</tr>
+						<tr>
+							<th>住所</th>
+							<td th:text="*{address}"></td>
+						</tr>
+						<tr>
+							<th>電話番号</th>
+							<td th:text="*{tel}"></td>
+						</tr>
+						<tr>
+							<th>誕生日</th>
+							<td th:text="*{birth}"></td>
+						</tr>
+						<tr>
+							<th>パスワード</th>
+							<td>
+								<span th:text=
+								"${userForm.password != null and userForm.password != '' ? '●●●' : '変更なし'}">
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>クレジットカード</th>
+							<td th:text="*{credit}"></td>
+						</tr>
+						<tr>
+							<th>プラン</th>
+							<td th:text="*{planName}"></td>
+						</tr>
+						 <input type="hidden" th:field="*{userName}">
+						 <input type="hidden" th:field="*{email}">
+						 <input type="hidden" th:field="*{address}">
+						 <input type="hidden" th:field="*{tel}">
+						 <input type="hidden" th:field="*{birth}">
+						 <input type="hidden" th:field="*{password}">
+						 <input type="hidden" th:field="*{credit}">
+						 <input type="hidden" th:field="*{planName}">
+						 
+						 <tr>
+							 <td colspan="2" class="bikou">
+								 <input type="submit" value="更新" class="btn">
+								 <button type="button" onclick="history.back()" class="btn">戻る</button>
+						 </tr>
+					</table>
+				</div>
+			</form>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>

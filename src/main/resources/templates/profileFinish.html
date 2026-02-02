@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>マイページ登録情報更新完了画面</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h2><span class="section_title">登録情報更新完了</span></h2>
+			<hr>
+		</header>
+		<main>
+			<div id="form-area">
+				<p>登録情報の更新が完了しました。</p>
+				<table>
+					<tr>
+						<th>氏名</th>
+						<td th:text="${userForm.userName}"></td>
+					</tr>
+					<tr>
+						 <th>メールアドレス</th>
+						 <td th:text="${userForm.email}"></td>
+					</tr>
+					<tr>
+						<th>住所</th>
+						<td th:text="${userForm.address}"></td>
+					</tr>
+					<tr>
+						<th>電話番号</th>
+						<td th:text="${userForm.tel}"></td>
+					</tr>
+					<tr>
+						<th>誕生日</th>
+						<td th:text="${userForm.birth}"></td>
+					</tr>
+                    <tr>
+						<th>クレジットカード</th>
+						<td th:text="${userForm.credit}"></td>
+					</tr>
+                    <tr>
+						<th>パスワード</th>
+						<td th:text=
+						"${userForm.password != null and userForm.password != '' ? '●●●（更新済み）' : '（変更なし）'}">
+						</td>
+					</tr>
+					<tr>
+						<th>加入プラン</th>
+						<td th:text="${userForm.planName}"></td>
+					</tr>
+				</table>
+				<div class="button-area">
+					<a th:href="@{/mypage}">マイページに戻る</a>
+					<a th:href="@{/home}">HOMEへ戻る</a>
+				</div>
+            </div>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>
