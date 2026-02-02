@@ -1,0 +1,15 @@
+package jp.ken.rental.form;
+
+import java.io.Serializable;
+
+import lombok.Data;
+
+@Data
+public class CartForm implements Serializable {
+	
+	private String userId;
+	
+	private String productId;
+	
+	private String status;
+}
