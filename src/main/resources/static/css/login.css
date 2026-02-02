@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+/* =========================
+   画面全体（シンプル）
+========================= */
+
+body {
+    background: #f5f6fa;
+}
+
+#wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ヘッダー */
+header {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 26px;
+    color: #333;
+    margin: 0;
+}
+
+header hr {
+    width: 120px;
+    margin: 12px auto 0;
+    border: none;
+    height: 2px;
+    background: #ff6b6b;
+    border-radius: 2px;
+}
+
+/* 中央寄せ */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* =========================
+   フォーム（色は指定CSSに準拠）
+========================= */
+
+#form-area {
+    margin-top: 0; /* common.css の margin を打ち消す */
+    width: 100%;
+    max-width: 360px;
+}
+
+/* 入力行 */
+#form-area .form-row {
+    margin-bottom: 15px;
+}
+
+/* 入力欄 */
+#form-area input[type="text"],
+#form-area input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+#form-area input[type="text"]:focus,
+#form-area input[type="password"]:focus {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 5px rgba(255,107,107,0.5);
+    outline: none;
+}
+
+/* ボタン */
+#form-area .btn {
+    width: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #ff9a9e);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#form-area .btn:hover {
+    background: linear-gradient(90deg, #ffa502, #ffd32a);
+}
+
+/* =========================
+   エラー演出
+========================= */
+
+.errors {
+    color: #ff6b6b;
+    font-size: 13px;
+    display: block;
+    margin-top: 5px;
+}
+
+/* ログイン失敗時：赤枠＋揺れ */
+body:has(.errors) #form-area input[type="text"],
+body:has(.errors) #form-area input[type="password"] {
+    border-color: #ff6b6b;
+    animation: shake 0.35s ease-in-out;
+}
+
+/* 揺れ */
+@keyframes shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-6px); }
+    40%  { transform: translateX(6px); }
+    60%  { transform: translateX(-4px); }
+    80%  { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+/* =========================
+   リンク
+========================= */
+
+.link-row {
+    text-align: right;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.link-row a {
+    color: #ff6b6b;
+    text-decoration: none;
+}
+
+.link-row a:hover {
+    text-decoration: underline;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+    header {
+        margin-top: 40px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+}
+
+/* =========================
+   HOMEに戻るボタン
+========================= */
+.home-row {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.home-row a {
+    color: #666;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.home-row a:hover {
+    color: #ff6b6b;
+    text-decoration: underline;
+}
