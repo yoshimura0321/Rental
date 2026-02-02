@@ -17,11 +17,10 @@
             <a th:href="@{/mypage}">マイページ</a>
         </div>
     </nav>
-    <form th:action="@{/home}" method="post" class="search-form">
-        <label for="name">名前検索:</label>
-        <input type="text" id="name" name="name" placeholder="検索">
-        <button type="submit">検索</button>
-    </form>
+    <form th:action="@{/home}" method="post" th:object="${productForm}"> 
+		<input type="text" th:field="*{productName}" placeholder="商品名で検索"> 
+		<button type="submit">検索</button> 
+	</form>
 </div>
 </body>
 </html>
