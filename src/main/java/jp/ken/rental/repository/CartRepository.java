@@ -19,7 +19,7 @@ public class CartRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public List<CartEntity> getCartByUserId(String userId)throws Exception{
+	public List<CartEntity> getCartByUserId(int userId)throws Exception{
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE user_id = ?");
 		String sql = sb.toString();
