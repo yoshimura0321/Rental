@@ -26,7 +26,7 @@ public class ProductRepository {
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE product_name");
 		sb.append(" LIKE ?");
-		sb.append(" ORDER BY date, release_date");
+		sb.append(" ORDER BY arrival_date, release_date");
 		String sql = sb.toString();
 		
 		name = name.replace("%", "\\%").replace("_", "\\_");
