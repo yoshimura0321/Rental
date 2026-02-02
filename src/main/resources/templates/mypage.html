@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage</title>
-<link href="@{/css/common.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 	
@@ -13,50 +14,52 @@
             <hr>
         </header>
         <main>
-            <div id="form-area">
-                <!-- DBから取得した情報を表示 -->
-                <table class="user-info-table">
+			<!-- DBから取得した情報を表示 -->
+            <div id="form-area" th:object="${userForm}">
+                <table class="table">
                     <tr>
-                        <th>氏名</th>
-                        <td th:text="${userName}"></td>
+                        <th class="th">氏名</th>
+                        <td class="td" th:text="*{userName}"></td>
                     </tr>
                     <tr>
                         <th>メールアドレス</th>
-                        <td th:text="${email}"></td>
+                        <td class="td" th:text="*{email}"></td>
                     </tr>
-                    tr>
+                    <tr>
                         <th>電話番号</th>
-                        <td th:text="${tel}"></td>
+                        <td class="td" th:text="*{tel}"></td>
                     </tr>
-                    tr>
+                    <tr>
                         <th>誕生日</th>
-                        <td th:text="${birth}"></td>
+                        <td class="td" th:text="*{birth}"></td>
                     </tr>
-                    tr>
+                    <tr>
                         <th>住所</th>
-                        <td th:text="${address}"></td>
+                        <td class="td" th:text="*{address}"></td>
                     </tr>
-                    tr>
+                    <tr>
                         <th>クレジットカード</th>
-                        <td th:text="${credit}"></td>
+                        <td class="td" th:text="*{credit}"></td>
                     </tr>
                     <tr>
                         <th>加入プラン</th>
-                        <td th:text="${planName}"></td>
+                        <td class="td" th:text="*{planName}"></td>
                     </tr>
                 </table>
 
 				<!--退会ボタン-->
-					<form action="delete_process.php" method="post">
+					<form action="@{/delete}" method="post">
+       					 <!--<input type="hidden" th:field="*{userId}">-->
        					 <button type="submit">退会してデータをすべて削除する</button>
 					</form>
 					
 				<!--会員情報変更ボタン-->
-				
-				
+					<form th:action="@{update}" method="post">
+						<button type="submit">会員情報を変更する</button>
+						
+					</form>
 				
             </div>
         </main>
-
 </body>
 </html>
