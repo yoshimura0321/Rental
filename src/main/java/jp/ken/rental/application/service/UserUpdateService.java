@@ -19,7 +19,7 @@ public class UserUpdateService {
 	@Transactional(rollbackFor = Exception.class)
 	public void updateUser(UserEntity userEntity) throws Exception{
 		
-		int rows = userRepository.deleteUser(userEntity);
+		int rows = userRepository.updateUser(userEntity);
 
 	    if (rows == 0) {
 	        throw new IllegalArgumentException("ユーザーが存在しません");
