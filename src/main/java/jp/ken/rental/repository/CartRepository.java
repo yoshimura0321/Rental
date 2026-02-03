@@ -60,8 +60,10 @@ public class CartRepository {
 	private StringBuilder createCommonSQL() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		sb.append(" user_id, product_id, status");
-		sb.append("FROM cart");
+		sb.append(" c.user_id ,c.product_id, c.status, p.product_category, p.product_name");
+		sb.append(" FROM cart c");
+		sb.append(" JOIN items p");
+		sb.append(" ON c.product_id = p.product_id");
 		
 		return sb;
 	}

@@ -10,5 +10,6 @@ public class CartEntity {
 	private int productId;
 	
 	private String status;
-
+	
+	private ProductEntity product;
 }

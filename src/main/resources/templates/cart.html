@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 	<head>
 		<meta charset="UTF-8">
-		<title>カート</title>
-		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<title>ホーム画面</title>
+		<link th:href="@{/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/padding.css}" rel="stylesheet" type="text/css">
+		
 	</head>
 <body>
-	<div id="wrapper">
-		<header th:insert="~{header :: header_area"></header>
+<div id="wrapper">
+	<!--<header th:insert="~{header :: header_area}"></header>-->
 		
 	<main>
 		<div id="form-area2">
@@ -20,14 +22,14 @@
 				</tr>
 					<th:block th:each="c : ${cartList}">
 						<tr><!--↓Listに加えたやつに変更してください！ -->
-							<td th:text="${c.productName}"></td>
-							<td th:text="${c.productCategory}"></td>
+							<td th:text="${c.product.productName}"></td>
+							<td th:text="${c.product.productCategory}"></td>
 							<td th:text="${c.status}"></td>
 							<td>
 								<form th:action="@{/cart}" method="post">
 									<input type="hidden" name="userId" th:value="${c.userId}">
 									<input type="hidden" name="productId" th:value="${c.productId}">
-									<button type="submit">削除</button>
+									<input type="submit">削除</input>
 								</form>
 							</td>
 						</tr>
