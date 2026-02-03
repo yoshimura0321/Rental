@@ -26,6 +26,7 @@ public class SecurityConfig {
 				.requestMatchers("/home").permitAll()
 				.requestMatchers("/regist").permitAll()
 				.requestMatchers("/cart").authenticated()
+				.requestMatchers("/cart/add").authenticated()
 				.requestMatchers("/css/**").permitAll()
 				.anyRequest().permitAll());
 		
