@@ -36,7 +36,7 @@ public class HomeController {
     			// Service に渡す
     			productList = productSearchService.getProductList(form);    			
     			model.addAttribute("headline", "検索結果");
-
+    			model.addAttribute("searchName",name);
             
     		}
     	}

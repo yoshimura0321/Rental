@@ -35,6 +35,7 @@
             <td>
                 <form th:action="@{/cart/add}" method="post">
                     <input type="hidden" name="productId" th:value="${p.productId}">
+                    <input type="hidden" name="searchName" th:value="${searchName}">
                     <button type="submit">カートへ追加</button>
                 </form>
             </td>
