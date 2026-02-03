@@ -7,12 +7,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import jakarta.servlet.http.HttpSession;
 import jp.ken.rental.application.service.CartService;
 import jp.ken.rental.application.service.UserSearchService;
 import jp.ken.rental.form.CartForm;
@@ -36,7 +36,7 @@ public class CartController {
 	}
 	
 	@GetMapping("/cart")
-	public String toCart(HttpSession session) throws Exception{
+	public String toCart(Model model) throws Exception{
 		String username=null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
    	 	if(authentication != null) {
@@ -48,7 +48,7 @@ public class CartController {
    	 			form.setEmail(username);
    	 			String a =userSearchService.getUserByEmail(form).getUserId();
    	 			List<CartForm> list = cartService.getCart(Integer.parseInt(a));
-   	 			session.setAttribute("cartList",list);
+   	 			model.addAttribute("cartList",list);
    	 		}
    	 		
    	 	}
