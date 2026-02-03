@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.rental.application.service.CartService;
@@ -89,11 +90,12 @@ public class CartController {
 	}
 	
 	@PostMapping("/cart/add")
-	public String add(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId, Model model)throws Exception{
+	public String add(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId,@RequestParam String searchName, Model model,RedirectAttributes ra)throws Exception{
 		int num = cartService.addCart(Integer.parseInt(idForm.getUserId()), Integer.parseInt(productId));
 		if(num == 0) {
 			model.addAttribute("error","商品の追加に失敗しました");
 		}
+		ra.addAttribute("productName",searchName);
 		return "redirect:/home";
 	}
 	
