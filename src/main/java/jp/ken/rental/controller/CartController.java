@@ -88,4 +88,13 @@ public class CartController {
 		return "redirect:/cart";
 	}
 	
+	@PostMapping("/cart/add")
+	public String add(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId, Model model)throws Exception{
+		int num = cartService.addCart(Integer.parseInt(idForm.getUserId()), Integer.parseInt(productId));
+		if(num == 0) {
+			model.addAttribute("error","商品の追加に失敗しました");
+		}
+		return "home";
+	}
+	
 }

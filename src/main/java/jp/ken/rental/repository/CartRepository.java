@@ -32,7 +32,7 @@ public class CartRepository {
 	public int addCart(CartEntity cartEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO cart");
-		sb.append("VALUES (?,?,?)");
+		sb.append(" VALUES (?,?,?)");
 		String sql = sb.toString();
 		
 		Object[] parameters = { cartEntity.getUserId(),cartEntity.getProductId(),cartEntity.getStatus()};
