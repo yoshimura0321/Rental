@@ -14,23 +14,34 @@
 	<main> 
 		<div id="form-area">
 			<table>
-				<tr>
-					<th>プロダクトID</th>
-					<th>プロダクトカテゴリー</th>
-					<th>プロダクトネーム</th>
-					<th>アライバル</th>
-					<th>リリース</th>
-				</tr>
-			<th:block th:each="p : ${productList}">
-				<tr>
-					<td th:text="${p.productId}" class="productId"></td>
-					<td th:text="${p.productCategory}" class="productName"></td>
-					<td th:text="${p.productName}" class="productName"></td>
-					<td th:text="${p.arrivalDate}" class="arrivalDate"></td>
-					<td th:text="${p.releaseDate}" class="releaseDate"></td>
-				</tr>
-			</th:block>
-			</table>		
+    <tr>
+        <th>プロダクトID</th>
+        <th>プロダクトカテゴリー</th>
+        <th>プロダクトネーム</th>
+        <th>アライバル</th>
+        <th>リリース</th>
+        <th></th> 
+    </tr>
+    
+
+    <th:block th:each="p : ${productList}">
+        <tr>
+            <td th:text="${p.productId}" class="productId"></td>
+            <td th:text="${p.productCategory}" class="productCategory"></td>
+            <td th:text="${p.productName}" class="productName"></td>
+            <td th:text="${p.arrivalDate}" class="arrivalDate"></td>
+            <td th:text="${p.releaseDate}" class="releaseDate"></td>
+
+            <td>
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="productId" th:value="${p.productId}">
+                    <button type="submit">カートへ追加</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+		
 		</div> 
 	</main>
 </div>

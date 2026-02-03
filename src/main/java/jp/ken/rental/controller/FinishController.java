@@ -22,7 +22,7 @@ public class FinishController {
 	@PostMapping
 	public String toFinish() throws Exception {
 		
-		return "home";
+		return "/login";
 	}
 
 }
