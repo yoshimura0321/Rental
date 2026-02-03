@@ -6,9 +6,6 @@
 </head>
 <body>
 <div th:fragment="header_area" class="header-area">
-    <h1>
-        <span th:text="${headline}"></span>
-    </h1>
     <nav>
         <div class="bar">
             <a th:href="@{/home}">HOME</a>
@@ -17,8 +14,8 @@
             <a th:href="@{/mypage}">マイページ</a>
         </div>
     </nav>
-    <form th:action="@{/home}" method="post" th:object="${productForm}"> 
-		<input type="text" th:field="*{productName}" placeholder="商品名で検索"> 
+    <form th:action="@{/home}" method="post"> 
+		<input type="text" name="productName" placeholder="商品名で検索"> 
 		<button type="submit">検索</button> 
 	</form>
 </div>

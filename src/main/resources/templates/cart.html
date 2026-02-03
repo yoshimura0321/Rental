@@ -3,17 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>ホーム画面</title>
-		<link th:href="@{/common.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/css/padding.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/common.css}" rel="stylesheet" type="text/css">
 		
 	</head>
 <body>
 <div id="wrapper">
-	<!--<header th:insert="~{header :: header_area}"></header>-->
-		
+	<header th:insert="~{header :: header_area}"></header>
+	<h2 class="page-title">カート</h2>
 	<main>
-		<div id="form-area2">
-			<table>
+		<div id="form-area">
+			<table class="table-common">
 				<tr>
 					<th>商品名</th>
 					<th>カテゴリ</th>
@@ -29,7 +29,7 @@
 								<form th:action="@{/cart}" method="post">
 									<input type="hidden" name="userId" th:value="${c.userId}">
 									<input type="hidden" name="productId" th:value="${c.productId}">
-									<input type="submit">削除</input>
+									<input type="submit" value="削除" class="btn"></input>
 								</form>
 							</td>
 						</tr>
@@ -37,7 +37,7 @@
 			</table>
 		</div>
 	</main>
-<footer></footer>
+	<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
 </body>
 </html>
