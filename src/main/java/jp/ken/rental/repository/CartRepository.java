@@ -46,7 +46,7 @@ public class CartRepository {
 	public int deleteCart(CartEntity cartEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("DELETE FROM cart");
-		sb.append("WHERE user_id = ? AND product_id = ?");
+		sb.append(" WHERE user_id = ? AND product_id = ?");
 		String sql = sb.toString();
 		
 		Object[] parameters = {cartEntity.getUserId(),cartEntity.getProductId()};
