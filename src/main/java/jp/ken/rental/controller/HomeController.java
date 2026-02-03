@@ -1,7 +1,6 @@
 package jp.ken.rental.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,26 +21,27 @@ public class HomeController {
     }
     
     @GetMapping("/home")
-    public String home(@RequestParam Optional<String> productName, Model model) throws Exception {
-    	
-    	if(productName == null || productName.toString().isBlank()) {
-    		List<ProductForm> productList = productSearchService.getLatest5Products();
-            model.addAttribute("productList", productList);
-
-            return "home";
+    public String home(@RequestParam(required=false) String productName, Model model) throws Exception {
+    	List<ProductForm> productList=null;
+    	if(productName==null) {
+    		productList = productSearchService.getLatest5Products();
     	}else {
-    		// ProductForm にセット
-            ProductForm form = new ProductForm();
-            form.setProductName(productName.toString());
+    		String name = productName.trim();
+    		if(name == null || name.isEmpty()) {
+    			productList = productSearchService.getLatest5Products();
+    		}else {
+    			// ProductForm にセット
+    			ProductForm form = new ProductForm();
+    			form.setProductName(name);
+    			// Service に渡す
+    			productList = productSearchService.getProductList(form);    			
+    			model.addAttribute("headline", "検索結果");
 
-            // Service に渡す
-            List<ProductForm> productList = productSearchService.getProductList(form);
-
-            model.addAttribute("productList", productList);
-            model.addAttribute("headline", "検索結果");
-
-            return "home";
+            
+    		}
     	}
+    	model.addAttribute("productList", productList);
+    	return "home";
     }
 /*
     // ★ GET：最新5件を表示
