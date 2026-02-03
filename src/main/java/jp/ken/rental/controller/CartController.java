@@ -94,7 +94,7 @@ public class CartController {
 		if(num == 0) {
 			model.addAttribute("error","商品の追加に失敗しました");
 		}
-		return "home";
+		return "redirect:/home";
 	}
 	
 }
