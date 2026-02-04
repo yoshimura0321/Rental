@@ -27,7 +27,19 @@ public class UserUpdateService {
 		int rows = userRepository.updateUser(userEntity);
 
 	    if (rows == 0) {
-	        throw new IllegalArgumentException("ユーザーが存在しません");
+	        throw new IllegalArgumentException("更新できませんでした");
+	    }
+	    return rows;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int securityupdate(UserForm userForm) throws Exception{
+		
+		UserEntity userEntity = convert(userForm);
+		int rows = userRepository.securityupdate(userEntity);
+
+	    if (rows<2) {
+	        throw new Exception("更新できませんでした");
 	    }
 	    return rows;
 	}

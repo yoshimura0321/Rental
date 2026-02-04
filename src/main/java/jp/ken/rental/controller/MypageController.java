@@ -84,9 +84,9 @@ public class MypageController {
     @PostMapping("/mypage/confirm")
     public String updateConfirm(@ModelAttribute UserForm userForm)throws Exception {
 
-    	int row = userUpdateService.updateUser(userForm);
+    	int row = userUpdateService.updateUser(userForm)+userUpdateService.securityupdate(userForm);
 		
-		if(row == 0) {
+		if(row < 3) {
 			return "profileChange";
 		}
         return "profileFinish";
@@ -100,8 +100,8 @@ public class MypageController {
     
     @PostMapping("/mypage/goodbye")
     public String delete(@ModelAttribute("idForm") UserForm idForm, Model model,HttpServletRequest request)throws Exception {
-    	int num = userDeleteService.deleteUser(Integer.parseInt(idForm.getUserId()));
-    	if(num ==0) {
+    	int num = userDeleteService.deleteUser(Integer.parseInt(idForm.getUserId()))+userDeleteService.securitydelete(Integer.parseInt(idForm.getUserId()));
+    	if(num <3) {
     		model.addAttribute("error","削除に失敗しました");
     		return "error/error";
     	}else {

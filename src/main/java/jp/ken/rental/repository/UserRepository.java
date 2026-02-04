@@ -104,6 +104,20 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			return  num;
 		}
 		
+		public int securitydelete(int userId)throws Exception{
+			StringBuilder sb = new StringBuilder();
+			sb.append("DELETE FROM users");
+			sb.append(" WHERE user_id = ?");
+			String sql = sb.toString();
+			
+			StringBuilder sb2 = new StringBuilder();
+			sb2.append("DELETE FROM authorities");
+			sb2.append(" WHERE user_id = ?");
+			String sql2 = sb2.toString();
+			
+			return jdbcTemplate.update(sql,userId)+jdbcTemplate.update(sql2,userId);
+		}
+		
 		//会員情報更新ボタン
 		public int updateUser(UserEntity userEntity) throws Exception{
 			StringBuilder sb = new StringBuilder();
@@ -120,6 +134,23 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			int num = jdbcTemplate.update(sql, parameters);
 			
 			return num;
+		}
+		
+		public int securityupdate(UserEntity userEntity)throws Exception{
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE users");
+			sb.append(" SET username = ?");
+			sb.append(" WHERE user_id= ?");
+			String sql = sb.toString();
+			
+			StringBuilder sb2 = new StringBuilder();
+			sb2.append("UPDATE authorities");
+			sb2.append(" SET username = ?");
+			sb2.append(" WHERE user_id= ?");
+			String sql2 = sb2.toString();
+			
+			return jdbcTemplate.update(sql,userEntity.getEmail(),userEntity.getUserId())+
+					jdbcTemplate.update(sql2,userEntity.getEmail(),userEntity.getUserId());
 		}
 
 	}
