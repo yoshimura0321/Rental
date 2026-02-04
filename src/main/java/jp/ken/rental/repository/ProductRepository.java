@@ -80,4 +80,15 @@ public class ProductRepository {
 
 		return numberOfRow;
 	}
+	
+	public int deleteItem(int productId) throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("DELETE FROM items");
+		sb.append(" WHERE product_id = ?");
+		String sql = sb.toString();
+		
+		int num = jdbcTemplate.update(sql, productId);
+		
+		return num;
+	}
 }
