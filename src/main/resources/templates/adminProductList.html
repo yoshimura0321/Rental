@@ -36,7 +36,7 @@
 						
 						<!-- 商品がある場合 -->
 						<tr th:each="product : ${productList}">
-							<td th:text="${product.id}"></td>
+							<td th:text="${product.productId}"></td>
 							<td th:text="${product.productName}"></td>
 							<td th:text="${product.productCategory}"></td>
 							<td th:text="${product.arrivalDate}"></td>
@@ -44,7 +44,7 @@
 							<td>
 								<form th:action="@{/adminProduct/delete}" method="post"
 								 onsubmit="return confirm('この商品を削除しますか？');">
-								<input type="hidden" name="id" th:value="${product.id}">
+								<input type="hidden" name="productId" th:value="${product.productId}">
 								<button type="submit" class="btn delete">削除</button>
 								</form>
 							</td>
