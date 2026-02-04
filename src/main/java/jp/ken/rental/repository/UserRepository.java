@@ -62,7 +62,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			String sql = sb.toString();
 			
 			Object[] parameters = { userEntity.getUserName(),
-					userEntity.getEmail(), userEntity.getTel(), bcpe.encode(userEntity.getPassword()),
+					userEntity.getEmail(), userEntity.getTel(), userEntity.getPassword(),
 					userEntity.getBirth(),userEntity.getAddress(), userEntity.getCredit(), 
 					userEntity.getPlanName(), LocalDate.now()};
 					
@@ -80,7 +80,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			sb.append(" VALUES (?,?,1)");
 			String sql = sb.toString();
 			
-			Object[] parameters = {entity.getEmail(),bcpe.encode(entity.getPassword())};
+			Object[] parameters = {entity.getEmail(),"{bcrypt}" + bcpe.encode(entity.getPassword())};
 			
 			StringBuilder sb2 = new StringBuilder();
 			sb2.append("INSERT INTO authorities (username,authority)");
