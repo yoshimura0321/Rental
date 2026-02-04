@@ -62,4 +62,22 @@ public class ProductRepository {
 		
 		return sb;
 	}
+	
+	public int registitem (ProductEntity productEntity) throws Exception{
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO items ( product_category, product_name, arrival_date, release_date)");
+		sb.append(" VALUES (?, ?, ?, ?)");
+		String sql = sb.toString();
+		
+		Object[] parameters = { productEntity.getProductCategory(),
+								productEntity.getProductName(), 
+								productEntity.getArrivaldate(), 
+								productEntity.getReleasedate(), };
+				
+		int numberOfRow = 0;
+		numberOfRow = jdbcTemplate.update(sql,parameters);
+
+		return numberOfRow;
+	}
 }
