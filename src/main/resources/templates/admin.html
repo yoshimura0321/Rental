@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>管理者ページ</title>
+		<link th:href="@{/css/admin.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			 <h1>CD/DVDレンタル 管理画面</h1>
+			 <div class="admin-name">管理者：admin</div>
+		</header>
+		<div class="container">
+			
+	<nav>
+		<ul>
+			<li><a href="#">ダッシュボード</a></li>
+			<li><a href="#">商品管理</a></li>
+			<li><a href="#">会員管理</a></li>
+			<li><a href="#">レンタル状況</a></li>
+			<li><a href="#">ログアウト</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>ダッシュボード</h2>
+		<div class="card">
+			 <h3>最近追加された商品</h3>
+			 <table>
+				 <tr>
+					 <th>ID</th>
+					 <th>タイトル</th>
+					 <th>種別</th>
+					 <th>操作</th>
+				 </tr>
+				 <tr>
+					 <td>001</td>
+					 <td>サンプルCD</td>
+					 <td>CD</td>
+					 <td>
+						 <button class="btn">編集</button>
+						 <button class="btn delete">削除</button>
+					 </td>
+				 </tr>
+			 </table>
+		</div>
+		<div class="card">
+			<h3>レンタル状況</h3>
+			<p>現在レンタル中：12件</p>
+			<p>返却遅延：2件</p>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>
