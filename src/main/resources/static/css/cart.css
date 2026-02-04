@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+/* =========================
+   データ行（ヘッダー以外は全て白）
+========================= */
+#form-area .table-cart tr:not(:first-child),
+#form-area .table-cart tr:not(:first-child) td,
+#form-area .table-cart tr:nth-child(even):not(:first-child),
+#form-area .table-cart tr:nth-child(odd):not(:first-child) {
+    background-color: #ffffff !important;
+}
+
+/* =========================
+   ヘッダー行
+========================= */
+#form-area .table-cart th {
+    background-color: #f5f5f5 !important;
+    color: #333 !important;
+    padding: 12px 10px !important;
+    text-align: left;
+    font-weight: bold !important;
+}
+
+/* =========================
+   データ行をカード風
+========================= */
+#form-area .table-cart tr:not(:first-child) {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+    margin-bottom: 15px !important;
+    transition: background-color 0.2s, transform 0.2s !important;
+}
+
+/* データセル */
+#form-area .table-cart tr:not(:first-child) td {
+    padding: 15px !important;
+    border-bottom: none !important;
+}
+
+/* =========================
+   削除列幅をボタンに合わせる（レスポンシブ対応）
+========================= */
+#form-area .table-cart td:nth-child(4),
+#form-area .table-cart th:nth-child(4) {
+    width: 120px !important;       /* デスクトップ幅 */
+    text-align: center !important;
+    padding: 8px !important;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    #form-area .table-cart td:nth-child(4),
+    #form-area .table-cart th:nth-child(4) {
+        width: 90px !important;     /* スマホ幅 */
+        padding: 6px !important;
+    }
+}
+
+/* =========================
+   ホバーでピンク
+========================= */
+#form-area .table-cart tr:not(:first-child):hover {
+    background-color: #ffeef5 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* =========================
+   削除ボタン
+========================= */
+.table-cart .btn {
+    background-color: #ff7f50 !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 12px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: 0.2s !important;
+}
+
+.table-cart .btn:hover {
+    background-color: #ff6333 !important;
+}
+
+/* =========================
+   全体スマホ対応
+========================= */
+@media (max-width: 600px) {
+    #form-area .table-cart {
+        font-size: 13px !important;
+    }
+    #form-area .table-cart th,
+    #form-area .table-cart td {
+        padding: 10px !important;
+    }
+}
