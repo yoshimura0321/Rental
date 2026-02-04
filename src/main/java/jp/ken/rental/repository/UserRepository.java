@@ -93,13 +93,13 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		}
 		
 		// userEntityごと渡されて、削除する
-		public int deleteUser(UserEntity userEntity) throws Exception{
+		public int deleteUser(int userId) throws Exception{
 			StringBuilder sb = new StringBuilder();
 			sb.append("DELETE FROM users_table");
 			sb.append(" WHERE user_id = ?");
 			String sql = sb.toString();
 
-			int num = jdbcTemplate.update(sql, userEntity.getUserId());
+			int num = jdbcTemplate.update(sql, userId);
 
 			return  num;
 		}

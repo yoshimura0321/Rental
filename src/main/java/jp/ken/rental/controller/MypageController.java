@@ -92,14 +92,19 @@ public class MypageController {
     }
 
     
+    @GetMapping("/profileFinish")
+    public String topre(){
+        return "preGoodbye";
+    }
     
-//    @PostMapping("/profileFinish")
-//    public String updateComplete(UserEntity form, HttpSession session) throws Exception {
-//
-//        userUpdateService.updateUser(form);
-//        session.setAttribute("loginUser", form);
-//
-//        return "mypage/profileFinish";
-//    }
-    //デリートはまだだよ～
+    @GetMapping("")
+    public String delete(@ModelAttribute("idForm") UserForm idForm, Model model)throws Exception {
+    	int num = userDeleteService.deleteUser(Integer.parseInt(idForm.getUserId()));
+    	if(num ==0) {
+    		model.addAttribute("error","削除に失敗しました");
+    		return "error/error";
+    	}
+    	return "goodbye";
+    }
+    
 }
