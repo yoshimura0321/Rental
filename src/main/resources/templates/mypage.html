@@ -48,13 +48,13 @@
                 </table>
 
 				<!--退会ボタン-->
-					<form th:action="@{/delete}" method="post">
+					<form th:action="@{/mypage/delete}" method="post">
        					 <!--<input type="hidden" th:field="*{userId}">-->
        					 <button type="submit">退会してデータをすべて削除する</button>
 					</form>
 					
 				<!--会員情報変更ボタン-->
-					<form th:action="@{/update}" method="post">
+					<form th:action="@{/mypage/update}" method="get">
 						<button type="submit">会員情報を変更する</button>
 						
 					</form>

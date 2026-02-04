@@ -37,7 +37,7 @@ public class ConfirmController {
 		if(row == 0) {
 			return "userRegist";
 		}
-		return "/userFinish";
+		return "userFinish";
 	}
 
 }
