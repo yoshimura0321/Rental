@@ -34,7 +34,11 @@
 						<input type="date" th:field="*{releaseDate}">
 					</div>
 					<div class="form-actions">
+						<button type="submit" class="btn" name="back">戻る</button>
 						<button type="submit" class="btn" name="forward">登録</button>
+					</div>
+					<div th:if="${errorMessage}" class="danger">
+						<p th:text="${errorMessage}"></p>
 					</div>
 				</form>
 			</div>
