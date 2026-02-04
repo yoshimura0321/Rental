@@ -39,9 +39,9 @@ public class AdminController {
         return "admin";
     }
     
-    @GetMapping("/admin/Product")
+    @GetMapping("/adminProduct")
     public String itemInsert(ProductForm productform) {
-        return "admin/Product";
+        return "adminProduct";
     }
 
     @PostMapping(value = "/admin/Product", params = "back")
@@ -58,7 +58,7 @@ public class AdminController {
 
         if (row == 0) {
             redirectAttributes.addFlashAttribute("errorMessage", "登録に失敗しました。もう一度お試しください。");
-            return "redirect:/admin/Product";
+            return "redirect:/adminProduct";
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
@@ -85,7 +85,7 @@ public class AdminController {
     		}
     	}
     	model.addAttribute("productList", productList);
-    	return "admin/Productlist";
+    	return "adminProductlist";
     }
     
     @PostMapping("/adminProduct/delete")
