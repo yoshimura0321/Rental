@@ -21,9 +21,19 @@ public class UserDeleteService {
 	    int rows = userRepository.deleteUser(userId);
 
 	    if (rows == 0) {
-	        throw new IllegalArgumentException("ユーザーが存在しません");
+	        throw new IllegalArgumentException("削除できませんでした");
 	    }
 	    return rows;
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int securitydelete(int userId) throws Exception {
 
+	    int rows = userRepository.securitydelete(userId);
+
+	    if (rows<2) {
+	        throw new Exception("削除できませんでした");
+	    }
+	    return rows;
+	}
 }
