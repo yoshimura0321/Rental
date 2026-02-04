@@ -13,7 +13,7 @@
 				  <hr>
 			 </header>
 			 <main>
-				 <form th:action="@{/profileChange}" th:object="${userForm}" method="post">
+				 <form th:action="@{/mypage/update}" th:object="${userForm}" method="post">
 					   <div id="form-area">
 						   <table>
 							   <tr>
@@ -70,10 +70,10 @@
 									<th><label for="planName" class="disp-block">プラン</label></th>
 									<td>
 										 <div class="content">
-											  <label><input type="radio" th:field="*{planName}" value="${planName}" value="try">お試しプラン</label>
-											  <label> <input type="radio" th:field="*{planName}" value="${planName}" value="bronze">Bronzeプラン</label>
-											  <label> <input type="radio" th:field="*{planName}" value="${planName}" value="silver">Silverプラン</label>
-											  <label><input type="radio" th:field="*{planName}" value="${planName}" value="gold">Goldプラン</label>
+											  <label><input type="radio" th:field="*{planName}" value="try">お試しプラン</label>
+											  <label> <input type="radio" th:field="*{planName}"  value="bronze">Bronzeプラン</label>
+											  <label> <input type="radio" th:field="*{planName}"  value="silver">Silverプラン</label>
+											  <label><input type="radio" th:field="*{planName}" value="gold">Goldプラン</label>
 										 </div>
 									</td>
 								</tr>

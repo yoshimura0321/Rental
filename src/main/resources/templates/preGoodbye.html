@@ -7,7 +7,9 @@
 <body>
     <h1>本当に退会しますか？</h1>
     <p>さみしいよぅ．．．</p>
+    <form th:action="@{/mypage/goodbye}" method="get">
     <input type="submit" value="それでも退会する" class="btn">
+    </form>
     <a th:href="@{/home}" class="home-btn">退会せずにHOMEに戻る</a>
 </body>
 </html>
