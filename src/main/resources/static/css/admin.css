@@ -33,3 +33,90 @@
   display: flex;
   gap: 10px;
 }
+
+/* 商品管理テーブル */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #f5f5f5;
+}
+
+.product-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* ボタン */
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn.delete {
+  background-color: #dc3545;
+}
+
+.btn.delete:hover {
+  background-color: #a71d2a;
+}
+
+/* 検索フォーム */
+.search-form {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.search-form input[type="text"] {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 3px;
+  outline: none;
+}
+
+.search-form button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 0 3px 3px 0;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+/* ヘッダー内リンク */
+.header-area nav .bar a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.header-area nav .bar a:hover {
+  color: #007bff;
+}
+
