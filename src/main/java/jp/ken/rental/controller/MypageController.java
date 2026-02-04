@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jp.ken.rental.application.service.UserDeleteService;
 import jp.ken.rental.application.service.UserSearchService;
@@ -92,17 +93,19 @@ public class MypageController {
     }
 
     
-    @GetMapping("/profileFinish")
+    @GetMapping("/mypage/delete")
     public String topre(){
         return "preGoodbye";
     }
     
-    @GetMapping("")
-    public String delete(@ModelAttribute("idForm") UserForm idForm, Model model)throws Exception {
+    @GetMapping("/mypage/goodbye")
+    public String delete(@ModelAttribute("idForm") UserForm idForm, Model model,SessionStatus status)throws Exception {
     	int num = userDeleteService.deleteUser(Integer.parseInt(idForm.getUserId()));
     	if(num ==0) {
     		model.addAttribute("error","削除に失敗しました");
     		return "error/error";
+    	}else {
+    		status.setComplete();
     	}
     	return "goodbye";
     }
