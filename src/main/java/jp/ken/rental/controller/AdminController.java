@@ -10,8 +10,13 @@ import jp.ken.rental.application.service.ProductInsertService;
 import jp.ken.rental.form.ProductForm;
 
 @Controller
-@RequestMapping("/itemInsert")
+@RequestMapping("/adminProduct")
 public class AdminController {
+	
+	@ModelAttribute("productForm")
+	public ProductForm setupProductForm() {
+		return new ProductForm();
+	}
 	
 	private ProductInsertService productInsertService;
 	
@@ -21,22 +26,22 @@ public class AdminController {
 	}
 	
 	@GetMapping
-	public String itemInsert() {
-		return "itemInsert";
+	public String itemInsert(ProductForm productform) {
+		return "adminProduct";
 	}
 	@PostMapping(params = "back")
 	public String itemConfirm() {
-		return "itemConfirm";
+		return "admin";
 	}
 	@PostMapping(params = "forward")
-	public String forComplete(@ModelAttribute ProductForm pform) throws Exception{
+	public String forComplete(@ModelAttribute ProductForm productform) throws Exception{
 		
-		int row = productInsertService.registItem(pform);
+		int row = productInsertService.registItem(productform);
 		
 		if(row == 0) {
-			return "itemInsert";
+			return "adminProduct";
 		}
-		return "adminpage";
+		return "admin";
 	}
 	
 
