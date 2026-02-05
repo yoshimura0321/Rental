@@ -42,7 +42,7 @@
 							<td th:text="${product.arrivalDate}"></td>
 							<td th:text="${product.releaseDate}"></td>
 							<td>
-								<form th:action="@{/adminProduct/update}" method="post">
+								<form th:action="@{/adminProduct/update}" method="Get">
 								<input type="hidden" name="productId" th:value="${product.productId}">
 								<button type="submit" class="btn">編集</button>
 								</form>
