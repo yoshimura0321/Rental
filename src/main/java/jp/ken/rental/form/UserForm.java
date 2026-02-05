@@ -39,7 +39,7 @@ public class UserForm implements Serializable {
 	private String address;
 	
 	
-	private int credit;
+	private Integer credit;
 	
 	@NotEmpty(message="プラン名を選んでください",groups=ValidGroup1.class)
 	private String planName;
