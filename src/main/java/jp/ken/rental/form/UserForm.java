@@ -50,4 +50,5 @@ public class UserForm implements Serializable {
 	
 	private String membershipMonth;
 	
+	
 }
