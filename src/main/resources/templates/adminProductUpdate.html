@@ -12,41 +12,51 @@
 		</header>
 		<main>
 			<div class="card">
-				<form th:action="@{/admin/product/update}"th:object="${productForm}"
-					  method="post"class="product-form">
-					  
-					<!-- productId -->
-					<input type="hidden" th:field="*{productId}" value="{productForm.productId}">
-					
-					<div class="form-group">
-						<label>タイトル</label>
-						<input type="text" th:field="*{productName}" value="{productForm.productName}">
-						<span th:if="${#fields.hasErrors('productName')}"
-							  th:errors="*{productName}" class="errors"></span>
-					</div>
-					<div class="form-group">
-						<label>種別</label>
-						<select th:field="*{productCategory}" value="{productForm.productCategory}">
-							<option value="CD">CD</option>
-							<option value="DVD">DVD</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label>アライバル</label>
-						<input type="date" th:field="*{arrivalDate}"value="{productForm.arrivalDate}">
-					</div>
-					<div class="form-group">
-						<label>リリース</label>
-						<input type="date" th:field="*{releaseDate}"value="{productForm.releaseDate}">
-					</div>
-					<div class="form-actions">
-						<a th:href="@{/admin/product/list}" class="btn">戻る</a>
-						<button type="submit" class="btn" name="update">更新</button>
-					</div>
-					<div th:if="${errorMessage}" class="danger">
-						<p th:text="${errorMessage}"></p>
-					</div>
-				</form>
+
+				<form th:action="@{/adminProduct/confirm}"
+      th:object="${productForm}"
+      method="post"
+      class="product-form">
+
+    <!-- productId -->
+    <input type="hidden" th:field="*{productId}">
+
+    <div class="form-group">
+        <label>タイトル</label>
+        <input type="text" th:field="*{productName}">
+        <span th:if="${#fields.hasErrors('productName')}"
+              th:errors="*{productName}" class="errors"></span>
+    </div>
+
+    <div class="form-group">
+        <label>種別</label>
+        <select th:field="*{productCategory}">
+            <option value="CD">CD</option>
+            <option value="DVD">DVD</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>アライバル</label>
+        <input type="date" th:field="*{arrivalDate}">
+    </div>
+
+    <div class="form-group">
+        <label>リリース</label>
+        <input type="date" th:field="*{releaseDate}">
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn" name="back">戻る</button>
+        <button type="submit" class="btn" name="update">更新</button>
+    </div>
+
+    <div th:if="${errorMessage}" class="danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+</form>
+
+
 			</div>
 		</main>
 	</div>

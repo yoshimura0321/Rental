@@ -12,6 +12,8 @@
 	<header th:insert="~{header :: header_area}"></header>
 	
 	<main> 
+		<span th:text="${errorMessage}"></span>
+		<span th:text="${successMessage}"></span>
 		<div id="form-area">
 			<table class="table-common">
     <tr>
@@ -33,12 +35,15 @@
             <td th:text="${p.releaseDate}" class="releaseDate"></td>
 
             <td>
-                <form th:action="@{/cart/add}" method="post">
-                    <input type="hidden" name="productId" th:value="${p.productId}">
-                    <input type="hidden" name="searchName" th:value="${searchName}">
-                    <button type="submit">カートへ追加</button>
-                </form>
-            </td>
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/cart/add}" method="post">
+            <input type="hidden" name="productId" th:value="${p.productId}">
+            <input type="hidden" name="searchName" th:value="${searchName}">
+            <button type="submit">カートへ追加</button>
+        </form>
+    </div>
+</td>
+
         </tr>
     </th:block>
 </table>
