@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/common.css}" rel="stylesheet" type="text/css">
@@ -10,20 +10,22 @@
         <div class="bar">
             <a th:href="@{/home}">HOME</a>
             <a th:href="@{/cart}">カート</a>
-            <a th:href="@{/login}">ログイン</a>
+            
+            <a th:href="@{/login}" sec:authorize="isAnonymous()">ログイン</a>
             <div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">ログアウト</button>
-    </form>
-</div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">ログアウト</button>
+                </form>
+            </div>
 
             <a th:href="@{/mypage}">マイページ</a>
         </div>
     </nav>
+
     <form th:action="@{/home}" method="get" class="search-form"> 
-		<input type="text" name="productName" placeholder="商品名で検索"> 
-		<button type="submit">検索</button> 
-	</form>
+        <input type="text" name="productName" placeholder="商品名で検索"> 
+        <button type="submit">検索</button> 
+    </form>
 </div>
 </body>
 </html>
