@@ -1,6 +1,7 @@
 package jp.ken.rental.form;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,5 +17,7 @@ public class ProductForm implements Serializable{
 	private String arrivalDate;
 	
 	private String releaseDate;
+	
+	private List<CartForm> cartList;
 
 }

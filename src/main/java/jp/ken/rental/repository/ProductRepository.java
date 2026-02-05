@@ -5,16 +5,19 @@ package jp.ken.rental.repository;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.rental.form.ProductEntity;
+import jp.ken.rental.infrastructure.mapper.ProductResultSetExtractor;
 import jp.ken.rental.infrastructure.mapper.ProductRowMapper;
 
 @Repository
 public class ProductRepository {
 	
 	private RowMapper<ProductEntity> productMapper = new ProductRowMapper();
+	private ResultSetExtractor<List<ProductEntity>> productExtractor = new ProductResultSetExtractor();
 	private JdbcTemplate jdbcTemplate;
 	
 	public ProductRepository(JdbcTemplate jdbcTemplate) {
@@ -90,5 +93,22 @@ public class ProductRepository {
 		int num = jdbcTemplate.update(sql, productId);
 		
 		return num;
+	}
+	
+	//商品管理サーチ
+	public List<ProductEntity> adminProductSearch()throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(",c.user_id,c.status");
+		sb.append(" FROM items p");
+		sb.append(" JOIN cart c");
+		sb.append(" ON p.product_id = c.product");
+		sb.append("ORDER BY p.product_id");
+		
+		String sql = sb.toString();
+		List<ProductEntity> productList = jdbcTemplate.query(sql, productExtractor);
+		
+		return productList;
+		
 	}
 }
