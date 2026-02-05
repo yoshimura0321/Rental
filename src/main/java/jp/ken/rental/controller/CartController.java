@@ -96,7 +96,7 @@ public class CartController {
 		if(num == 0) {
 			ra.addFlashAttribute("errorMessage", "削除に失敗しました");
 		}
-		ra.addFlashAttribute("successMessage", "商品を削除しました");
+		ra.addFlashAttribute("successMessage", "商品を追加しました");
 		ra.addAttribute("productName",searchName);
 		return "redirect:/home";
 	}
