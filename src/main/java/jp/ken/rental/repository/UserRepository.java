@@ -53,6 +53,19 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		
 			return sb;
 		}
+		
+		//全件検索
+		public List<UserEntity> getAllUser()throws Exception{
+			StringBuilder sb = createCommonSQL();
+			String sql = sb.toString();
+			
+			List<UserEntity> list = jdbcTemplate.query(sql, userMapper);
+			
+			return list;
+		}
+		
+		
+		
 		public int regist (UserEntity userEntity) throws Exception{
 	
 			StringBuilder sb = new StringBuilder();

@@ -1,5 +1,8 @@
 package jp.ken.rental.application.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +34,31 @@ public class UserSearchService {
 		return userForm;
 	}
 	
+	public List<UserForm> getAllUser()throws Exception{
+		
+		List<UserForm> formlist = null;
+		List<UserEntity> entitylist = null;
+		
+		entitylist = userRepository.getAllUser();
+		
+		formlist = convert2(entitylist);
+		
+		return formlist;
+	}
+	
 	private UserForm convert(UserEntity entity) {
 		UserForm form = modelMapper.map(entity, UserForm.class);
 		
 		return form;
+	}
+	
+	private List<UserForm> convert2(List<UserEntity> entitylist){
+		List<UserForm> formlist = new ArrayList<UserForm>();
+		
+		for(UserEntity entity : entitylist) {
+			UserForm form = convert(entity);
+			formlist.add(form);
+		}
+		return formlist;
 	}
 }
