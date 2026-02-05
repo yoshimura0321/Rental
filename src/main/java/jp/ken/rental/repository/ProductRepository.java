@@ -91,4 +91,31 @@ public class ProductRepository {
 		
 		return num;
 	}
+	
+	public int updateProduct(ProductEntity productEntity)throws Exception{
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE items");
+		sb.append(" SET product_category = ?, product_name = ?,");
+		sb.append(" arrival_date = ?, release_date = ?");
+		sb.append(" WHERE product_id = ?");
+		String sql = sb.toString();
+		
+		Object[] parameters = {productEntity.getProductCategory(),productEntity.getProductName(),
+			    productEntity.getArrivaldate(),productEntity.getReleasedate(),productEntity.getProductId()};
+
+		
+		int num = jdbcTemplate.update(sql, parameters);
+		
+		return num;
+	}
+	public ProductEntity getProductById(int productId) throws Exception {
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE product_id = ?");
+	    String sql = sb.toString();
+
+	    return jdbcTemplate.queryForObject(sql, productMapper, productId);
+	}
+
 }
+

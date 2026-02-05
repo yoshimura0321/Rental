@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.ken.rental.application.service.ProductDeleteService;
 import jp.ken.rental.application.service.ProductInsertService;
 import jp.ken.rental.application.service.ProductSearchService;
+import jp.ken.rental.application.service.ProductUpdateService;
 import jp.ken.rental.form.ProductForm;
 
 @Controller
@@ -26,12 +27,16 @@ public class AdminController {
     private final ProductInsertService productInsertService;
     private final ProductSearchService productSearchService;
     private final ProductDeleteService productDeleteService;
+    private final ProductUpdateService productUpdateService;
     
     public AdminController(ProductInsertService productInsertService,
-    		ProductSearchService productSearchService,ProductDeleteService productDeleteService) {
+    		ProductSearchService productSearchService,ProductDeleteService productDeleteService,
+    		ProductUpdateService productUpdateService) {
+    	
         this.productInsertService = productInsertService;
         this.productSearchService = productSearchService;
         this.productDeleteService = productDeleteService;
+        this.productUpdateService = productUpdateService;
     }
     
     @GetMapping("/admin")
@@ -102,5 +107,37 @@ public class AdminController {
 
         return "redirect:/admin/Productlist";
     }
+    @GetMapping("/adminProduct/update")
+    public String toUpdate(@RequestParam("productId") int productId, Model model) throws Exception {
+
+        ProductForm product = productSearchService.getProductById(productId);
+
+        if (product == null) {
+            model.addAttribute("errorMessage", "商品が見つかりませんでした");
+            return "adminProductlist";
+        }
+
+        model.addAttribute("productForm", product);
+
+        return "adminProductUpdate"; 
+    }
+
+    
+    @PostMapping("/adminProduct/confirm")
+    public String updateConfirm(
+            @ModelAttribute ProductForm productForm,
+            RedirectAttributes redirectAttributes) throws Exception {
+
+        int row = productUpdateService.updateitem(productForm);
+
+        if (row < 1) {
+            redirectAttributes.addFlashAttribute("errorMessage", "更新に失敗しました");
+            return "redirect:/admin/Productlist";
+        }
+
+        redirectAttributes.addFlashAttribute("successMessage", "商品を更新しました");
+        return "redirect:/admin/Productlist";
+    }
+
 
 }
