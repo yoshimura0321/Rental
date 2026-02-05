@@ -120,6 +120,24 @@ public class ProductRepository {
 
 	    return jdbcTemplate.queryForObject(sql, productMapper, productId);
 	}
+	
+	//商品管理サーチ
+		public List<ProductEntity> adminProductSearch()throws Exception{
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+			sb.append(",c.user_id,c.status");
+			sb.append(" FROM items p");
+			sb.append(" JOIN cart c");
+			sb.append(" ON p.product_id = c.product");
+			sb.append("ORDER BY p.product_id");
+			
+			String sql = sb.toString();
+			List<ProductEntity> productList = jdbcTemplate.query(sql, productExtractor);
+			
+			return productList;
+			
+		}
+
 
 
 }
