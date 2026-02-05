@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  lang="ja">
 	<head>
 		<meta charset="UTF-8">
 		<title>管理者ページ</title>
@@ -8,70 +11,70 @@
 <body>
 	<div id="wrapper">
 		<header>
-			 <h1>CD/DVDレンタル 管理画面</h1>
-			 <div class="admin-name">管理者：admin</div>
+			 <h1>管理者ページ</h1>
+			 
+			 <!-- ログイン表示  -->
+			 <div class="admin-name" sec:authorize="hasRole('ADMIN')">
+				 管理者：<span sec:authentication="name"></span>
+			 </div>
+			 <div class="admin-name" sec:authorize="!hasRole('ADMIN')">
+				 管理者権限がありません
+			 </div>
 		</header>
-		<div th:if="${successMessage}" class="alert alert-success">
-		<p th:text="${successMessage}"></p>
-	</div>
-	<div class="container">
-		<nav>
-			<ul>
-				<li><a th:href="@{/admin/Productlist}">商品管理</a></li>	
-				<li><a th:href="@{/admin/Userlist}">会員管理</a></li>
-				<li><a th:href="@{/admin/RentalStatus}">レンタル状況</a></li>
-				<li><a th:href="@{/logout}">ログアウト</a></li>
-			</ul>
-		</nav>
-	<main>
 		
-		<div class="card">
-    <h3>最近追加された商品</h3>
-
-    <table class="product-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>タイトル</th>
-                <th>種別</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="product : ${recentProducts}">
-                <td th:text="${product.id}">001</td>
-                <td th:text="${product.productName}">サンプルCD</td>
-                <td th:text="${product.productCategory}">CD</td>
-            </tr>
-
-            <tr th:if="${#lists.isEmpty(recentProducts)}">
-                <td colspan="3">商品が登録されていません</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div style="margin-top:10px; text-align:right;">
-        <a th:href="@{/admin/product/list}" class="btn">
-            商品管理へ
-        </a>
-    </div>
-</div>
-
+		 <!-- フラッシュメッセージ -->
+			 <div th:if="${successMessage}" class="alert alert-success">
+			 <p th:text="${successMessage}"></p></div>
 		
-		<div class="card">
-			<h3>レンタル状況</h3>
-			<p>現在レンタル中：
-				<span th:text="${rentalCount}">0</span> 件
-			</p>
-			<p>
-				返却遅延：
-				<span th:text="${lateReturnCount}">0</span> 件
-			</p>
-			<a th:href="@{/admin/rentalStatus}" class="btn">
-				詳細を見る
-			</a>
+		<div class="container">
+			<nav>
+				<ul>
+					<li><a th:href="@{/admin/product/list}">商品管理</a></li>	
+					<li><a th:href="@{/admin/user/list}">会員管理</a></li>
+					<li><a th:href="@{/admin/renta}">レンタル状況</a></li>
+					<li><a th:href="@{/logout}">ログアウト</a></li>
+				</ul>
+			</nav>
+			<main>
+				<div class="card">
+					<h3>最近追加された商品</h3>
+					<table class="product-table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>タイトル</th>
+								<th>種別</th>
+								<th>入荷日</th>
+								<th>発売日</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="product : ${recentProductlist}">
+								<td th:text="${product.productId}" class="productId"></td>
+								<td th:text="${product.productCategory}" class="productCategory"></td>
+								<td th:text="${product.productName}" class="productName"></td>
+								<td th:text="${product.arrivalDate}" class="arrivalDate"></td>
+								<td th:text="${product.releaseDate}" class="releaseDate"></td>
+								<td>
+									<a th:href="@{/admin/product/update(id=${product.productId})}">編集</a>
+								</td>
+							</tr>
+							<tr th:if="${#lists.isEmpty(recentProductlist)}">
+								<td colspan="6">商品が登録されていません</td>
+							</tr>
+						</tbody>
+					</table>
+					<a th:href="@{/admin/product/list}">商品管理へ</a>
+				</div>
+				<div class="card">
+					<h3>レンタル状況</h3>
+					<p>現在レンタル中：<span th:text="${rentalCount}"></span> 件</p>
+					<p>返却遅延：<span th:text="${lateReturnCount}">0</span> 件</p>
+					<a th:href="@{/admin/rental}">詳細を見る</a>
+				</div>
+			</main>
 		</div>
-	</main>
-</div>
-
+	</div>
 </body>
 </html>

@@ -1,8 +1,11 @@
 @charset "UTF-8";
 
-/* フォーム */
+/* ================================
+   フォーム全般
+================================ */
 .product-form {
   max-width: 600px;
+  margin: 0 auto; /* 中央寄せ */
 }
 
 .form-group {
@@ -12,6 +15,11 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.required {
+  color: red;
   font-weight: bold;
 }
 
@@ -29,16 +37,37 @@
   resize: vertical;
 }
 
+.errors {
+  color: red;
+  font-size: 13px;
+  margin-top: 3px;
+  display: block;
+}
+
 .form-actions {
   display: flex;
   gap: 10px;
+  justify-content: flex-end; /* ボタン右寄せ */
 }
 
-/* 商品管理テーブル */
+.form-actions .btn {
+  min-width: 80px;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ================================
+   テーブル（商品・ユーザー一覧など）
+================================ */
 .product-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 
 .product-table th,
@@ -56,7 +85,13 @@
   background-color: #fafafa;
 }
 
-/* ボタン */
+.product-table tbody tr:hover {
+  background-color: #e6f0ff; /* 行ホバー */
+}
+
+/* ================================
+   ボタン
+================================ */
 .btn {
   padding: 6px 12px;
   border: none;
@@ -66,6 +101,7 @@
   cursor: pointer;
   font-size: 14px;
   text-decoration: none;
+  text-align: center;
 }
 
 .btn:hover {
@@ -80,11 +116,14 @@
   background-color: #a71d2a;
 }
 
-/* 検索フォーム */
+/* ================================
+   検索フォーム
+================================ */
 .search-form {
   display: flex;
   margin-top: 10px;
   margin-bottom: 15px;
+  gap: 0;
 }
 
 .search-form input[type="text"] {
@@ -108,15 +147,65 @@
   background-color: #0056b3;
 }
 
-/* ヘッダー内リンク */
-.header-area nav .bar a {
+/* ================================
+   ヘッダーリンク（nav内）※共通化
+================================ */
+nav ul li a {
   margin-right: 15px;
   text-decoration: none;
   color: #333;
   font-weight: bold;
 }
 
-.header-area nav .bar a:hover {
+nav ul li a:hover {
   color: #007bff;
 }
 
+/* ================================
+   フラッシュメッセージ（成功・エラー） 
+================================ */
+.alert {
+  padding: 10px 15px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 8px;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+/* ================================
+   レスポンシブ対応（モバイル）
+================================ */
+@media (max-width: 500px) {
+  .search-form {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .search-form input, .search-form button {
+    width: 100%;
+    border-radius: 3px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

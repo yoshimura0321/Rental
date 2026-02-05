@@ -9,18 +9,15 @@
 	<div id="wrapper">
 		<header>
 			<h1>ユーザー管理</h1>
-			<form th:action="@{/admin/Userlist}" method="get" class="search-form">
+			
+			<form th:action="@{/admin/user/list}" method="get" class="search-form">
 			<input type="text" name="email" placeholder="e-mailで検索"
-			th:value="${param.userName}">
+			th:value="${param.email}">
 			<button type="submit">検索</button>
 			</form>
 		</header>
 		<main>
 			<div class="card">
-				<div class="list-header">
-					<a th:href="@{/adminUser}" class="btn">＋ ユーザー追加</a>
-					
-				</div>
 				<table class="product-table">
 					<thead>
 						<tr>
@@ -40,28 +37,28 @@
 							<td th:text="${user.email}"></td>
 							<td th:text="${user.planName}"></td>
 							<td>
-								<form th:action="@{/adminUser/update}" method="post">
+								<form th:action="@{/admin/user/update}" method="get">
 								<input type="hidden" name="userId" th:value="${user.userId}">
 								<button type="submit" class="btn">編集</button>
 								</form>
 								
-								<form th:action="@{/adminUser/delete}" method="post"
-								 onsubmit="return confirm('このユーザーを削除しますか？');">
-								<input type="hidden" name="userId" th:value="${user.userId}">
+								<form th:action="@{/admin/user/delete}" method="post"
+								 onsubmit="return confirm('このユーザーを削除しますか？');" style="display:inline;">
+								<input type="hidden" name="user.email" th:value="${user.email}">
 								<button type="submit" class="btn delete">削除</button>
 								</form>
 								
 							</td>
 						</tr>
+						
 						<!-- ユーザーが0件の場合 -->
 						<tr th:if="${#lists.isEmpty(userList)}">
-							<td colspan="6">ユーザーが登録されていません</td>
+							<td colspan="5">ユーザーが登録されていません</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</main>
-		<footer></footer>
 	</div>
 </body>
 </html>
