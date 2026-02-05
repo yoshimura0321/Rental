@@ -11,8 +11,12 @@
             <a th:href="@{/home}">HOME</a>
             <a th:href="@{/cart}">カート</a>
             <a th:href="@{/login}">ログイン</a>
-            <form th:action="@{/logout}" method="post">
-			<input type="submit"value=ログアウト></form>
+            <div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">ログアウト</button>
+    </form>
+</div>
+
             <a th:href="@{/mypage}">マイページ</a>
         </div>
     </nav>
