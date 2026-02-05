@@ -42,6 +42,11 @@
 							<td th:text="${product.arrivalDate}"></td>
 							<td th:text="${product.releaseDate}"></td>
 							<td>
+								<form th:action="@{/adminProduct/update}" method="post">
+								<input type="hidden" name="productId" th:value="${product.productId}">
+								<button type="submit" class="btn">編集</button>
+								</form>
+								
 								<form th:action="@{/adminProduct/delete}" method="post"
 								 onsubmit="return confirm('この商品を削除しますか？');">
 								<input type="hidden" name="productId" th:value="${product.productId}">

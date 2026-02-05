@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ユーザー登録</title>
+		<link th:href="@{/css/admin.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			 <h1>ユーザー登録</h1>
+		</header>
+		<main>
+			<div class="card">
+				<form th:action="@{/admin/User}" th:object="${userForm}" method="post" class="product-form">
+					
+					<div class="form-group">
+						<label>氏名</label>
+						<input type="text" th:field="*{userName}">
+						<span th:if="${#fields.hasErrors('userName')}"
+						th:errors="*{userName}" class="errors"></span>
+					</div>
+					<div class="form-group">
+						<label>メールアドレス</label>
+						<input type="text" th:field="*{email}">
+						<span th:if="${#fields.hasErrors('email')}"
+						th:errors="*{email}" class="errors"></span>
+					</div>
+					<div class="form-group">
+						<label>住所</label>
+						<input type="text" th:field="*{address}">
+						<span th:if="${#fields.hasErrors('address')}"
+						th:errors="*{address}" class="errors"></span>
+					</div>
+					<div class="form-group">
+						<label>電話番号</label>
+						<input type="text" th:field="*{tel}">
+						<span th:if="${#fields.hasErrors('tel')}"
+						th:errors="*{tel}" class="errors"></span>
+					</div>
+					<div class="form-group">
+						<label>誕生日</label>
+						<input type="date" th:field="*{birth}">
+						<span th:if="${#fields.hasErrors('birth')}"
+						th:errors="*{birth}" class="errors"></span>
+					</div>
+					<div class="form-group">
+						<label>パスワード</label>
+						<input type="text" th:field="*{password}">
+						<span th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}" class="errors"></span>
+					</div>
+					<div class="form-group">
+						<label>クレジットカード</label>
+						<input type="text" th:field="*{credit}">
+					</div>
+					<div class="form-group">
+						<label>プラン</label>
+						<select th:field="*{planName}">
+							<option value="try">お試しプラン</option>
+							<option value="bronze">Bronzeプラン</option>
+							<option value="silver">Silverプラン</option>
+							<option value="gold">Goldプラン</option>
+						</select>
+					</div>
+					
+					<div class="form-actions">
+						<button type="submit" class="btn" name="back">戻る</button>
+						<button type="submit" class="btn" name="forward">登録</button>
+					</div>
+					<div th:if="${errorMessage}" class="danger">
+						<p th:text="${errorMessage}"></p>
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
