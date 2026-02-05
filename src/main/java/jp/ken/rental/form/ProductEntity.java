@@ -1,6 +1,7 @@
 package jp.ken.rental.form;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,4 +17,6 @@ public class ProductEntity {
 	private Date arrivaldate;
 	
 	private Date releasedate;
+	
+	private List<CartEntity> cartList;
 }
