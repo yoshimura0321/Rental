@@ -12,53 +12,53 @@
 		</header>
 		<main>
 			<div class="card">
-				<form th:action="@{/adminUser/update}"th:object="${userForm}"
+				<form th:action="@{/admin/user/update}"th:object="${userForm}"
 					  method="post"class="product-form">
 					  
 					<!-- userId -->
-					<input type="hidden" th:field="*{userId}">
+					<input type="hidden" th:field="*{userId}" value="${userForm.userId}">
 					<!-- 編集不可項目（hidden） -->
-					<input type="hidden" th:field="*{credit}">
-					<input type="hidden" th:field="*{planName}">
+					<input type="hidden" th:field="*{credit}" value="${userForm.credit}">
+					<input type="hidden" th:field="*{planName}" value="${userForm.planName}">
 					
 					<div class="form-group">
 						<label>氏名</label>
-						<input type="text" th:field="*{userName}">
+						<input type="text" th:field="*{userName}"value="${userForm.userName}">
 						<span th:if="${#fields.hasErrors('userName')}"
 							  th:errors="*{userName}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>メールアドレス</label>
-						<input type="text" th:field="*{email}">
+						<input type="text" th:field="*{email}"value="${userForm.email}">
 						<span th:if="${#fields.hasErrors('email')}"
 							  th:errors="*{email}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>住所</label>
-						<input type="text" th:field="*{address}">
+						<input type="text" th:field="*{address}"value="${userForm.address}">
 						<span th:if="${#fields.hasErrors('address')}"
 							  th:errors="*{address}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>電話番号</label>
-						<input type="text" th:field="*{tel}">
+						<input type="text" th:field="*{tel}"value="${userForm.tel}">
 						<span th:if="${#fields.hasErrors('tel')}"
 							  th:errors="*{tel}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>誕生日</label>
-						<input type="date" th:field="*{birth}">
+						<input type="date" th:field="*{birth}"value="${userForm.birth}">
 						<span th:if="${#fields.hasErrors('birth')}"
 							  th:errors="*{birth}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>パスワード</label>
-						<input type="text" th:field="*{password}">
+						<input type="text" th:field="*{password}"value="${userForm.password}">
 						<span th:if="${#fields.hasErrors('password')}"
 							  th:errors="*{password}" class="errors"></span>
 					</div>
 					<div class="form-actions">
-						<button type="submit" class="btn" name="back">戻る</button>
+						<a th:href="@{/admin/user/list}" class="btn">戻る</a>
 						<button type="submit" class="btn" name="update">更新</button>
 					</div>
 					<div th:if="${errorMessage}" class="danger">
@@ -67,7 +67,6 @@
 				</form>
 			</div>
 		</main>
-		<footer></footer>
 	</div>
 </body>
 </html>
