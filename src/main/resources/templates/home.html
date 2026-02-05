@@ -12,6 +12,8 @@
 	<header th:insert="~{header :: header_area}"></header>
 	
 	<main> 
+		<span th:text="${errorMessage}"></span>
+		<span th:text="${successMessage}"></span>
 		<div id="form-area">
 			<table class="table-common">
     <tr>

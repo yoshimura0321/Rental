@@ -94,8 +94,9 @@ public class CartController {
 	public String add(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId,@RequestParam String searchName, Model model,RedirectAttributes ra)throws Exception{
 		int num = cartService.addCart(Integer.parseInt(idForm.getUserId()), Integer.parseInt(productId));
 		if(num == 0) {
-			model.addAttribute("error","商品の追加に失敗しました");
+			ra.addFlashAttribute("errorMessage", "削除に失敗しました");
 		}
+		ra.addFlashAttribute("successMessage", "商品を削除しました");
 		ra.addAttribute("productName",searchName);
 		return "redirect:/home";
 	}
