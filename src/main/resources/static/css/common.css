@@ -13,6 +13,17 @@
 
 
 /* ナビゲーションリンク */
+/* ナビゲーション全体を中央寄せ＋右端エリアを作る */
+.bar {
+    display: flex;
+    justify-content: center; /* HOME / カート / マイページを中央に */
+    align-items: center;
+    gap: 12px;
+}
+
+
+
+
 .bar a {
     color: #fff;
     font-weight: bold;
@@ -59,6 +70,26 @@
 .search-form button:hover {
     background: #e66a2a;
 }
+
+/* ログインボタンも共通ボタンデザインに */
+.login-btn button,
+.logout-btn button {
+    background: #FF8C00;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1em;
+    padding: 4px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn button:hover,
+.logout-btn button:hover {
+    background: #e66a2a;
+}
+
+
 
 /* -------------------------
    フォーム・テーブル共通

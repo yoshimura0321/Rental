@@ -8,17 +8,26 @@
 <div th:fragment="header_area" class="header-area">
     <nav>
         <div class="bar">
-            <a th:href="@{/home}">HOME</a>
-            <a th:href="@{/cart}">カート</a>
-            
-            <a th:href="@{/login}" sec:authorize="isAnonymous()">ログイン</a>
-            <a th:href="@{/mypage}">マイページ</a>
-            <div sec:authorize="isAuthenticated()">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit">ログアウト</button>
-                </form>
-            </div>
+    <a th:href="@{/home}">HOME</a>
+    <a th:href="@{/cart}">カート</a>
+    <a th:href="@{/mypage}">マイページ</a>
+
+    <div class="right-area">
+
+        <div sec:authorize="isAnonymous()" class="login-btn">
+            <form th:action="@{/login}" method="get">
+                <button type="submit">ログイン</button>
+            </form>
         </div>
+        <div sec:authorize="isAuthenticated()" class="logout-btn">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">ログアウト</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
     </nav>
 
     <form th:action="@{/home}" method="get" class="search-form"> 
