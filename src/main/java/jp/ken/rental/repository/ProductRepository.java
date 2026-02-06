@@ -60,7 +60,7 @@ public class ProductRepository {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		sb.append(" product_id, product_category, product_name, arrival_date, release_date");
+		sb.append(" product_id, product_category, product_name, arrival_date, release_date, thumbnail");
 		sb.append(" FROM items");
 		
 		return sb;
@@ -124,7 +124,7 @@ public class ProductRepository {
 	//商品管理サーチ
 		public List<ProductEntity> adminProductSearch()throws Exception{
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+			sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date, p.thumbnail");
 			sb.append(",c.user_id,c.status");
 			sb.append(" FROM items p");
 			sb.append(" LEFT OUTER JOIN (SELECT * FROM cart WHERE status = 'rental') c");
