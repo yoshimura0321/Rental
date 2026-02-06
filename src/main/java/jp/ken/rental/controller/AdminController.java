@@ -56,17 +56,17 @@ public class AdminController {
         return "admin";
     }
     
-    @GetMapping("/adminProduct")
+    @GetMapping("/admin/product/new")
     public String itemInsert(ProductForm productform) {
-        return "adminProduct";
+        return "adminproduct";
     }
 
-    @PostMapping(value = "/admin/Product", params = "back")
+    @PostMapping(value = "/admin/product/new", params = "back")
     public String itemConfirm() {
         return "admin";
     }
 
-    @PostMapping(value = "/admin/Product", params = "forward")
+    @PostMapping(value = "/admin/product/new", params = "forward")
     public String forComplete(
             @ModelAttribute ProductForm productform,
             RedirectAttributes redirectAttributes) throws Exception {

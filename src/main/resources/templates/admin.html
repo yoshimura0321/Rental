@@ -46,7 +46,6 @@
 								<th>種別</th>
 								<th>入荷日</th>
 								<th>発売日</th>
-								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -54,25 +53,15 @@
 								<td th:text="${product.productId}" class="productId"></td>
 								<td th:text="${product.productCategory}" class="productCategory"></td>
 								<td th:text="${product.productName}" class="productName"></td>
-								<td th:text="${product.arrivalDate}" class="arrivalDate"></td>
-								<td th:text="${product.releaseDate}" class="releaseDate"></td>
-								<td>
-									<a th:href="@{/admin/productupdate(id=${product.productId})}">編集</a>
-								</td>
+								<td th:text="${product.arrivalDate != null ? #temporals.format(product.arrivalDate, 'yyyy/MM/dd') : ''}"></td>
+								<td th:text="${product.releaseDate != null ? #temporals.format(product.releaseDate, 'yyyy/MM/dd') : ''}"></td>
+
 							</tr>
 							<tr th:if="${#lists.isEmpty(recentProductlist)}">
 								<td colspan="6">商品が登録されていません</td>
 							</tr>
 						</tbody>
 					</table>
-					<a th:href="@{/admin/product/list}">商品管理へ</a>
-				</div>
-				<div class="card">
-					<h3>レンタル状況</h3>
-					<p>現在レンタル中：<span th:text="${rentalCount}"></span> 件</p>
-					<p>返却遅延：<span th:text="${lateReturnCount}">0</span> 件</p>
-					<a th:href="@{/admin/rental}">詳細を見る</a>
-				</div>
 			</main>
 		</div>
 	</div>

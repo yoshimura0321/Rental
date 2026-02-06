@@ -48,11 +48,10 @@
 								<input type="hidden" name="productId" th:value="${product.productId}">
 								<button type="submit" class="btn">編集</button>
 								</form>
-								
 								<form th:action="@{/admin/product/delete}" method="post"
 								 onsubmit="return confirm('この商品を削除しますか？');" style="display:inline;">
 								<input type="hidden" name="productId" th:value="${product.productId}">
-								<button type="submit" class="btn delete">削除</button>
+								<button type="submit" class="btn">削除</button>
 								</form>
 							</td>
 						</tr>
