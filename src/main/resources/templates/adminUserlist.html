@@ -38,13 +38,13 @@
 							<td th:text="${user.planName}"></td>
 							<td>
 								<form th:action="@{/admin/user/update}" method="get">
-								<input type="hidden" name="userId" th:value="${user.userId}">
+								<input type="hidden" name="email" th:value="${user.userId}">
 								<button type="submit" class="btn">編集</button>
 								</form>
 								
 								<form th:action="@{/admin/user/delete}" method="post"
 								 onsubmit="return confirm('このユーザーを削除しますか？');" style="display:inline;">
-								<input type="hidden" name="user.email" th:value="${user.email}">
+								<input type="hidden" name="userId" th:value="${user.email}">
 								<button type="submit" class="btn delete">削除</button>
 								</form>
 								
