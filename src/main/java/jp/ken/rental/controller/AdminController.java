@@ -203,5 +203,11 @@ public class AdminController {
     	return "redirect:/admin/user/list";
     }
     
-    //@GetMapping
+    @GetMapping("/admin/rental")
+    public String toRental(Model model)throws Exception {
+    	List<ProductForm> list = productSearchService.getAdminProduct();
+    	model.addAttribute("productlist",list);
+    	
+    	return "adminCartList";
+    }
 }

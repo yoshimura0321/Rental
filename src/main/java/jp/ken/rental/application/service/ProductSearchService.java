@@ -73,6 +73,17 @@ public class ProductSearchService {
     	
     	return formList;
     }
+    
+    public List<ProductForm> getAdminProduct()throws Exception{
+    	List<ProductForm> formlist =null;
+    	List<ProductEntity> entitylist = null;
+    	
+    	entitylist = productRepository.adminProductSearch();
+    	
+    	formlist = convert(entitylist);
+    	
+    	return formlist;
+    }
 
 }
 

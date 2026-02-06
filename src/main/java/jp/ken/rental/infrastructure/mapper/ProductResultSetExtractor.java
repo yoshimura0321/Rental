@@ -28,8 +28,9 @@ public class ProductResultSetExtractor implements ResultSetExtractor<List<Produc
 				productList.add(productEntity);
 			}
 			CartEntity cartEntity = cartMapper.mapRow(rs, 0);
-			productEntity.getCartList().add(cartEntity);
-			
+			if(rs.getString("status") != null) {
+				productEntity.getCartList().add(cartEntity);
+			}
 			tmpId = rs.getInt("product_id");
 		}
 		
