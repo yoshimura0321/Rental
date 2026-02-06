@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/common.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div th:fragment="header_area" class="header-area">
@@ -12,13 +12,12 @@
             <a th:href="@{/cart}">カート</a>
             
             <a th:href="@{/login}" sec:authorize="isAnonymous()">ログイン</a>
+            <a th:href="@{/mypage}">マイページ</a>
             <div sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
                     <button type="submit">ログアウト</button>
                 </form>
             </div>
-
-            <a th:href="@{/mypage}">マイページ</a>
         </div>
     </nav>
 

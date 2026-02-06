@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+/* 画面全体をフレックスボックスで中央寄せ */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直方向中央 */
+    align-items: center;     /* 水平方向中央 */
+    text-align: center;
+    /* 背景色をメインのダークネイビーに変更 */
+    background-color: #0b192c; 
+    font-family: sans-serif;
+    color: #fff; /* デフォルトの文字色を白に設定 */
+}
+
+/* テキストの装飾 */
+h1 {
+    /* H1の色をアクセントのオレンジに変更 (警告/確認) */
+    color: #ff7a30;
+    margin-bottom: 0.5em;
+}
+
+p {
+    /* 段落の色を見やすい明るいグレーに変更 */
+    color: #eee;
+    margin-bottom: 2em;
+}
+
+/* フォームとボタンの調整 */
+form {
+    margin-bottom: 1.5em;
+}
+
+/* 退会ボタンの微調整（共通の.btnをさらに強調） */
+.btn {
+    cursor: pointer;
+    padding: 10px 25px;
+    font-size: 16px;
+    /* 色はcommon.cssの.btn（オレンジ）が適用されます */
+}
+
+/* HOMEに戻るリンクの装飾 */
+.home-btn {
+    display: inline-block;
+    text-decoration: none;
+    /* リンクの色をアクセントの水色に変更 */
+    color: #4682b4;
+    font-weight: bold;
+    /* 下線の色も水色に */
+    border-bottom: 1px solid #4682b4;
+    transition: 0.3s;
+}
+
+.home-btn:hover {
+    /* ホバー時の色をオレンジに変更 */
+    color: #ff7a30;
+    border-bottom-color: #ff7a30;
+    opacity: 0.8;
+}
