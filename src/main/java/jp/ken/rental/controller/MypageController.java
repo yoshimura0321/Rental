@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jp.ken.rental.application.service.UserDeleteService;
@@ -52,23 +53,35 @@ public class MypageController {
    	 	}
    	 	return idForm;
 	}
+    @ModelAttribute("userForm")
+    public UserForm setupUserForm() {
+    	return new UserForm();
+    }
 
     @GetMapping("/mypage")
-    public String mypage(@ModelAttribute("idForm") UserForm idForm, Model model) {
-
-        model.addAttribute("userForm", idForm);
+    public String mypage(@ModelAttribute("idForm") UserForm idForm,@ModelAttribute("userForm")UserForm userForm, Model model) {
+    	userForm.setUserId(idForm.getUserId());
+    	userForm.setUserName(idForm.getUserName());
+    	userForm.setEmail(idForm.getEmail());
+    	userForm.setTel(idForm.getTel());
+    	userForm.setPassword(idForm.getPassword());
+    	userForm.setBirth(idForm.getBirth());
+    	userForm.setAddress(idForm.getAddress());
+    	userForm.setCredit(idForm.getCredit());
+    	userForm.setPlanName(idForm.getPlanName());
+    	userForm.setMembershipMonth(idForm.getMembershipMonth());
+    	userForm.setBirth(userForm.getBirth().replace("-", "/"));
+    	model.addAttribute("userForm", userForm);
         return "mypage";
     }
     
     @GetMapping("/mypage/update")
-    public String toupdate(@ModelAttribute("idForm") UserForm idForm, Model model) {
-    	idForm.setBirth(idForm.getBirth().replace("-", "/"));
-    	model.addAttribute("userForm", idForm);
+    public String toupdate() {
     	return "profileChange";
     }
     
     @PostMapping("/mypage/update")
-    public String toConfirm(@Validated(ValidGroupOrder.class) @ModelAttribute UserForm userForm, BindingResult result,Model model) {
+    public String toConfirm(@Validated(ValidGroupOrder.class) @ModelAttribute("userForm") UserForm userForm, BindingResult result,Model model) {
 		if(result.hasErrors()) {
 			return "profileChange";
 		}else {
@@ -86,7 +99,7 @@ public class MypageController {
 
     	int row = userUpdateService.updateUser(userForm)+userUpdateService.securityupdate(userForm);
 		
-		if(row < 3) {
+		if(row < 2) {
 			return "profileChange";
 		}
         return "profileFinish";
@@ -99,12 +112,13 @@ public class MypageController {
     }
     
     @PostMapping("/mypage/goodbye")
-    public String delete(@ModelAttribute("idForm") UserForm idForm, Model model,HttpServletRequest request)throws Exception {
+    public String delete(@ModelAttribute("idForm") UserForm idForm, Model model,HttpServletRequest request,SessionStatus status)throws Exception {
     	int num = userDeleteService.deleteUser(Integer.parseInt(idForm.getUserId()))+userDeleteService.securitydelete(Integer.parseInt(idForm.getUserId()));
-    	if(num <3) {
+    	if(num <2) {
     		model.addAttribute("error","削除に失敗しました");
     		return "error/error";
     	}else {
+    		status.setComplete();
     		request.getSession().invalidate();
     		SecurityContextHolder.clearContext();
     	}
