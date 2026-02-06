@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>レンタル処理</title>
+		<link th:href="@{/css/admin.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+		レンタル処理
+		</header>
+		<main>
+			<span th:text="${message}"></span>
+			<span th:text="${productName}"></span>
+			<table>
+				<tr>
+					<th>ユーザーID</th>
+					<th>操作</th>
+				</tr>
+			<block th:each=" cart : ${cartlist}">
+					<tr>
+						<td th:text="${cart.userId}"></td>
+						<td>
+						<form th:action="@{/admin/rental/service}" method="post">
+							<input type="submit" value="rental">
+							<input type="hidden" name="productId" value="${cart.productId}">
+							 <input type="hidden" name="userId" value="${cart.userId}">
+						</form>
+						</td>
+					</tr>
+			</table>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>

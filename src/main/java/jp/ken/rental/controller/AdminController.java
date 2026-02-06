@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.ken.rental.application.service.CartService;
 import jp.ken.rental.application.service.ProductDeleteService;
 import jp.ken.rental.application.service.ProductInsertService;
 import jp.ken.rental.application.service.ProductSearchService;
@@ -18,6 +19,7 @@ import jp.ken.rental.application.service.ProductUpdateService;
 import jp.ken.rental.application.service.UserDeleteService;
 import jp.ken.rental.application.service.UserSearchService;
 import jp.ken.rental.application.service.UserUpdateService;
+import jp.ken.rental.form.CartForm;
 import jp.ken.rental.form.ProductForm;
 import jp.ken.rental.form.UserForm;
 
@@ -36,11 +38,12 @@ public class AdminController {
     private UserSearchService userSearchService;
     private UserDeleteService userDeleteService;
     private UserUpdateService userUpdateService;
+    private CartService cartService;
     
     public AdminController(ProductInsertService productInsertService,
     		ProductSearchService productSearchService,ProductDeleteService productDeleteService,
     		ProductUpdateService productUpdateService,UserSearchService userSearchService,
-    		UserDeleteService userDeleteService,UserUpdateService userUpdateService) {
+    		UserDeleteService userDeleteService,UserUpdateService userUpdateService,CartService cartService) {
     	
         this.productInsertService = productInsertService;
         this.productSearchService = productSearchService;
@@ -49,6 +52,7 @@ public class AdminController {
         this.userSearchService = userSearchService;
         this.userDeleteService=userDeleteService;
         this.userUpdateService=userUpdateService;
+        this.cartService=cartService;
     }
     
     @GetMapping("/admin")
@@ -209,5 +213,24 @@ public class AdminController {
     	model.addAttribute("productlist",list);
     	
     	return "adminCartList";
+    }
+    
+    @GetMapping("/admin/rental/service")
+    public String torentalservice(Model model)throws Exception{
+    	List<CartForm> list = cartService.adminrental(3);
+    	model.addAttribute("cartlist",list);
+    	model.addAttribute("productName","a");
+    	return "adminRental";
+    }
+    
+    @PostMapping("/admin/rental/service")
+    public String rental(RedirectAttributes ra)throws Exception{
+    	int num = cartService.rental(10000000, 3);
+    	if(num==0) {
+    		ra.addFlashAttribute("message","レンタル処理失敗しました");
+    	}else {
+    		ra.addFlashAttribute("message","レンタル処理成功しました");
+    	}
+    	return "redirect:/admin/rental/service";
     }
 }
