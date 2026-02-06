@@ -39,8 +39,8 @@
 							<td th:text="${product.productId}"></td>
 							<td th:text="${product.productName}"></td>
 							<td th:text="${product.productCategory}"></td>
-							<td th:text="${#temporals.format(product.arrivalDate, 'yyyy/MM/dd')}"></td>
-							<td th:text="${#temporals.format(product.releaseDate, 'yyyy/MM/dd')}"></td>
+							<td th:text="${product.arrivalDate}"></td>
+							<td th:text="${product.releaseDate}"></td>
 							<td>
 
 								<form th:action="@{/admin/product/update}" method="Get">

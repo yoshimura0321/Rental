@@ -1,5 +1,6 @@
 package jp.ken.rental.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,11 @@ import jp.ken.rental.application.service.ProductDeleteService;
 import jp.ken.rental.application.service.ProductInsertService;
 import jp.ken.rental.application.service.ProductSearchService;
 import jp.ken.rental.application.service.ProductUpdateService;
+import jp.ken.rental.application.service.UserDeleteService;
+import jp.ken.rental.application.service.UserSearchService;
+import jp.ken.rental.application.service.UserUpdateService;
 import jp.ken.rental.form.ProductForm;
+import jp.ken.rental.form.UserForm;
 
 @Controller
 public class AdminController {
@@ -28,15 +33,22 @@ public class AdminController {
     private final ProductSearchService productSearchService;
     private final ProductDeleteService productDeleteService;
     private final ProductUpdateService productUpdateService;
+    private UserSearchService userSearchService;
+    private UserDeleteService userDeleteService;
+    private UserUpdateService userUpdateService;
     
     public AdminController(ProductInsertService productInsertService,
     		ProductSearchService productSearchService,ProductDeleteService productDeleteService,
-    		ProductUpdateService productUpdateService) {
+    		ProductUpdateService productUpdateService,UserSearchService userSearchService,
+    		UserDeleteService userDeleteService,UserUpdateService userUpdateService) {
     	
         this.productInsertService = productInsertService;
         this.productSearchService = productSearchService;
         this.productDeleteService = productDeleteService;
         this.productUpdateService = productUpdateService;
+        this.userSearchService = userSearchService;
+        this.userDeleteService=userDeleteService;
+        this.userUpdateService=userUpdateService;
     }
     
     @GetMapping("/admin")
@@ -69,7 +81,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
         return "redirect:/admin";
     }
-    @GetMapping("/admin/Productlist")
+    @GetMapping("/admin/product/list")
     public String home(@RequestParam(required=false) String productName, Model model) throws Exception {
     	List<ProductForm> productList=null;
     	if(productName==null) {
@@ -90,10 +102,10 @@ public class AdminController {
     		}
     	}
     	model.addAttribute("productList", productList);
-    	return "adminProductlist";
+    	return "adminProductList";
     }
     
-    @PostMapping("/adminProduct/delete")
+    @PostMapping("/admin/product/delete")
     public String deleteProduct(@RequestParam("productId") String productId,
                                 RedirectAttributes redirectAttributes) throws Exception {
 
@@ -105,9 +117,9 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("successMessage", "商品を削除しました");
         }
 
-        return "redirect:/admin/Productlist";
+        return "redirect:/admin/product/list";
     }
-    @GetMapping("/adminProduct/update")
+    @GetMapping("/admin/product/update")
     public String toUpdate(@RequestParam("productId") int productId, Model model) throws Exception {
 
         ProductForm product = productSearchService.getProductById(productId);
@@ -123,7 +135,7 @@ public class AdminController {
     }
 
     
-    @PostMapping("/adminProduct/confirm")
+    @PostMapping("/admin/product/update")
     public String updateConfirm(
             @ModelAttribute ProductForm productForm,
             RedirectAttributes redirectAttributes) throws Exception {
@@ -136,8 +148,60 @@ public class AdminController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "商品を更新しました");
-        return "redirect:/admin/Productlist";
+        return "redirect:/admin/product/list";
     }
 
-
+    @GetMapping("/admin/user/list")
+    public String toadaminuser(@RequestParam(required = false)String email,Model model)throws Exception {
+    	List<UserForm> formlist = new ArrayList<UserForm>();
+    	if(email ==null || email.isBlank()) {
+    		formlist = userSearchService.getAllUser();
+    	}else {
+    		UserForm form = new UserForm();
+    		form.setEmail(email);
+    		form = userSearchService.getUserByEmail(form);
+    		formlist.add(form);
+    	}
+    	
+    	model.addAttribute("userList",formlist);
+    	
+    	return "adminUserlist";
+    }
+    
+    @PostMapping("/admin/user/delete")
+    public String admindelete(@RequestParam String userId,RedirectAttributes ra)throws Exception {
+    	int num = userDeleteService.deleteUser(Integer.parseInt(userId));
+    	if(num == 0) {
+			ra.addFlashAttribute("message", "削除に失敗しました");
+		}else {
+			ra.addFlashAttribute("message", "削除成功しました");
+		}
+    	
+    	return "redirect:/admin/user/list";
+    }
+    
+    @GetMapping("/admin/user/update")
+    public String touserupdate(@RequestParam String email, Model model,RedirectAttributes ra)throws Exception {
+    	UserForm form = new UserForm();
+		form.setEmail(email);
+    	form = userSearchService.getUserByEmail(form);
+    	
+    	model.addAttribute("userForm",form);
+    	
+    	return "adminUserUpdate";
+    }
+    
+    @PostMapping("/admin/user/update")
+    public String userupdate(@ModelAttribute UserForm userForm,RedirectAttributes ra)throws Exception{
+    	int num = userUpdateService.updateUser(userForm);
+    	if(num == 0) {
+			ra.addFlashAttribute("message", "更新に失敗しました");
+		}else {
+			ra.addFlashAttribute("message", "更新成功しました");
+		}
+    	
+    	return "redirect:/admin/user/list";
+    }
+    
+    //@GetMapping
 }
