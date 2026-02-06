@@ -68,4 +68,13 @@ public class CartRepository {
 		return sb;
 	}
 	
+	public List<CartEntity> admincart(int productId)throws Exception{
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE c.product_id=? AND c.status='cart'");
+		String sql = sb.toString();
+		
+		List<CartEntity> list = jdbcTemplate.query(sql,cartMapper,productId );
+		
+		return list;
+	}
 }
