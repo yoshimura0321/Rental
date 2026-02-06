@@ -66,4 +66,16 @@ public class CartService {
 		}
 		return formlist;
 	}
+	
+	public List<CartForm> adminrental(int productId)throws Exception{
+		List<CartEntity> entitylist = cartRepository.admincart(productId);
+		List<CartForm> formlist = convert(entitylist);
+		return formlist;
+	}
+	
+	@Transactional(rollbackFor=Exception.class)
+	public int rental(int userId,int productId)throws Exception{
+		int num = cartRepository.rental(userId, productId);
+		return num;
+	}
 }
