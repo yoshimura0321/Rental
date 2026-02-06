@@ -47,6 +47,13 @@ public class ProductSearchService {
         
         for(ProductEntity entity : entityList) {
             ProductForm form = modelMapper.map(entity, ProductForm.class);
+            
+            
+         // 仮の画像名
+            if (form.getThumbnail() == null || form.getThumbnail().isBlank()) {
+                form.setThumbnail("no-image.png");
+            }
+            
             formList.add(form);
         }
         
