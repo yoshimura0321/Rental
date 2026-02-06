@@ -10,7 +10,7 @@
 		<header>
 			<h1>商品管理</h1>
 			
-			<form th:action="@{/admin/product/ist}" method="get" class="search-form">
+			<form th:action="@{/admin/product/list}" method="get" class="search-form">
 			<input type="text" name="productName" placeholder="商品名で検索"
 			th:value="${param.productName}">
 			<button type="submit">検索</button>
@@ -43,13 +43,13 @@
 							<td th:text="${#temporals.format(product.releaseDate, 'yyyy/MM/dd')}"></td>
 							<td>
 
-								<form th:action="@{/adminProduct/update}" method="Get">
+								<form th:action="@{/admin/product/update}" method="Get">
 
 								<input type="hidden" name="productId" th:value="${product.productId}">
 								<button type="submit" class="btn">編集</button>
 								</form>
 								
-								<form th:action="@{/admin/product//delete}" method="post"
+								<form th:action="@{/admin/product/delete}" method="post"
 								 onsubmit="return confirm('この商品を削除しますか？');" style="display:inline;">
 								<input type="hidden" name="productId" th:value="${product.productId}">
 								<button type="submit" class="btn delete">削除</button>
