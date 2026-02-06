@@ -18,6 +18,8 @@ public class ProductForm implements Serializable{
 	
 	private String releaseDate;
 	
+	private String thumbnail;
+	
 	private List<CartForm> cartList;
 
 }

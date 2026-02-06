@@ -22,8 +22,8 @@
         <th>プロダクトネーム</th>
         <th>アライバル</th>
         <th>リリース</th>
+        <th>サムネイル</th>
         <div sec:authorize="isAuthenticated()">
-        <th></th> 
         </div>
     </tr>
     
@@ -35,7 +35,11 @@
             <td th:text="${p.productName}" class="productName"></td>
             <td th:text="${p.arrivalDate}" class="arrivalDate"></td>
             <td th:text="${p.releaseDate}" class="releaseDate"></td>
-
+            <td style="width: 80px;">
+				<img th:src="@{/images/{img}(img=${p.thumbnail})}"
+				alt="サムネイル" class="thumbnail"
+				style="width:80px; height:auto;">
+            </td>
             <td>
     <div sec:authorize="isAuthenticated()">
         <form th:action="@{/cart/add}" method="post">

@@ -18,5 +18,7 @@ public class ProductEntity {
 	
 	private Date releasedate;
 	
+	private String thumbnail;
+	
 	private List<CartEntity> cartList;
 }
