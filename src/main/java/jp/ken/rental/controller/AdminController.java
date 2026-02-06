@@ -81,7 +81,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
         return "redirect:/admin";
     }
-    @GetMapping("/admin/Productlist")
+    @GetMapping("/admin/product/list")
     public String home(@RequestParam(required=false) String productName, Model model) throws Exception {
     	List<ProductForm> productList=null;
     	if(productName==null) {
@@ -102,10 +102,10 @@ public class AdminController {
     		}
     	}
     	model.addAttribute("productList", productList);
-    	return "adminProductlist";
+    	return "adminProductList";
     }
     
-    @PostMapping("/adminProduct/delete")
+    @PostMapping("/admin/product/delete")
     public String deleteProduct(@RequestParam("productId") String productId,
                                 RedirectAttributes redirectAttributes) throws Exception {
 
@@ -117,9 +117,9 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("successMessage", "商品を削除しました");
         }
 
-        return "redirect:/admin/Productlist";
+        return "redirect:/admin/product/list";
     }
-    @GetMapping("/adminProduct/update")
+    @GetMapping("/admin/product/update")
     public String toUpdate(@RequestParam("productId") int productId, Model model) throws Exception {
 
         ProductForm product = productSearchService.getProductById(productId);
@@ -135,7 +135,7 @@ public class AdminController {
     }
 
     
-    @PostMapping("/adminProduct/confirm")
+    @PostMapping("/admin/product/update")
     public String updateConfirm(
             @ModelAttribute ProductForm productForm,
             RedirectAttributes redirectAttributes) throws Exception {
@@ -148,7 +148,7 @@ public class AdminController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "商品を更新しました");
-        return "redirect:/admin/Productlist";
+        return "redirect:/admin/product/list";
     }
 
     @GetMapping("/admin/user/list")
@@ -174,7 +174,7 @@ public class AdminController {
     	if(num == 0) {
 			ra.addFlashAttribute("message", "削除に失敗しました");
 		}else {
-			ra.addFlashAttribute("message", "商品を追加しました");
+			ra.addFlashAttribute("message", "削除成功しました");
 		}
     	
     	return "redirect:/admin/user/list";
@@ -202,4 +202,6 @@ public class AdminController {
     	
     	return "redirect:/admin/user/list";
     }
+    
+    //@GetMapping
 }
