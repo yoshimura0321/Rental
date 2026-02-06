@@ -8,10 +8,7 @@
 	</head>
 <body>
 	<div id="wrapper">
-		<header>
-			<h2><span class="section_title">新規登録</span><br></h2>
-			<hr>
-		</header>
+		<header th:insert="~{header :: header_area}"></header>
 		<main>
 			<form th:action="@{/regist}" th:object="${userForm}" method="post">
 				<div id="form-area">
