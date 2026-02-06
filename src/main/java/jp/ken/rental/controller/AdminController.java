@@ -216,16 +216,16 @@ public class AdminController {
     }
     
     @GetMapping("/admin/rental/service")
-    public String torentalservice(Model model)throws Exception{
-    	List<CartForm> list = cartService.adminrental(3);
+    public String torentalservice(@RequestParam("productId") String productId,@RequestParam("productName") String productName, Model model)throws Exception{
+    	List<CartForm> list = cartService.adminrental(Integer.parseInt(productId));
     	model.addAttribute("cartlist",list);
-    	model.addAttribute("productName","a");
+    	model.addAttribute("productName",productName);
     	return "adminRental";
     }
     
     @PostMapping("/admin/rental/service")
-    public String rental(RedirectAttributes ra)throws Exception{
-    	int num = cartService.rental(10000000, 3);
+    public String rental(@RequestParam("userId") String userId,@RequestParam("productId") String productId, RedirectAttributes ra)throws Exception{
+    	int num = cartService.rental(Integer.parseInt(userId),Integer.parseInt(productId));
     	if(num==0) {
     		ra.addFlashAttribute("message","レンタル処理失敗しました");
     	}else {

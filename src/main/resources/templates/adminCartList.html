@@ -12,16 +12,22 @@
 		</header>
 		<table>
 			<table>
-				<block th:each=" product : ${productlist}">
+				<th:block th:each=" product : ${productlist}">
 					<tr>
 						<td th:text="${product.productName}"></td>
 						<td >
-							<div th:if="${#lists.isEmpty(product.cartList)}">〇</div>
-							<div th:if="${!#lists.isEmpty(product.cartList)}">×</div>
+							<div th:if="${#lists.isEmpty(product.cartList)}">
+								<form th:action="@{/admin/rental/service}" method="get">
+									<input type="submit" value="rental処理へ"> 
+									<input type="hidden" name="productName" th:value="${product.productName}">
+									<input type="hidden" name="productId" th:value="${product.productId}">
+								</form>
+							</div>
+							<div th:if="${!#lists.isEmpty(product.cartList)}">貸出中</div>
 							
 						</td>
 					</tr>
-				</block>
+				</thblock>
 				
 			</table>
 		</main>

@@ -18,17 +18,18 @@
 					<th>ユーザーID</th>
 					<th>操作</th>
 				</tr>
-			<block th:each=" cart : ${cartlist}">
+			<th:block th:each=" cart : ${cartlist}">
 					<tr>
 						<td th:text="${cart.userId}"></td>
 						<td>
 						<form th:action="@{/admin/rental/service}" method="post">
 							<input type="submit" value="rental">
-							<input type="hidden" name="productId" value="${cart.productId}">
-							 <input type="hidden" name="userId" value="${cart.userId}">
+							<input type="hidden" name="productId" th:value="${cart.productId}">
+							 <input type="hidden" name="userId" th:value="${cart.userId}">
 						</form>
 						</td>
 					</tr>
+			</thblock>
 			</table>
 		</main>
 		<footer></footer>
