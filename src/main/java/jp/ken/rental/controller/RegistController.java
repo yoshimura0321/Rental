@@ -19,7 +19,10 @@ public class RegistController {
 	
 	@ModelAttribute("userForm")
 	public UserForm setupUserForm() {
-		return new UserForm();
+		 UserForm userForm = new UserForm();
+		    // 初期値でお試しプランを選択
+		    userForm.setPlanName("try"); 
+		    return userForm;
 	}
 	@GetMapping("/regist")
 	public String toRegist() {
