@@ -37,14 +37,14 @@
 							<td th:text="${product.productName}"></td>
 							<td th:text="${product.productCategory}"></td>
 							<td>
-								<div th:if="${product.cartList == null or #lists.isEmpty(product.cartList)}">
+								<div th:if="${stockQuantity > rentalCount}">
 									<form th:action="@{/admin/rental/service}" method="get">
 										<button type="submit" class="btn">レンタル処理へ</button>
 										<input type="hidden" name="productName" th:value="${product.productName}">
 										<input type="hidden" name="productId" th:value="${product.productId}">
 									</form>
 								</div>
-								<div th:if="${!#lists.isEmpty(product.cartList)}">貸出中</div>
+								<div th:if="${stockQuantity == rentalCount}">貸出中</div>
 							</td>
 						</tr>
 					</tbody>

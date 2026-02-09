@@ -1,7 +1,6 @@
 package jp.ken.rental.form;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -20,5 +19,7 @@ public class ProductEntity {
 	
 	private String thumbnail;
 	
-	private List<CartEntity> cartList;
+	private int stockQuantity;
+	
+	private int rentalCount;
 }

@@ -1,7 +1,6 @@
 package jp.ken.rental.form;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.Data;
 
@@ -20,6 +19,8 @@ public class ProductForm implements Serializable{
 	
 	private String thumbnail;
 	
-	private List<CartForm> cartList;
+	private String stockQuantity;
+	
+	private String rentalCount;
 
 }

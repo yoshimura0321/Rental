@@ -225,8 +225,8 @@ public class AdminController {
     
     @PostMapping("/admin/rental/service")
     public String rental(@RequestParam("userId") String userId,@RequestParam("productId") String productId, RedirectAttributes ra)throws Exception{
-    	int num = cartService.rental(Integer.parseInt(userId),Integer.parseInt(productId));
-    	if(num==0) {
+    	int num = cartService.rental(Integer.parseInt(userId),Integer.parseInt(productId))+userUpdateService.rentaluser(Integer.parseInt(userId));
+    	if(num<2) {
     		ra.addFlashAttribute("message","レンタル処理失敗しました");
     	}else {
     		ra.addFlashAttribute("message","レンタル処理成功しました");
