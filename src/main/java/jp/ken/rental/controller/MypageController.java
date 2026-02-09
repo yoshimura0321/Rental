@@ -1,5 +1,7 @@
 package jp.ken.rental.controller;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jp.ken.rental.application.service.CartService;
 import jp.ken.rental.application.service.UserDeleteService;
 import jp.ken.rental.application.service.UserSearchService;
 import jp.ken.rental.application.service.UserUpdateService;
 import jp.ken.rental.common.validator.groups.ValidGroupOrder;
+import jp.ken.rental.form.CartEntity;
 import jp.ken.rental.form.UserForm;
 
 @Controller
@@ -27,12 +31,17 @@ public class MypageController {
     private final UserUpdateService userUpdateService;
     private final UserDeleteService userDeleteService;
     private UserSearchService userSearchService;
-
+    private final CartService cartService;
+    
+    
     public MypageController(UserUpdateService userUpdateService,
-                            UserDeleteService userDeleteService,UserSearchService userSearchService) {
+                            UserDeleteService userDeleteService,
+                            UserSearchService userSearchService,
+                            CartService cartService) {
         this.userUpdateService = userUpdateService;
         this.userDeleteService = userDeleteService;
-        this.userSearchService=userSearchService;
+        this.userSearchService = userSearchService;
+        this.cartService = cartService; 
     }
     
     @ModelAttribute("idForm")
@@ -59,7 +68,7 @@ public class MypageController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(@ModelAttribute("idForm") UserForm idForm,@ModelAttribute("userForm")UserForm userForm, Model model) {
+    public String mypage(@ModelAttribute("idForm") UserForm idForm,@ModelAttribute("userForm")UserForm userForm, Model model)throws Exception {
     	userForm.setUserId(idForm.getUserId());
     	userForm.setUserName(idForm.getUserName());
     	userForm.setEmail(idForm.getEmail());
@@ -72,7 +81,16 @@ public class MypageController {
     	userForm.setMembershipMonth(idForm.getMembershipMonth());
     	userForm.setBirth(userForm.getBirth().replace("-", "/"));
     	model.addAttribute("userForm", userForm);
-        return "mypage";
+    	
+    	
+    	 List<CartEntity> currentRentals = cartService.getCurrentRentals(Integer.parseInt(userForm.getUserId()));
+    	 List<CartEntity> rentalHistory = cartService.getRentalHistory(Integer.parseInt(userForm.getUserId()));
+    	 
+    	 model.addAttribute("currentRentals", currentRentals);
+    	 model.addAttribute("rentalHistory", rentalHistory);
+    	 
+    	 return "mypage";
+
     }
     
     @GetMapping("/mypage/update")
