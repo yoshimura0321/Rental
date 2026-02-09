@@ -164,8 +164,9 @@ public class ProductRepository {
 		sb.append(" LEFT OUTER JOIN cart c");
 		sb.append(" ON p.product_id = c.product_id");
 		sb.append(" AND c.status = 'rental'");
-		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
 		sb.append(" WHERE p.product_id = ?");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		
 		String sql = sb.toString();
 		
 		ProductEntity entity = jdbcTemplate.queryForObject(sql, adminProductMapper,productId);

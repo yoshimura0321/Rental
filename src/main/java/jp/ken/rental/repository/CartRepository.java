@@ -61,9 +61,14 @@ public class CartRepository {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
 		sb.append(" c.user_id ,c.product_id, c.status, p.product_category, p.product_name");
+		sb.append(",u.user_name,u.address,u.email,u.rental_count,l.rental_limit");
 		sb.append(" FROM cart c");
 		sb.append(" JOIN items p");
 		sb.append(" ON c.product_id = p.product_id");
+		sb.append(" JOIN users_table u");
+		sb.append(" ON c.user_id = u.user_id");
+		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
+		
 		
 		return sb;
 	}
