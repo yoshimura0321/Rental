@@ -127,6 +127,10 @@ main h3 {
     background: #f0f4ff;
 }
 
+.product-table tr.rented .btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 /* ===========================
    フラッシュメッセージ
 =========================== */
@@ -241,3 +245,37 @@ main h3 {
     color: #a94442;
     margin-top: 10px;
 }
+
+/* ===========================
+   レンタル状態表示
+=========================== */
+.status {
+    font-weight: bold;
+}
+
+/* 貸出中（赤） */
+.status.lending {
+    color: #d9534f;
+}
+
+/* 未貸出（緑） */
+.status.available {
+    color: #28a745;
+}
+
+/* 操作不可表示 */
+.note {
+    color: #999;
+    font-size: 13px;
+}
+
+/* 貸出中ユーザーの行を少しグレーに */
+.product-table tr.rented {
+    background: #f9f9f9;
+    color: #999;
+}
+
+.product-table tr.rented:hover {
+    background: #f9f9f9; /* hoverで色変えない */
+}
+

@@ -8,31 +8,76 @@
 <body>
 	<div id="wrapper">
 		<header>
-		レンタル処理
+			<h1>レンタル処理</h1>
 		</header>
+		
+		<a th:href="@{/admin/rental}" class="btn">一覧に戻る</a>
+		
 		<main>
-			<span th:text="${message}"></span>
-			<span th:text="${productName}"></span>
-			<table>
-				<tr>
-					<th>ユーザーID</th>
-					<th>操作</th>
-				</tr>
-			<th:block th:each=" cart : ${cartlist}">
-					<tr>
-						<td th:text="${cart.userId}"></td>
-						<td>
-						<form th:action="@{/admin/rental/service}" method="post">
-							<input type="submit" value="rental">
-							<input type="hidden" name="productId" th:value="${cart.productId}">
-							<input type="hidden" name="userId" th:value="${cart.userId}">
-						</form>
-						</td>
-					</tr>
-			</th:block>
-			</table>
+			
+			<p th:if="${message}" th:text="${message}" 
+			th:classappend="${success} ? ' alert-success' : ' danger'"></p>
+			
+			<div class="card">
+				<p>
+					<strong>対象作品：</strong>
+					<span th:text="${productName}"></span>
+				</p>
+				<p class="description">
+					この作品を貸し出すユーザーを選択してください。
+				</p>
+				
+				<table class="product-table">
+					<thead>
+						<tr>
+							<th scope="col">ユーザーID</th>
+							<th scope="col">ユーザー名</th>
+							<th scope="col">メールアドレス</th>
+							<th scope="col">状態</th>
+							<th scope="col">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cart : ${cartlist}"
+						th:classappend="${cart.rented} ? 'rented' : ''">
+							<td th:text="${cart.userId}"></td>
+							<td th:text="${cart.userName}"></td>
+							<td th:text="${cart.email}"></td>
+							
+							<!-- 状態表示 -->
+							<td>
+								<span th:if="${cart.rented}" class="status lending">
+									貸出中
+								</span>
+								<span th:if="${!cart.rented}" class="status available">
+									未貸出
+								</span>
+							</td>
+							
+							<!-- 操作 -->
+							<td>
+								<!-- 未貸出のときだけボタン表示 -->
+								<form th:if="${!cart.rented}"
+									  th:action="@{/admin/rental/service}"
+									  method="post"
+									  onsubmit="return confirm('このユーザーに貸し出しますか？');">
+									<button type="submit" class="btn">
+										このユーザーに貸出
+									</button>
+									<input type="hidden" name="productId" th:value="${cart.productId}">
+									<input type="hidden" name="userId" th:value="${cart.userId}">
+								</form>
+								
+								<!-- 貸出中のとき -->
+								<span th:if="${cart.rented}" class="note" title="このユーザーは既に貸出中です">
+									操作不可
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</main>
-		<footer></footer>
 	</div>
 </body>
 </html>
