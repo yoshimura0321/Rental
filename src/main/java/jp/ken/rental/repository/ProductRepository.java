@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.rental.form.ProductEntity;
+import jp.ken.rental.infrastructure.mapper.AdminProductMapper;
 //import jp.ken.rental.infrastructure.mapper.ProductResultSetExtractor;
 import jp.ken.rental.infrastructure.mapper.ProductRowMapper;
 
@@ -16,6 +17,7 @@ import jp.ken.rental.infrastructure.mapper.ProductRowMapper;
 public class ProductRepository {
 	
 	private RowMapper<ProductEntity> productMapper = new ProductRowMapper();
+	private RowMapper<ProductEntity> adminProductMapper = new AdminProductMapper();
 	//private ResultSetExtractor<List<ProductEntity>> productExtractor = new ProductResultSetExtractor();
 	private JdbcTemplate jdbcTemplate;
 	
@@ -145,13 +147,30 @@ public class ProductRepository {
 		sb.append(" LEFT OUTER JOIN cart c");
 		sb.append(" ON p.product_id = c.product_id");
 		sb.append(" AND c.status = 'rental'");
-		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date,s.stock_quantity");
 		sb.append(" ORDER BY p.product_id");
 		String sql = sb.toString();
 		
-		List<ProductEntity> list = jdbcTemplate.query(sql,productMapper);
+		List<ProductEntity> list = jdbcTemplate.query(sql,adminProductMapper);
 		
 		return list;
+	}
+	
+	public ProductEntity checkrental(int productId)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
+		sb.append(" JOIN stock s ON p.product_id = s.product_id");
+		sb.append(" LEFT OUTER JOIN cart c");
+		sb.append(" ON p.product_id = c.product_id");
+		sb.append(" AND c.status = 'rental'");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" WHERE p.product_id = ?");
+		String sql = sb.toString();
+		
+		ProductEntity entity = jdbcTemplate.queryForObject(sql, adminProductMapper,productId);
+		
+		return entity;
 	}
 
 

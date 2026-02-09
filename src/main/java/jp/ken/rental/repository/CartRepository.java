@@ -73,7 +73,7 @@ public class CartRepository {
 		sb.append(" WHERE c.product_id=? AND c.status='cart'");
 		String sql = sb.toString();
 		
-		List<CartEntity> list = jdbcTemplate.query(sql,cartMapper,productId );
+		List<CartEntity> list = jdbcTemplate.query(sql,cartMapper,productId);
 		
 		return list;
 	}
