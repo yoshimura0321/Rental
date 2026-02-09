@@ -211,7 +211,7 @@ public class AdminController {
     public String toRental(Model model)throws Exception {
     	List<ProductForm> list = productSearchService.getAdminProduct();
     	model.addAttribute("productlist",list);
-    	
+    	System.out.println(list);
     	return "adminCartList";
     }
     
@@ -220,16 +220,22 @@ public class AdminController {
     	List<CartForm> list = cartService.adminrental(Integer.parseInt(productId));
     	model.addAttribute("cartlist",list);
     	model.addAttribute("productName",productName);
+    	
     	return "adminRental";
     }
     
     @PostMapping("/admin/rental/service")
     public String rental(@RequestParam("userId") String userId,@RequestParam("productId") String productId, RedirectAttributes ra)throws Exception{
-    	int num = cartService.rental(Integer.parseInt(userId),Integer.parseInt(productId))+userUpdateService.rentaluser(Integer.parseInt(userId));
-    	if(num<2) {
-    		ra.addFlashAttribute("message","レンタル処理失敗しました");
+    	
+    	if(productSearchService.checkrental(Integer.parseInt(productId))) {
+    		int num = cartService.rental(Integer.parseInt(userId),Integer.parseInt(productId))+userUpdateService.rentaluser(Integer.parseInt(userId));
+    		if(num<2) {
+    			ra.addFlashAttribute("message","レンタル処理失敗しました");
+    		}else {
+    			ra.addFlashAttribute("message","レンタル処理成功しました");
+    		}
     	}else {
-    		ra.addFlashAttribute("message","レンタル処理成功しました");
+    		ra.addFlashAttribute("message","在庫が足りません");
     	}
     	return "redirect:/admin/rental";
     }

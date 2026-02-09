@@ -91,6 +91,11 @@ public class ProductSearchService {
     	
     	return formlist;
     }
+    
+    public Boolean checkrental(int productId)throws Exception{
+    	ProductEntity entity = productRepository.checkrental(productId);
+    	return entity.getRentalCount()< entity.getStockQuantity();
+    }
 
 }
 
