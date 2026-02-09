@@ -78,4 +78,15 @@ public class CartService {
 		int num = cartRepository.rental(userId, productId);
 		return num;
 	}
+	
+	@Transactional(readOnly = true)
+	public List<CartEntity> getCurrentRentals(int userId) throws Exception {
+	    return cartRepository.getRentalsByUserId(userId);
+	}
+
+	@Transactional(readOnly = true)
+	public List<CartEntity> getRentalHistory(int userId) throws Exception {
+	    return cartRepository.getRentalHistoryByUserId(userId);
+	}
+
 }

@@ -57,9 +57,57 @@
 				<!--会員情報変更ボタン-->
 					<form th:action="@{/mypage/update}" method="get">
 						<button type="submit">会員情報を変更する</button>
-						
 					</form>
+					
+				<!-- レンタル中のCD/DVD -->
+				<section>
+					<h3>レンタル中の作品</h3>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>作品名</th>
+								<th>レンタル日</th>
+								<th>返却予定日</th>
+								<th>状態</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="rental : ${currentRentals}">
+								<td th:text="${rental.title}"></td>
+								<td th:text="${rental.rentDate}"></td>
+								<td th:text="${rental.dueDate}"></td>
+								<td th:text="${rental.status}"></td>
+							</tr>
+							<tr th:if="${#lists.isEmpty(currentRentals)}">
+								<td colspan="4">レンタル中の作品はありません</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
 				
+				<!-- レンタル履歴 -->
+				<section>
+					<h3>レンタル履歴</h3>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>作品名</th>
+								<th>レンタル日</th>
+								<th>返却日</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="history : ${rentalHistory}">
+								<td th:text="${history.title}"></td>
+								<td th:text="${history.rentDate}"></td>
+								<td th:text="${history.returnDate}"></td>
+							</tr>
+							<tr th:if="${#lists.isEmpty(rentalHistory)}">
+								<td colspan="3">レンタル履歴はありません</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
             </div>
         </main>
 </body>

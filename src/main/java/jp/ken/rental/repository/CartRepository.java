@@ -29,6 +29,28 @@ public class CartRepository {
 		return cartList;
 	}
 	
+	public List<CartEntity> getRentalsByUserId(int userId) throws Exception {
+	    StringBuilder sb = createCommonSQL();
+	    // レンタル中
+	    sb.append(" WHERE c.user_id = ? AND c.status = 'rental'"); 
+	    String sql = sb.toString();
+
+	    List<CartEntity> rentalList = jdbcTemplate.query(sql, cartMapper, userId);
+	    return rentalList;
+	}
+	
+	public List<CartEntity> getRentalHistoryByUserId(int userId) throws Exception {
+	    StringBuilder sb = createCommonSQL();
+	    // 返却済み
+	    sb.append(" WHERE c.user_id = ? AND c.status = 'returned'"); 
+	    String sql = sb.toString();
+
+	    List<CartEntity> historyList = jdbcTemplate.query(sql, cartMapper, userId);
+	    return historyList;
+	}
+
+
+	
 	public int addCart(CartEntity cartEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO cart");
