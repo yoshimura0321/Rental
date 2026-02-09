@@ -8,30 +8,49 @@
 <body>
 	<div id="wrapper">
 		<header>
-		レンタル状況
+			<h1>レンタル状況</h1>
+			
+			<form th:action="@{/admin/product/list}" method="get" class="search-form">
+			<input type="text" name="productName" placeholder="商品名で検索"
+			th:value="${param.productName}">
+			<button type="submit">検索</button>
+			</form>
 		</header>
-		<span th:text="${message}"></span>
-			<table>
-				<th:block th:each=" product : ${productlist}">
-					<tr>
-						<td th:text="${product.productName}"></td>
-						<td >
-							<div th:if="${#lists.isEmpty(product.cartList)}">
-								<form th:action="@{/admin/rental/service}" method="get">
-									<input type="submit" value="rental処理へ"> 
-									<input type="hidden" name="productName" th:value="${product.productName}">
-									<input type="hidden" name="productId" th:value="${product.productId}">
-								</form>
-							</div>
-							<div th:if="${!#lists.isEmpty(product.cartList)}">貸出中</div>
-							
-						</td>
-					</tr>
-				</thblock>
-				
-			</table>
+		
+		<a th:href="@{/admin}" class="btn">戻る</a>
+		
+		<main>
+			<div class="card">
+				<span th:text="${message}"></span>
+				<table class="product-table">
+					
+					<thead>
+						<tr>
+							<th>タイトル</th>
+							<th>種別</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="product : ${productlist}">
+							<td th:text="${product.productName}"></td>
+							<td th:text="${product.productCategory}"></td>
+							<td>
+								<div th:if="${product.cartList == null or #lists.isEmpty(product.cartList)}">
+									<form th:action="@{/admin/rental/service}" method="get">
+										<button type="submit" class="btn">レンタル処理へ</button>
+										<input type="hidden" name="productName" th:value="${product.productName}">
+										<input type="hidden" name="productId" th:value="${product.productId}">
+									</form>
+								</div>
+								<div th:if="${!#lists.isEmpty(product.cartList)}">貸出中</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</main>
-		<footer></footer>
 	</div>
 </body>
 </html>
