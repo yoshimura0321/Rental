@@ -231,6 +231,6 @@ public class AdminController {
     	}else {
     		ra.addFlashAttribute("message","レンタル処理成功しました");
     	}
-    	return "redirect:/admin/rental/service";
+    	return "redirect:/admin/rental";
     }
 }

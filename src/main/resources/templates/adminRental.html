@@ -25,11 +25,11 @@
 						<form th:action="@{/admin/rental/service}" method="post">
 							<input type="submit" value="rental">
 							<input type="hidden" name="productId" th:value="${cart.productId}">
-							 <input type="hidden" name="userId" th:value="${cart.userId}">
+							<input type="hidden" name="userId" th:value="${cart.userId}">
 						</form>
 						</td>
 					</tr>
-			</thblock>
+			</th:block>
 			</table>
 		</main>
 		<footer></footer>
