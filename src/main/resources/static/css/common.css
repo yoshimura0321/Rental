@@ -99,7 +99,7 @@
     max-width: 900px;
     margin: 30px auto;
     padding: 20px;
-    background: rgba(11, 25, 44, 0.7);
+    background:#40494E;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     backdrop-filter: blur(6px);
@@ -183,5 +183,13 @@ button:hover, .btn:hover {
     }
 }
 
+/* 画面全体（body）をヘッダーと同じ色に強制上書き */
+body {
+   background: linear-gradient(90deg, #4682b4, #0b192c) !important;
+}
 
+/* フォームの外側の余白も透明にしてbodyを見せる */
+html {
+    background-color: #d3d3d3 !important;
+}
 
