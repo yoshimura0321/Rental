@@ -219,7 +219,6 @@ public class AdminController {
     	List<CartForm> list = cartService.adminrental(Integer.parseInt(productId));
     	model.addAttribute("cartlist",list);
     	model.addAttribute("productName",productName);
-    	System.out.println(list);
     	
     	return "adminRental";
     }
