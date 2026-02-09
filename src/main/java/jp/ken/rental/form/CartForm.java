@@ -14,4 +14,8 @@ public class CartForm implements Serializable {
 	private String status;
 	
 	private ProductForm product;
+	
+	private UserForm user;
+	
+	private String rentalLimit;
 }

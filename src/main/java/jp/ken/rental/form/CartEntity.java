@@ -12,4 +12,8 @@ public class CartEntity {
 	private String status;
 	
 	private ProductEntity product;
+	
+	private UserEntity user;
+	
+	private int rentalLimit;
 }

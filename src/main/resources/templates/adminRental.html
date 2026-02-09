@@ -33,31 +33,32 @@
 							<th scope="col">ユーザーID</th>
 							<th scope="col">ユーザー名</th>
 							<th scope="col">メールアドレス</th>
+							<th scope="col">住所</th>
 							<th scope="col">状態</th>
 							<th scope="col">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="cart : ${cartlist}"
-						th:classappend="${cart.rented} ? 'rented' : ''">
+						<tr th:each="cart : ${cartlist}">
 							<td th:text="${cart.userId}"></td>
-							<td th:text="${cart.userName}"></td>
-							<td th:text="${cart.email}"></td>
+							<td th:text="${cart.user.userName}"></td>
+							<td th:text="${cart.user.email}"></td>
+							<td th:text="${cart.user.address}"></td>
 							
 							<!-- 状態表示 -->
 							<td>
-								<span th:if="${cart.rented}" class="status lending">
-									貸出中
+								<span th:if="${cart.user.rentalCount < cart.rentalLimit}" class="status lending">
+									貸出可
 								</span>
-								<span th:if="${!cart.rented}" class="status available">
-									未貸出
+								<span th:if="${cart.user.rentalCount == cart.rentalLimit}" class="status available">
+									貸出不可
 								</span>
 							</td>
 							
 							<!-- 操作 -->
 							<td>
 								<!-- 未貸出のときだけボタン表示 -->
-								<form th:if="${!cart.rented}"
+								<form th:if="${cart.user.rentalCount < cart.rentalLimit}"
 									  th:action="@{/admin/rental/service}"
 									  method="post"
 									  onsubmit="return confirm('このユーザーに貸し出しますか？');">
@@ -69,7 +70,7 @@
 								</form>
 								
 								<!-- 貸出中のとき -->
-								<span th:if="${cart.rented}" class="note" title="このユーザーは既に貸出中です">
+								<span th:if="${cart.user.rentalCount == cart.rentalLimit}" class="note" title="このユーザーは既に貸出中です">
 									操作不可
 								</span>
 							</td>
