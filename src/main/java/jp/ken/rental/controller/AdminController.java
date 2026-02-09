@@ -211,7 +211,6 @@ public class AdminController {
     public String toRental(Model model)throws Exception {
     	List<ProductForm> list = productSearchService.getAdminProduct();
     	model.addAttribute("productlist",list);
-    	System.out.println(list);
     	return "adminCartList";
     }
     
@@ -220,6 +219,7 @@ public class AdminController {
     	List<CartForm> list = cartService.adminrental(Integer.parseInt(productId));
     	model.addAttribute("cartlist",list);
     	model.addAttribute("productName",productName);
+    	System.out.println(list);
     	
     	return "adminRental";
     }
