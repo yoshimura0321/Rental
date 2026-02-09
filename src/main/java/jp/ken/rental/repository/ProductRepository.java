@@ -5,19 +5,18 @@ package jp.ken.rental.repository;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.rental.form.ProductEntity;
-import jp.ken.rental.infrastructure.mapper.ProductResultSetExtractor;
+//import jp.ken.rental.infrastructure.mapper.ProductResultSetExtractor;
 import jp.ken.rental.infrastructure.mapper.ProductRowMapper;
 
 @Repository
 public class ProductRepository {
 	
 	private RowMapper<ProductEntity> productMapper = new ProductRowMapper();
-	private ResultSetExtractor<List<ProductEntity>> productExtractor = new ProductResultSetExtractor();
+	//private ResultSetExtractor<List<ProductEntity>> productExtractor = new ProductResultSetExtractor();
 	private JdbcTemplate jdbcTemplate;
 	
 	public ProductRepository(JdbcTemplate jdbcTemplate) {
@@ -122,21 +121,38 @@ public class ProductRepository {
 	}
 	
 	//商品管理サーチ
-		public List<ProductEntity> adminProductSearch()throws Exception{
-			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date, p.thumbnail");
-			sb.append(",c.user_id,c.status");
-			sb.append(" FROM items p");
-			sb.append(" LEFT OUTER JOIN (SELECT * FROM cart WHERE status = 'rental') c");
-			sb.append(" ON p.product_id = c.product_id");
-			sb.append(" ORDER BY p.product_id");
-			
-			String sql = sb.toString();
-			List<ProductEntity> productList = jdbcTemplate.query(sql, productExtractor);
-			
-			return productList;
-			
-		}
+//	public List<ProductEntity> adminProductSearch()throws Exception{
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+//		sb.append(",c.user_id,c.status");
+//		sb.append(" FROM items p");
+//		sb.append(" LEFT OUTER JOIN (SELECT * FROM cart WHERE status = 'rental') c");
+//		sb.append(" ON p.product_id = c.product_id");
+//		sb.append(" ORDER BY p.product_id");
+//		
+//		String sql = sb.toString();
+//		List<ProductEntity> productList = jdbcTemplate.query(sql, productExtractor);
+//		
+//		return productList;
+//		
+//	}
+	
+	public List<ProductEntity> adminProductSearch()throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
+		sb.append(" JOIN stock s ON p.product_id = s.product_id");
+		sb.append(" LEFT OUTER JOIN cart c");
+		sb.append(" ON p.product_id = c.product_id");
+		sb.append(" AND c.status = 'rental'");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" ORDER BY p.product_id");
+		String sql = sb.toString();
+		
+		List<ProductEntity> list = jdbcTemplate.query(sql,productMapper);
+		
+		return list;
+	}
 
 
 

@@ -165,5 +165,15 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			return jdbcTemplate.update(sql,userEntity.getEmail(),userEntity.getUserId())+
 					jdbcTemplate.update(sql2,userEntity.getEmail(),userEntity.getUserId());
 		}
+		
+		public int userrental(int userId)throws Exception{
+			StringBuilder sb=new StringBuilder();
+			sb.append("UPDATE users_table");
+			sb.append(" SET rental_count=rental_count+1");
+			sb.append(" WHERE user_id = ?");
+			String sql = sb.toString();
+			
+			return jdbcTemplate.update(sql,userId);
+		}
 
 	}
