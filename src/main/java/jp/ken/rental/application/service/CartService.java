@@ -88,5 +88,20 @@ public class CartService {
 	public List<CartEntity> getRentalHistory(int userId) throws Exception {
 	    return cartRepository.getRentalHistoryByUserId(userId);
 	}
+	
+	public List<CartForm> getreturnlist()throws Exception{
+		List<CartForm> formlist = null;
+		List<CartEntity> entitylist = cartRepository.getreturnlist();
+		
+		formlist = convert(entitylist);
+		
+		return formlist;
+	}
+	
+	@Transactional(rollbackFor=Exception.class)
+	public int doreturn(int userId,int productId)throws Exception{
+		int num = cartRepository.doreturn(userId, productId);
+		return num;
+	}
 
 }
