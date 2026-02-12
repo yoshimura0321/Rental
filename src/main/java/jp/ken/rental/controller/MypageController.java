@@ -83,8 +83,8 @@ public class MypageController {
     	model.addAttribute("userForm", userForm);
     	
     	
-    	 List<CartEntity> currentRentals = cartService.getCurrentRentals(Integer.parseInt(userForm.getUserId()));
-    	 List<CartEntity> rentalHistory = cartService.getRentalHistory(Integer.parseInt(userForm.getUserId()));
+    	 List<CartEntity> currentRentals = cartService.getCurrentRentals(Integer.parseInt(idForm.getUserId()));
+    	 List<CartEntity> rentalHistory = cartService.getRentalHistory(Integer.parseInt(idForm.getUserId()));
     	 
     	 model.addAttribute("currentRentals", currentRentals);
     	 model.addAttribute("rentalHistory", rentalHistory);
