@@ -174,8 +174,8 @@ public class AdminController {
     
     @PostMapping("/admin/user/delete")
     public String admindelete(@RequestParam String userId,RedirectAttributes ra)throws Exception {
-    	int num = userDeleteService.deleteUser(Integer.parseInt(userId));
-    	if(num == 0) {
+    	int num = userDeleteService.deleteUser(Integer.parseInt(userId))+userDeleteService.securitydelete(Integer.parseInt(userId));
+    	if(num <3) {
 			ra.addFlashAttribute("message", "削除に失敗しました");
 		}else {
 			ra.addFlashAttribute("message", "削除成功しました");
