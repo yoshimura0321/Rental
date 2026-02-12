@@ -8,32 +8,46 @@
 <body>
 	<div id="wrapper">
 		<header>
-		
+			<h1>返却処理</h1>
 		</header>
+		
+		<a th:href="@{/admin}" class="btn">戻る</a>
+		
 		<main>
-			<span th:text="${message}"></span>
-		<table>
-			<tr>
-				<th>商品名</th>
-				<th>ユーザーID</th>
-				<th>ユーザー名</th>
-				<th>処理</th>
-			</tr>
-			<tr th:each="cart:${returnlist}">
-				<td th:text="${cart.product.productName}"></td>
-				<td th:text="${cart.userId}"></td>
-				<td th:text="${cart.user.userName}"></td>
-				<td>
-					<form th:action="@{/admin/return}" method="post">
-						<input type="hidden" name="userId" th:value="${cart.userId}">
-						<input type="hidden" name="productId" th:value="${cart.product.productId}">
-						<input type="submit" value="返却"> 
-					</form>
-				</td>
-			</tr>
-		</table>
+			
+			<p th:if="${message}" th:text="${message}" 
+			th:classappend="${success} ? ' alert-success' : ' danger'"></p>
+			
+		<div class="card">
+			<table class="product-table">
+				<thead>
+					<tr>
+						<th>商品名</th>
+						<th>ユーザーID</th>
+						<th>ユーザー名</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${#lists.isEmpty(returnlist)}">
+						 <td colspan="4">返却する商品はありません。</td>
+					</tr>
+					<tr th:each="cart : ${returnlist}" th:unless="${#lists.isEmpty(returnlist)}">
+						<td th:text="${cart.product.productName}"></td>
+						<td th:text="${cart.userId}"></td>
+						<td th:text="${cart.user.userName}"></td>
+						<td>
+							<form th:action="@{/admin/return}" method="post">
+								<button type="submit" class="btn">返却</button>
+								<input type="hidden" name="userId" th:value="${cart.userId}">
+								<input type="hidden" name="productId" 
+								th:value="${cart.product.productId}">
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</main>
-		<footer></footer>
 	</div>
 </body>
 </html>
