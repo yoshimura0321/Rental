@@ -20,14 +20,12 @@
 				<tr>
 					<th>商品名</th>
 					<th>カテゴリ</th>
-					<th>ステータス</th>
 					<th>削除</th>
 				</tr>
 					<th:block th:each="c : ${cartList}">
 						<tr><!--↓Listに加えたやつに変更してください！ -->
 							<td th:text="${c.product.productName}"></td>
 							<td th:text="${c.product.productCategory}"></td>
-							<td th:text="${c.status}"></td>
 							<td>
 								<form th:action="@{/cart}" method="post">
 									<input type="hidden" name="userId" th:value="${c.userId}">
