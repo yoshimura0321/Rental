@@ -1,12 +1,7 @@
 package jp.ken.rental.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.rental.application.service.CartService;
@@ -80,38 +74,17 @@ public class AdminController {
     public String forComplete(
             @ModelAttribute ProductForm productform,
             RedirectAttributes redirectAttributes) throws Exception {
-    	
-    	 // ① 画像取得
-    	MultipartFile file = productform.getImageFile();
-    	if (file != null && !file.isEmpty()) {
-    		try {
-    			// 保存先（static/images）
-    			String uploadDir = "src/main/resources/static/images/";
-    			// UUIDでファイル名生成（重複防止）
-    			String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-    			Path path = Paths.get(uploadDir + fileName);
-    			Files.write(path, file.getBytes());
-    			
-    			// ② DB保存用にセット
-    			productform.setThumbnail(fileName);
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    			redirectAttributes.addFlashAttribute("errorMessage", "画像アップロードに失敗しました");
-    			return "redirect:/admin/product/new";
-    		}
-    	}
-    	
-    	// ③ 商品登録
-    	int row = productInsertService.registItem(productform);
-    	if (row == 0) {
-    		redirectAttributes.addFlashAttribute("errorMessage", "登録に失敗しました。もう一度お試しください。");
-    		return "redirect:/adminProduct";
-    	}
-    	redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
-    	return "redirect:/admin";
+
+        int row = productInsertService.registItem(productform);
+
+        if (row == 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "登録に失敗しました。もう一度お試しください。");
+            return "redirect:/adminProduct";
+        }
+
+        redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
+        return "redirect:/admin";
     }
-    
-    
     @GetMapping("/admin/product/list")
     public String home(@RequestParam(required=false) String productName, Model model) throws Exception {
     	List<ProductForm> productList=null;
@@ -129,7 +102,7 @@ public class AdminController {
     			productList = productSearchService.getProductList(form);    			
     			model.addAttribute("headline", "検索結果");
     			model.addAttribute("searchName",name);
-    			
+            
     		}
     	}
     	model.addAttribute("productList", productList);
@@ -170,33 +143,7 @@ public class AdminController {
     public String updateConfirm(
             @ModelAttribute ProductForm productForm,
             RedirectAttributes redirectAttributes) throws Exception {
-    	
-    	MultipartFile file = productForm.getImageFile();
-    	
-    	if (file != null && !file.isEmpty()) {
-    		try {
-    			// 保存先（static/images）
-    			String uploadDir = "src/main/resources/static/images/";
-    			// UUIDでファイル名生成（重複防止）
-    			String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-    			Path path = Paths.get(uploadDir + fileName);
-    			Files.write(path, file.getBytes());
-    			// DB保存用にセット
-    			productForm.setThumbnail(fileName);
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    			redirectAttributes.addFlashAttribute("errorMessage",
-    					"画像アップロードに失敗しました");
-    			return "redirect:/admin/product/update?productId="
-    					+ productForm.getProductId();
-    		}
-    	} else {
-    		// 新しい画像が選択されていない場合、既存画像を保持
-    		ProductForm existingProduct = productSearchService.getProductById(
-    				Integer.parseInt(productForm.getProductId()));
-    		productForm.setThumbnail(existingProduct.getThumbnail());
-    	}
-    	
+
         int row = productUpdateService.updateitem(productForm);
 
         if (row < 1) {
@@ -261,8 +208,13 @@ public class AdminController {
     }
     
     @GetMapping("/admin/rental")
-    public String toRental(Model model)throws Exception {
-    	List<ProductForm> list = productSearchService.getAdminProduct();
+    public String toRental(@RequestParam(required = false)String productName, Model model)throws Exception {
+    	List<ProductForm> list=null;
+    	if(productName==null || productName.isBlank()) {
+    		list = productSearchService.getAdminProduct();
+    	}else {
+    		list = productSearchService.getAdminProductByName(productName);
+    	}
     	model.addAttribute("productlist",list);
     	return "adminCartList";
     }

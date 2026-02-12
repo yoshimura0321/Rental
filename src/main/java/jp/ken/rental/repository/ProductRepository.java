@@ -180,7 +180,26 @@ public class ProductRepository {
 		return entity;
 	}
 
-
+	public List<ProductEntity> adminProductSearchByName(String name)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
+		sb.append(" JOIN stock s ON p.product_id = s.product_id");
+		sb.append(" LEFT OUTER JOIN cart c");
+		sb.append(" ON p.product_id = c.product_id");
+		sb.append(" AND c.status = 'rental'");
+		sb.append(" WHERE p.product_name LIKE ?");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date,s.stock_quantity");
+		sb.append(" ORDER BY p.product_id");
+		String sql = sb.toString();
+		
+		name = name.replace("%", "\\%").replace("_", "\\_");
+		name = "%" + name + "%";
+		
+		List<ProductEntity> productList = jdbcTemplate.query(sql, adminProductMapper,name);
+		
+		return productList;
+	}
 
 }
 
