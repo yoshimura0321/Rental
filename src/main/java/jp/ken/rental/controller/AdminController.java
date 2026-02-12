@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import jp.ken.rental.application.service.ProductUpdateService;
 import jp.ken.rental.application.service.UserDeleteService;
 import jp.ken.rental.application.service.UserSearchService;
 import jp.ken.rental.application.service.UserUpdateService;
+import jp.ken.rental.common.validator.groups.ValidGroupOrder;
 import jp.ken.rental.form.CartForm;
 import jp.ken.rental.form.ProductForm;
 import jp.ken.rental.form.UserForm;
@@ -72,9 +75,11 @@ public class AdminController {
 
     @PostMapping(value = "/admin/product/new", params = "forward")
     public String forComplete(
-            @ModelAttribute ProductForm productform,
+    		@Validated(ValidGroupOrder.class)@ModelAttribute ProductForm productform, BindingResult result,
             RedirectAttributes redirectAttributes) throws Exception {
-
+    	if(result.hasErrors()) {
+    		return "adminProduct";
+    	}else {
         int row = productInsertService.registItem(productform);
 
         if (row == 0) {
@@ -83,6 +88,7 @@ public class AdminController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
+    	}
         return "redirect:/admin";
     }
     @GetMapping("/admin/product/list")
@@ -141,9 +147,11 @@ public class AdminController {
     
     @PostMapping("/admin/product/update")
     public String updateConfirm(
-            @ModelAttribute ProductForm productForm,
+    		@Validated(ValidGroupOrder.class)@ModelAttribute ProductForm productForm, BindingResult result,
             RedirectAttributes redirectAttributes) throws Exception {
-
+    	if(result.hasErrors()) {
+    		return "adminProductUpdate";
+    	}else {
         int row = productUpdateService.updateitem(productForm);
 
         if (row < 1) {
@@ -152,6 +160,7 @@ public class AdminController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "商品を更新しました");
+    	}
         return "redirect:/admin/product/list";
     }
 
