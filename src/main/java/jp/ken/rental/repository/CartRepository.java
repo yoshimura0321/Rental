@@ -115,4 +115,25 @@ public class CartRepository {
 		
 		return num;
 	}
+	
+	public List<CartEntity> getreturnlist()throws Exception{
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE c.status='rental'");
+		String sql = sb.toString();
+		
+		List<CartEntity> list = jdbcTemplate.query(sql, cartMapper);
+		
+		return list;
+	}
+	
+	public int doreturn(int userId,int prductId)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE cart SET status='return'");
+		sb.append(" WHERE user_id=? AND product_id=?");
+		String sql = sb.toString();
+		
+		int num = jdbcTemplate.update(sql,userId,prductId);
+		
+		return num;
+	}
 }

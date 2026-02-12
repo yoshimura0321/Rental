@@ -238,4 +238,23 @@ public class AdminController {
     	}
     	return "redirect:/admin/rental";
     }
+    
+    @GetMapping("/admin/return")
+    public String toreturn(Model model)throws Exception {
+    	List<CartForm> list = cartService.getreturnlist();
+    	model.addAttribute("returnlist",list);
+    	return "adminreturn";
+    }
+    
+    @PostMapping("/admin/return")
+    public String doreturn(@RequestParam String userId,@RequestParam String productId,RedirectAttributes ra)throws Exception {
+    	int num = cartService.doreturn(Integer.parseInt(userId),Integer.parseInt(productId));
+    	if(num==0) {
+    		ra.addFlashAttribute("message","返却処理失敗しました");
+    	}else {
+    		ra.addFlashAttribute("message","返却処理成功しました");
+    	}
+    	
+    	return "redirect:/admin/return";
+    }
 }
