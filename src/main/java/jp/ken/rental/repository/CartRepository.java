@@ -42,7 +42,7 @@ public class CartRepository {
 	public List<CartEntity> getRentalHistoryByUserId(int userId) throws Exception {
 	    StringBuilder sb = createCommonSQL();
 	    // 返却済み
-	    sb.append(" WHERE c.user_id = ? AND c.status = 'returned'"); 
+	    sb.append(" WHERE c.user_id = ? AND c.status = 'return'"); 
 	    String sql = sb.toString();
 
 	    List<CartEntity> historyList = jdbcTemplate.query(sql, cartMapper, userId);
