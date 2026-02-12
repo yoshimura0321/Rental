@@ -22,7 +22,7 @@ import jp.ken.rental.form.CartForm;
 import jp.ken.rental.form.UserForm;
 
 @Controller
-@SessionAttributes({"cartList","idForm"})
+@SessionAttributes({"cartList","idForm","addedProductIds"})
 public class CartController {
 	
 	CartService cartService;
@@ -81,24 +81,38 @@ public class CartController {
 	}
 	
 	@PostMapping("/cart")
-	public String update(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId, Model model) throws Exception{
-		String id =idForm.getUserId();
-		int num = cartService.deleteCart(Integer.parseInt(id), Integer.parseInt(productId));
-		if(num == 0) {
-			model.addAttribute("error","削除に失敗しました");
-		}
-		return "redirect:/cart";
+	public String update(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId,
+	                     @ModelAttribute("addedProductIds") List<String> addedProductIds,Model model) throws Exception {
+	    String id = idForm.getUserId();
+	    int num = cartService.deleteCart(Integer.parseInt(id), Integer.parseInt(productId));
+	    if (num == 0) {
+	        model.addAttribute("error", "削除に失敗しました");
+	    } else {
+	        addedProductIds.remove(productId);
+	    }
+	    return "redirect:/cart";
 	}
 	
 	@PostMapping("/cart/add")
-	public String add(@ModelAttribute("idForm") UserForm idForm,@RequestParam String productId,@RequestParam String searchName, Model model,RedirectAttributes ra)throws Exception{
-		int num = cartService.addCart(Integer.parseInt(idForm.getUserId()), Integer.parseInt(productId));
-		if(num == 0) {
-			ra.addFlashAttribute("errorMessage", "削除に失敗しました");
-		}
-		ra.addFlashAttribute("successMessage", "商品を追加しました");
-		ra.addAttribute("productName",searchName);
-		return "redirect:/home";
+	public String add(@ModelAttribute("idForm") UserForm idForm,
+	                  @RequestParam String productId,
+	                  @RequestParam String searchName,
+	                  @ModelAttribute("addedProductIds") List<String> addedProductIds,
+	                  RedirectAttributes ra) throws Exception {
+	    int num = cartService.addCart(Integer.parseInt(idForm.getUserId()), Integer.parseInt(productId));
+	    if (num == 0) {
+	        ra.addFlashAttribute("errorMessage", "削除に失敗しました");
+	    } else {
+	        ra.addFlashAttribute("successMessage", "商品を追加しました");
+
+	        // 追加済みリストに追加
+	        addedProductIds.add(productId);
+	        ra.addFlashAttribute("addedProductIds", addedProductIds);
+	    }
+	    ra.addAttribute("productName", searchName);
+	    return "redirect:/home";
 	}
+
+
 	
 }
