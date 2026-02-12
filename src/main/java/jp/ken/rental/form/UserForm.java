@@ -38,8 +38,8 @@ public class UserForm implements Serializable {
 	@NotEmpty(message="住所は必須入力です",groups=ValidGroup1.class)
 	private String address;
 	
-	
-	private Integer credit;
+	@Pattern(regexp = "^[0-9]{16}",message="クレジットカードは16桁の半角数字で入力してください",groups=ValidGroup2.class)
+	private String credit;
 	
 	@NotEmpty(message="プラン名を選んでください",groups=ValidGroup1.class)
 	private String planName;

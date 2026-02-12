@@ -22,7 +22,7 @@ public class UserRowMapper implements RowMapper<UserEntity>{
 		userEntity.setPassword(rs.getString("password"));
 		userEntity.setBirth(rs.getDate("birth"));
 		userEntity.setAddress(rs.getString("address"));
-		userEntity.setCredit(rs.getInt("credit"));
+		userEntity.setCredit(rs.getString("credit"));
 		userEntity.setPlanName(rs.getString("plan_name"));
 		userEntity.setRentalCount(rs.getInt("rental_count"));
 		userEntity.setMembershipMonth(rs.getDate("membership_month"));
