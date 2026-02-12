@@ -108,7 +108,7 @@ public class CartRepository {
 	public int rental(int userId,int productId)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE cart SET status='rental'");
-		sb.append(" WHERE user_id=? AND product_id=?");
+		sb.append(" WHERE user_id=? AND product_id=? AND status='cart'");
 		String sql = sb.toString();
 		
 		int num = jdbcTemplate.update(sql,userId,productId);
