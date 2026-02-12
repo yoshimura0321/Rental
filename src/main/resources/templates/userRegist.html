@@ -47,7 +47,7 @@
 						<tr>
 							<th><label for="birth" class="disp-block">誕生日</label></th>
 							<td>
-								<input th:field="*{birth}" size="15" placeholder="YYYY/MM/DD">
+								<input type="date" th:field="*{birth}" size="15" placeholder="YYYY/MM/DD">
 								<span th:if="${#fields.hasErrors('birth')}"th:errors="*{birth}" class="errors"></span>
 							</td>
 						</tr>
