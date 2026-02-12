@@ -96,6 +96,15 @@ public class ProductSearchService {
     	ProductEntity entity = productRepository.checkrental(productId);
     	return entity.getRentalCount()< entity.getStockQuantity();
     }
+    
+    public List<ProductForm> getAdminProductByName(String name)throws Exception{
+    	List<ProductEntity> entity=productRepository.adminProductSearchByName(name);
+    	List<ProductForm> form=null;
+    	
+    	form = convert(entity);
+    	
+    	return form;
+    }
 
 }
 
