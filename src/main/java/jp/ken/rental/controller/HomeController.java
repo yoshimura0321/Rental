@@ -1,17 +1,21 @@
 package jp.ken.rental.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.ken.rental.application.service.ProductSearchService;
 import jp.ken.rental.form.ProductForm;
 
 
 @Controller
+@SessionAttributes("addedProductIds")
 public class HomeController {
 
     private final ProductSearchService productSearchService;
@@ -19,6 +23,12 @@ public class HomeController {
     public HomeController(ProductSearchService productSearchService) {
         this.productSearchService = productSearchService;
     }
+    
+    @ModelAttribute("addedProductIds")
+    public List<String> setupAddedProductIds() {
+        return new ArrayList<>();
+    }
+
 
     
     @GetMapping("/home")
@@ -44,5 +54,6 @@ public class HomeController {
     	model.addAttribute("productList", productList);
     	return "home";
     }
+    
 
 }
