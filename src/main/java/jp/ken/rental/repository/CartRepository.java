@@ -21,7 +21,7 @@ public class CartRepository {
 	
 	public List<CartEntity> getCartByUserId(int userId)throws Exception{
 		StringBuilder sb = createCommonSQL();
-		sb.append(" WHERE c.user_id = ?");
+		sb.append(" WHERE c.user_id = ? AND c.status = 'cart'");
 		String sql = sb.toString();
 		
 		List<CartEntity> cartList = jdbcTemplate.query(sql,cartMapper,userId);
