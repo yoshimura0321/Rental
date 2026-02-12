@@ -22,4 +22,6 @@ public class ProductEntity {
 	private int stockQuantity;
 	
 	private int rentalCount;
+	
+
 }

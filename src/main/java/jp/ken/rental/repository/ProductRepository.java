@@ -70,14 +70,15 @@ public class ProductRepository {
 	public int registitem (ProductEntity productEntity) throws Exception{
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO items ( product_category, product_name, arrival_date, release_date)");
-		sb.append(" VALUES (?, ?, ?, ?)");
+		sb.append("INSERT INTO items ( product_category, product_name, arrival_date, release_date, thumbnail)");
+		sb.append(" VALUES (?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
 		Object[] parameters = { productEntity.getProductCategory(),
 								productEntity.getProductName(), 
 								productEntity.getArrivaldate(), 
-								productEntity.getReleasedate(), };
+								productEntity.getReleasedate(),
+								productEntity.getThumbnail()};
 				
 		int numberOfRow = 0;
 		numberOfRow = jdbcTemplate.update(sql,parameters);
@@ -102,12 +103,17 @@ public class ProductRepository {
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE items");
 		sb.append(" SET product_category = ?, product_name = ?,");
-		sb.append(" arrival_date = ?, release_date = ?");
+		sb.append(" arrival_date = ?, release_date = ?, ");
+		sb.append("thumbnail = ? ");
 		sb.append(" WHERE product_id = ?");
 		String sql = sb.toString();
 		
-		Object[] parameters = {productEntity.getProductCategory(),productEntity.getProductName(),
-			    productEntity.getArrivaldate(),productEntity.getReleasedate(),productEntity.getProductId()};
+		Object[] parameters = {productEntity.getProductCategory(),
+				productEntity.getProductName(),
+			    productEntity.getArrivaldate(),
+			    productEntity.getReleasedate(),
+			    productEntity.getThumbnail(),
+			    productEntity.getProductId()};
 
 		
 		int num = jdbcTemplate.update(sql, parameters);
