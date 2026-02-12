@@ -62,6 +62,7 @@
 							<th><label for="credit" class="disp-block">クレジットカード</label></th>
 							<td>
 								<input th:field="*{credit}" size="30" placeholder="ハイフンなし">
+								<span th:if="${#fields.hasErrors('credit')}"th:errors="*{credit}"class="errors"></span>
 							</td>
 						</tr>
 						<tr>

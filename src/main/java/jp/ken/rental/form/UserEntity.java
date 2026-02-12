@@ -21,7 +21,7 @@ public class UserEntity {
 	
 	private String address;
 	
-	private int credit;
+	private String credit;
 	
 	private String planName;
 	
