@@ -18,4 +18,6 @@ public class CartForm implements Serializable {
 	private UserForm user;
 	
 	private String rentalLimit;
+	
+	private String rankCount;
 }

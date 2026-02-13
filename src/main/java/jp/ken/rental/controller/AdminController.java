@@ -283,4 +283,12 @@ public class AdminController {
     	
     	return "redirect:/admin/return";
     }
+    
+    @GetMapping("admin/rank")
+    public String torank(Model model)throws Exception{
+    	List<CartForm> directorList = cartService.getDirectorRank();
+    	model.addAttribute("directorList",directorList);
+    	
+    	return "adminRank";
+    }
 }
