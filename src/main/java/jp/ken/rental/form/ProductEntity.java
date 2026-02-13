@@ -13,6 +13,8 @@ public class ProductEntity {
 	
 	private String productName;
 	
+	private String creator;
+	
 	private Date arrivaldate;
 	
 	private Date releasedate;

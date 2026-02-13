@@ -22,6 +22,9 @@ public class ProductForm implements Serializable{
 	@NotEmpty(message="タイトルは必須入力です",groups=ValidGroup1.class)
 	private String productName;
 	
+	@NotEmpty(message="クリエイターは必須入力です",groups=ValidGroup1.class)
+	private String creator;
+	
 	@NotEmpty(message="アライバルは必須入力です",groups=ValidGroup1.class)
 	@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="カレンダーから日にちを選択して下さい",groups=ValidGroup2.class)
 	private String arrivalDate;

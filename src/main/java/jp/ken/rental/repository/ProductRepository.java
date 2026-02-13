@@ -61,7 +61,7 @@ public class ProductRepository {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		sb.append(" product_id, product_category, product_name, arrival_date, release_date, thumbnail");
+		sb.append(" product_id, product_category, product_name, creator, arrival_date, release_date, thumbnail");
 		sb.append(" FROM items");
 		
 		return sb;
@@ -70,12 +70,13 @@ public class ProductRepository {
 	public int registitem (ProductEntity productEntity) throws Exception{
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO items ( product_category, product_name, arrival_date, release_date, thumbnail)");
+		sb.append("INSERT INTO items ( product_category, product_name, creator, arrival_date, release_date, thumbnail)");
 		sb.append(" VALUES (?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
 		Object[] parameters = { productEntity.getProductCategory(),
 								productEntity.getProductName(), 
+								productEntity.getCreator(),
 								productEntity.getArrivaldate(), 
 								productEntity.getReleasedate(),
 								productEntity.getThumbnail()};
@@ -102,7 +103,7 @@ public class ProductRepository {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE items");
-		sb.append(" SET product_category = ?, product_name = ?,");
+		sb.append(" SET product_category = ?, product_name = ?, creator = ?,");
 		sb.append(" arrival_date = ?, release_date = ?, ");
 		sb.append("thumbnail = ? ");
 		sb.append(" WHERE product_id = ?");
@@ -110,6 +111,7 @@ public class ProductRepository {
 		
 		Object[] parameters = {productEntity.getProductCategory(),
 				productEntity.getProductName(),
+				productEntity.getCreator(),
 			    productEntity.getArrivaldate(),
 			    productEntity.getReleasedate(),
 			    productEntity.getThumbnail(),
@@ -131,7 +133,7 @@ public class ProductRepository {
 	//商品管理サーチ
 //	public List<ProductEntity> adminProductSearch()throws Exception{
 //		StringBuilder sb = new StringBuilder();
-//		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+//		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.creator,p.arrival_date,p.release_date");
 //		sb.append(",c.user_id,c.status");
 //		sb.append(" FROM items p");
 //		sb.append(" LEFT OUTER JOIN (SELECT * FROM cart WHERE status = 'rental') c");
@@ -147,7 +149,7 @@ public class ProductRepository {
 	
 	public List<ProductEntity> adminProductSearch()throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.creator,p.arrival_date,p.release_date");
 		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
 		sb.append(" JOIN stock s ON p.product_id = s.product_id");
 		sb.append(" LEFT OUTER JOIN cart c");
@@ -164,14 +166,14 @@ public class ProductRepository {
 	
 	public ProductEntity checkrental(int productId)throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.creator,p.arrival_date,p.release_date");
 		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
 		sb.append(" JOIN stock s ON p.product_id = s.product_id");
 		sb.append(" LEFT OUTER JOIN cart c");
 		sb.append(" ON p.product_id = c.product_id");
 		sb.append(" AND c.status = 'rental'");
 		sb.append(" WHERE p.product_id = ?");
-		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.creator,p.arrival_date,p.release_date");
 		
 		String sql = sb.toString();
 		
@@ -182,14 +184,14 @@ public class ProductRepository {
 
 	public List<ProductEntity> adminProductSearchByName(String name)throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.creator,p.arrival_date,p.release_date");
 		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
 		sb.append(" JOIN stock s ON p.product_id = s.product_id");
 		sb.append(" LEFT OUTER JOIN cart c");
 		sb.append(" ON p.product_id = c.product_id");
 		sb.append(" AND c.status = 'rental'");
 		sb.append(" WHERE p.product_name LIKE ?");
-		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date,s.stock_quantity");
+		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.creator,p.arrival_date,p.release_date,s.stock_quantity");
 		sb.append(" ORDER BY p.product_id");
 		String sql = sb.toString();
 		
