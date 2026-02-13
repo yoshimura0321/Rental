@@ -25,17 +25,30 @@ public class ProductSearchService {
     public List<ProductForm> getProductList(ProductForm form)throws Exception{
         
         String keyword = form.getProductName();
-
-        if (keyword == null || keyword.isBlank()) {
+        String category = form.getProductCategory();
+        
+        boolean noName = (keyword == null || keyword.isBlank());
+        boolean noCategory = (category == null || category.isBlank());
+        
+        List<ProductEntity> entityList;
+        
+        if (noName && noCategory) {
             return List.of();
+        } else if (!noName && noCategory) {
+            // 名前だけ
+            entityList = productRepository.getProductByName(keyword);
+        } else if (noName && !noCategory) {
+            // カテゴリーだけ
+            entityList = productRepository.getProductByCategory(category);
+        } else {
+            // 名前＋カテゴリー
+            entityList = productRepository.getProductByNameAndCategory(keyword, category);
         }
-
-        List<ProductEntity> entityList =
-                productRepository.getProductByName(keyword);
+        
         return convert(entityList);
     }
 
-    // ★ GET：最新5件検索（ここに追加）
+    // ★ GET：最新5件検索
     public List<ProductForm> getLatest5Products() throws Exception {
         List<ProductEntity> entityList = productRepository.getProductByArrivalDate();
         return convert(entityList);
