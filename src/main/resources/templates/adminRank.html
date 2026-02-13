@@ -10,19 +10,70 @@
 		<header>
 		
 		</header>
+		<a th:href="@{/admin}" class="btn">戻る</a>
 		<main>
-		<table>
+		<div class="card">
+					<h3>商品レンタルランキング</h3>
+		<table class="product-table">
+			<thead>
+			<tr>
+				
+				<th></th>
+				<th>商品名</th>
+				<th>レンタル件数</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="p,stat :${productList}">
+				<td th:text="${stat.count}"></td>
+				<td th:text="${p.product.productName}"></td>
+				<td th:text="${p.rankCount}"></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+		<br>
+		<div class="card">
+					<h3>監督レンタルランキング</h3>	
+		<table class="product-table">
+			<thead>
 			<tr>
 				<th></th>
 				<th>監督名</th>
 				<th>レンタル件数</th>
 			</tr>
+			</thead>
+			<tbody>
 			<tr th:each="director,stat :${directorList}">
 				<td th:text="${stat.count}"></td>
 				<td th:text="${director.product.creator}"></td>
 				<td th:text="${director.rankCount}"></td>
 			</tr>
+			</tbody>
 		</table>
+		</div>
+		<br>
+		<div class="card">
+					<h3>ミュージシャンレンタルランキング</h3>
+		<table class="product-table">
+			<thead>
+			<tr>
+				<th></th>
+				<th>ミュージシャン</th>
+				<th>レンタル件数</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="musician,stat :${musicianList}">
+				<td th:text="${stat.count}"></td>
+				<td th:text="${musician.product.creator}"></td>
+				<td th:text="${musician.rankCount}"></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+		<br>
+		
 		</main>
 		<footer></footer>
 	</div>
