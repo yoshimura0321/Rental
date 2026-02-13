@@ -1,5 +1,6 @@
 package jp.ken.rental.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,27 +49,43 @@ public class HomeController {
         return null;
     }
 
+    
     @GetMapping("/home")
-    public String home(@RequestParam(required = false) String productName, Model model) throws Exception {
+    public String home(@RequestParam(required = false) String productName,
+                       @RequestParam(required = false) String productCategory,
+                       Model model) throws Exception {
+
+        boolean noName = (productName == null || productName.trim().isEmpty());
         List<ProductForm> productList;
-        if (productName == null || productName.trim().isEmpty()) {
+
+        ProductForm form = new ProductForm();
+        form.setProductName(noName ? null : productName.trim());
+        form.setProductCategory(productCategory);
+
+        if (noName && (productCategory == null || productCategory.isBlank())) {
             productList = productSearchService.getLatest5Products();
         } else {
-            ProductForm form = new ProductForm();
-            form.setProductName(productName.trim());
             productList = productSearchService.getProductList(form);
             model.addAttribute("headline", "検索結果");
-            model.addAttribute("searchName", productName.trim());
         }
-        model.addAttribute("productList", productList);
 
+        model.addAttribute("productList", productList);
+        model.addAttribute("searchName", productName);
+        model.addAttribute("searchCategory", productCategory == null ? "" : productCategory);
+
+        // カート情報
         UserForm user = getCurrentUser();
+        List<String> addedProductIds = new ArrayList<>();
         if (user != null) {
             List<CartForm> cartList = cartService.getCart(Integer.parseInt(user.getUserId()));
-            List<String> addedProductIds = cartList.stream()
-            .map(CartForm::getProductId).map(String::valueOf).collect(Collectors.toList());
-            model.addAttribute("addedProductIds", addedProductIds);
+            if (cartList != null) {
+                addedProductIds = cartList.stream()
+                    .map(CartForm::getProductId)
+                    .map(String::valueOf)
+                    .collect(Collectors.toList());
+            }
         }
+        model.addAttribute("addedProductIds", addedProductIds);
 
         return "home";
     }

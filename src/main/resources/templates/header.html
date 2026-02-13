@@ -5,35 +5,42 @@
     <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div th:fragment="header_area" class="header-area">
-    <nav>
-        <div class="bar">
-    <a th:href="@{/home}">HOME</a>
-    <a th:href="@{/cart}">カート</a>
-    <a th:href="@{/mypage}">マイページ</a>
-
-    <div class="right-area">
-
-        <div sec:authorize="isAnonymous()" class="login-btn">
-            <form th:action="@{/login}" method="get">
-                <button type="submit">ログイン</button>
-            </form>
-        </div>
-        <div sec:authorize="isAuthenticated()" class="logout-btn">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit">ログアウト</button>
-            </form>
-        </div>
-
-    </div>
-</div>
-
-    </nav>
-
-    <form th:action="@{/home}" method="get" class="search-form"> 
-        <input type="text" name="productName" placeholder="商品名で検索"> 
-        <button type="submit">検索</button> 
-    </form>
-</div>
+	 <div th:fragment="header_area" class="header-area">
+		<nav>
+			<div class="bar">
+				<a th:href="@{/home}">HOME</a>
+				<a th:href="@{/cart}">カート</a>
+				<a th:href="@{/mypage}">マイページ</a>
+				
+				<div class="right-area">
+					<div sec:authorize="isAnonymous()" class="login-btn">
+						<form th:action="@{/login}" method="get">
+							<button type="submit">ログイン</button>
+						</form>
+					</div>
+					<div sec:authorize="isAuthenticated()" class="logout-btn">
+						<form th:action="@{/logout}" method="post">
+							<button type="submit">ログアウト</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<form th:action="@{/home}" method="get" class="search-form">
+			<div class="category-tabs">
+				 <a th:href="@{/home(productCategory='CD', productName=${searchName})}" class="tab" 
+				 th:classappend="${searchCategory == 'CD'} ? ' active' : ''">CD</a>
+				 <a th:href="@{/home(productCategory='DVD', productName=${searchName})}" class="tab" 
+				 th:classappend="${searchCategory == 'DVD'} ? ' active' : ''">DVD</a>
+				 <a th:href="@{/home(productName=${searchName})}" class="tab"
+				 th:classappend="${searchCategory == null or searchCategory == ''} ? ' active' : ''">すべて</a>
+			 </div>
+			
+			 <input type="text" name="productName" placeholder="商品名で検索"
+			 th:value="${searchName}">
+			 
+			 <button type="submit">検索</button> 
+		</form>
+	 </div>
 </body>
 </html>
