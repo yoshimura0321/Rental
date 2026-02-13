@@ -18,10 +18,10 @@ public class ProductDeleteService {
 	@Transactional(rollbackFor = Exception.class)
 	public int deleteProduct(int productId) throws Exception {
 		
-		int rows = productRepository.deleteItem(productId);
+		int rows = productRepository.deleteItem(productId)+productRepository.deleteStock(productId);
 		
-		if(rows == 0) {
-			throw new IllegalArgumentException("商品が存在しません");
+		if(rows <2) {
+			throw new Exception("商品削除に失敗しました");
 		}
 		return rows;
 	}

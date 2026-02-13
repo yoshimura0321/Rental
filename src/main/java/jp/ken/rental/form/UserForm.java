@@ -31,8 +31,8 @@ public class UserForm implements Serializable {
 	@NotEmpty(message="パスワードは必須入力です",groups=ValidGroup1.class)
 	private String password;
 	
-	@NotEmpty(message="生年月日は必須入力です",groups=ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="生年月日はYYYY/MM/DDの形式で入力してください",groups=ValidGroup2.class)
+	@NotEmpty(message="カレンダーから日にちを選択して下さい",groups=ValidGroup1.class)
+	//@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="生年月日はYYYY/MM/DDの形式で入力してください",groups=ValidGroup2.class)
 	private String birth;
 	
 	@NotEmpty(message="住所は必須入力です",groups=ValidGroup1.class)

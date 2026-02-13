@@ -94,9 +94,9 @@ public class AdminController {
     	}else {
         int row = productInsertService.registItem(productform);
 
-        if (row == 0) {
+        if (row <2) {
             redirectAttributes.addFlashAttribute("errorMessage", "登録に失敗しました。もう一度お試しください。");
-            return "redirect:/adminProduct";
+            return "redirect:/admin";
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
@@ -133,7 +133,7 @@ public class AdminController {
 
         int num = productDeleteService.deleteProduct(Integer.parseInt(productId));
 
-        if (num == 0) {
+        if (num <2) {
             redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました");
         } else {
             redirectAttributes.addFlashAttribute("successMessage", "商品を削除しました");
@@ -166,7 +166,7 @@ public class AdminController {
     	}else {
         int row = productUpdateService.updateitem(productForm);
 
-        if (row < 1) {
+        if (row < 2) {
             redirectAttributes.addFlashAttribute("errorMessage", "更新に失敗しました");
             return "redirect:/admin/Productlist";
         }

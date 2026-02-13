@@ -23,10 +23,10 @@ public class ProductUpdateService {
 	public int updateitem(ProductForm productForm) throws Exception{
 	
 		ProductEntity productEntity = convert(productForm);
-		int rows = productRepository.updateProduct(productEntity);
+		int rows = productRepository.updateProduct(productEntity)+productRepository.updateStock(productEntity.getProductId(), productEntity.getStockQuantity());
 		
-		if(rows == 0) {
-			throw new IllegalArgumentException("更新できませんでした");
+		if(rows <2) {
+			throw new Exception("更新できませんでした");
 		}
 		return rows;
 	}
