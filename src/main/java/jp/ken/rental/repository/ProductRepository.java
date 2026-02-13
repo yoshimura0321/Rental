@@ -28,9 +28,9 @@ public class ProductRepository {
 	public List<ProductEntity> getProductByName(String name)throws Exception{
 		
 		StringBuilder sb = createCommonSQL();
-		sb.append(" WHERE product_name");
+		sb.append(" WHERE p.product_name");
 		sb.append(" LIKE ?");
-		sb.append(" ORDER BY arrival_date, release_date");
+		sb.append(" ORDER BY p.arrival_date, p.release_date");
 		String sql = sb.toString();
 		
 		name = name.replace("%", "\\%").replace("_", "\\_");
@@ -45,8 +45,8 @@ public class ProductRepository {
 	public List<ProductEntity> getProductByCategory(String category) throws Exception {
 
 	    StringBuilder sb = createCommonSQL();
-	    sb.append(" WHERE product_category = ?");
-	    sb.append(" ORDER BY arrival_date, release_date");
+	    sb.append(" WHERE p.product_category = ?");
+	    sb.append(" ORDER BY p.arrival_date, p.release_date");
 
 	    String sql = sb.toString();
 
@@ -57,9 +57,9 @@ public class ProductRepository {
 	public List<ProductEntity> getProductByNameAndCategory(String name, String category) throws Exception {
 
 	    StringBuilder sb = createCommonSQL();
-	    sb.append(" WHERE product_name LIKE ?");
-	    sb.append(" AND product_category = ?");
-	    sb.append(" ORDER BY arrival_date, release_date");
+	    sb.append(" WHERE p.product_name LIKE ?");
+	    sb.append(" AND p.product_category = ?");
+	    sb.append(" ORDER BY p.arrival_date, p.release_date");
 
 	    String sql = sb.toString();
 
@@ -84,7 +84,7 @@ public class ProductRepository {
 	public List<ProductEntity> getProductByArrivalDate() throws Exception {
 	    StringBuilder sb = createCommonSQL();
 	    
-	    sb.append(" ORDER BY arrival_date DESC");
+	    sb.append(" ORDER BY p.arrival_date DESC");
 	    sb.append(" LIMIT 5");
 	    
 	    String sql = sb.toString();
@@ -100,8 +100,9 @@ public class ProductRepository {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		sb.append(" product_id, product_category, product_name, creator, arrival_date, release_date, thumbnail");
-		sb.append(" FROM items");
+		sb.append(" p.product_id, p.product_category, p.product_name, p.creator, p.arrival_date, p.release_date, p.thumbnail,s.stock_quantity");
+		sb.append(" FROM items p");
+		sb.append(" JOIN stock s ON p.product_id=s.product_id");
 		
 		return sb;
 	}

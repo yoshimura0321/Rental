@@ -53,10 +53,6 @@
 <body>
 <div id="wrapper">
     <header th:insert="~{header :: header_area}"></header>
-    <header>
-        <h2><span class="section_title">HOME</span><br></h2>
-        <hr>
-    </header>
 
     <main>
         <span th:text="${errorMessage}"></span>
@@ -65,6 +61,7 @@
         <div id="cart-message" style="display: none;" class="cart-flash-big">
             🌟✨✨ レンタル希望に追加完了！✨✨🌟
         </div>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
         <div id="form-area">
@@ -115,6 +112,8 @@
 =======
 >>>>>>> c8fd8b4fc444ab0f5d876223baf5bb091761dde9
         <h2 class="section-title">新着DVD</h2>
+=======
+>>>>>>> e99e0b163d87708e0878ad42821024b1ef5088b8
         <div class="card-list">
 			<th:block th:each="p : ${dvdList}"
 			th:if="${p.productCategory == 'DVD'}">
@@ -143,7 +142,7 @@
 				</div>
 			</th:block>
         </div>
-        <h2 class="section-title">新着CD</h2>
+
         <div class="card-list">
 			<th:block th:each="p : ${cdList}"
 			 th:if="${p.productCategory == 'CD'}">

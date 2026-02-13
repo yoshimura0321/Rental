@@ -47,12 +47,6 @@
                         <td class="td" th:text="*{planName}"></td>
                     </tr>
                 </table>
-
-				<!--退会ボタン-->
-					<form th:action="@{/mypage/delete}" method="get">
-       					 <!--<input type="hidden" th:field="*{userId}">-->
-       					 <button type="submit">退会してデータをすべて削除する</button>
-					</form>
 					
 				<!--会員情報変更ボタン-->
 					<form th:action="@{/mypage/update}" method="get">
@@ -98,6 +92,12 @@
 						</tbody>
 					</table>
 				</section>
+				
+				<!--退会ボタン-->
+					<form th:action="@{/mypage/delete}" method="get">
+       					 <!--<input type="hidden" th:field="*{userId}">-->
+       					 <button type="submit">退会してデータをすべて削除する</button>
+					</form>
             </div>
         </main>
 </body>
