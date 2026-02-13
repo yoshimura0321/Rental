@@ -41,6 +41,34 @@ public class ProductRepository {
 		return productList;
 	}
 	
+	//カテゴリーだけ検索
+	public List<ProductEntity> getProductByCategory(String category) throws Exception {
+
+	    StringBuilder sb = createCommonSQL();
+	    sb.append(" WHERE product_category = ?");
+	    sb.append(" ORDER BY arrival_date, release_date");
+
+	    String sql = sb.toString();
+
+	    return jdbcTemplate.query(sql, productMapper, category);
+	}
+	
+	//名前＋カテゴリー検索
+	public List<ProductEntity> getProductByNameAndCategory(String name, String category) throws Exception {
+
+	    StringBuilder sb = createCommonSQL();
+	    sb.append(" WHERE product_name LIKE ?");
+	    sb.append(" AND product_category = ?");
+	    sb.append(" ORDER BY arrival_date, release_date");
+
+	    String sql = sb.toString();
+
+	    name = name.replace("%", "\\%").replace("_", "\\_");
+	    name = "%" + name + "%";
+
+	    return jdbcTemplate.query(sql, productMapper, name, category);
+	}
+	
 
 	public List<ProductEntity> getProductByArrivalDate() throws Exception {
 	    StringBuilder sb = createCommonSQL();
