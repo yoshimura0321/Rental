@@ -5,6 +5,32 @@
 <title>最終確認</title></head>
 <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
 <link th:href="@{/css/goodbye.css}" rel="stylesheet" type="text/css">
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.querySelector(".btn");
+    let escapeCount = 0;
+
+    const maxEscapes = 3;
+
+    button.addEventListener("mouseover", function () {
+        if (escapeCount >= maxEscapes) return;
+
+        const maxX = window.innerWidth - button.offsetWidth;
+        const maxY = window.innerHeight - button.offsetHeight;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        button.style.position = "absolute";
+        button.style.left = `${randomX}px`;
+        button.style.top = `${randomY}px`;
+
+        escapeCount++;
+    });
+});
+</script>
+
 <body>
     <h1>本当に退会しますか？</h1>
     <form th:action="@{/mypage/goodbye}" method="post">
