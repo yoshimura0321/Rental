@@ -49,6 +49,7 @@
             <th>クリエイター</th>
             <th>入荷日</th>
             <th>発売日</th>
+            <th>在庫量</th>
         </tr>
     </thead>
     <tbody>
@@ -59,6 +60,7 @@
             <td th:text="${product.creator}" class="creator"></td>
            <td th:text="${product.arrivalDate}" class="arrivalDate"></td>
                         <td th:text="${product.releaseDate}" class="releaseDate"></td>
+            <td th:text="${product.stockQuantity}" class="stockQuantity"></td>
         </tr>
         <tr th:if="${#lists.isEmpty(productList)}">
             <td colspan="6">商品が登録されていません</td>

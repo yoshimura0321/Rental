@@ -33,6 +33,7 @@
 							<th>クリエイター</th>
 							<th>アライバル</th>
 							<th>リリース</th>
+							<th>在庫量</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -46,6 +47,8 @@
 							<td th:text="${product.creator}"></td>
 							<td th:text="${product.arrivalDate}"></td>
 							<td th:text="${product.releaseDate}"></td>
+							<td th:text="${product.stockQuantity}"></td>
+							
 							<td>
 
 								<form th:action="@{/admin/product/update}" method="Get">
