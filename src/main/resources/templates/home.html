@@ -66,6 +66,7 @@
             🌟✨✨ レンタル希望に追加完了！✨✨🌟
         </div>
 
+<<<<<<< HEAD
         <div id="form-area">
             <table class="table-common">
                 <tr>
@@ -111,9 +112,11 @@
             </table>
         
         
+=======
+>>>>>>> c8fd8b4fc444ab0f5d876223baf5bb091761dde9
         <h2 class="section-title">新着DVD</h2>
         <div class="card-list">
-			<th:block th:each="p : ${productList}"
+			<th:block th:each="p : ${dvdList}"
 			th:if="${p.productCategory == 'DVD'}">
 				<div class="card">
 					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
@@ -138,12 +141,11 @@
 						</div>
 					</div>
 				</div>
-			</div>
 			</th:block>
         </div>
         <h2 class="section-title">新着CD</h2>
         <div class="card-list">
-			<th:block th:each="p : ${productList}"
+			<th:block th:each="p : ${cdList}"
 			 th:if="${p.productCategory == 'CD'}">
 				<div class="card">
 					<img th:src="@{/images/{img}(img=${p.thumbnail})}"

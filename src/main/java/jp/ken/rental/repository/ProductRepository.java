@@ -69,6 +69,17 @@ public class ProductRepository {
 	    return jdbcTemplate.query(sql, productMapper, name, category);
 	}
 	
+	// カテゴリ別で最新5件取得
+	public List<ProductEntity> getProductByArrivalDateByCategory(String category) throws Exception {
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("SELECT product_id, product_category, product_name, creator, arrival_date, release_date, thumbnail");
+	    sb.append(" FROM items");
+	    sb.append(" WHERE product_category = ?");
+	    sb.append(" ORDER BY arrival_date DESC");
+	    sb.append(" LIMIT 5");
+
+	    return jdbcTemplate.query(sb.toString(), productMapper, category);
+	}
 
 	public List<ProductEntity> getProductByArrivalDate() throws Exception {
 	    StringBuilder sb = createCommonSQL();

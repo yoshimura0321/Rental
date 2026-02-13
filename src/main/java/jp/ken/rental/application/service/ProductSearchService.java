@@ -53,6 +53,12 @@ public class ProductSearchService {
         List<ProductEntity> entityList = productRepository.getProductByArrivalDate();
         return convert(entityList);
     }
+    
+    // カテゴリ別で最新5件取得
+    public List<ProductForm> getLatest5ProductsByCategory(String category) throws Exception {
+        List<ProductEntity> entityList = productRepository.getProductByArrivalDateByCategory(category);
+        return convert(entityList);
+    }
 
     private List<ProductForm> convert(List<ProductEntity> entityList){
         

@@ -68,7 +68,12 @@
     </tbody>
 </table>
 
+
 			</main>
+			<div class="rental-waiting-info">
+    現在のレンタル待ち件数：<span th:text="${pendingRentalCount}">0</span> 件
+    <br><a th:href="@{/admin/rental}">詳細を見る</a>
+</div>
 		</div>
 	</div>
 </body>

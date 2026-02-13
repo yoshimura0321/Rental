@@ -56,23 +56,29 @@ public class HomeController {
                        Model model) throws Exception {
 
         boolean noName = (productName == null || productName.trim().isEmpty());
-        List<ProductForm> productList;
+        
+        List<ProductForm> cdList = new ArrayList<>();
+        List<ProductForm> dvdList = new ArrayList<>();
 
-        ProductForm form = new ProductForm();
-        form.setProductName(noName ? null : productName.trim());
-        form.setProductCategory(productCategory);
-
-        if (noName && (productCategory == null || productCategory.isBlank())) {
-            productList = productSearchService.getLatest5Products();
+        if (noName) {
+            cdList = productSearchService.getLatest5ProductsByCategory("CD");
+            dvdList = productSearchService.getLatest5ProductsByCategory("DVD");
         } else {
-            productList = productSearchService.getProductList(form);
+            ProductForm form = new ProductForm();
+            form.setProductName(productName.trim());
+            form.setProductCategory(productCategory);
+            List<ProductForm> allList = productSearchService.getProductList(form);
+
+            cdList = allList.stream().filter(p -> "CD".equals(p.getProductCategory())).toList();
+            dvdList = allList.stream().filter(p -> "DVD".equals(p.getProductCategory())).toList();
+
             model.addAttribute("headline", "検索結果");
+            model.addAttribute("searchName", productName.trim());
+            model.addAttribute("searchCategory", productCategory);
         }
 
-        model.addAttribute("productList", productList);
-        model.addAttribute("searchName", productName);
-        model.addAttribute("searchCategory", productCategory == null ? "" : productCategory);
-
+        model.addAttribute("cdList", cdList);
+        model.addAttribute("dvdList", dvdList);
         // カート情報
         UserForm user = getCurrentUser();
         List<String> addedProductIds = new ArrayList<>();
