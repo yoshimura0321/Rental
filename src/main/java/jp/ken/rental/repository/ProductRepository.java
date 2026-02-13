@@ -147,13 +147,13 @@ public class ProductRepository {
 	
 	public List<ProductEntity> adminProductSearch()throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
-		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
+		sb.append("SELECT DISTINCT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" ,s.stock_quantity, IFNULL(pc.rental_count,0) AS rental_count FROM items p");
 		sb.append(" JOIN stock s ON p.product_id = s.product_id");
-		sb.append(" LEFT OUTER JOIN cart c");
-		sb.append(" ON p.product_id = c.product_id");
-		sb.append(" AND c.status = 'rental'");
-		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date,s.stock_quantity");
+		sb.append(" LEFT OUTER JOIN (SELECT product_id,COUNT(user_id) AS rental_count FROM cart WHERE status='rental' GROUP BY product_id) pc");
+		sb.append(" ON p.product_id = pc.product_id");
+		sb.append(" JOIN cart c ON p.product_id = c.product_id");
+		sb.append(" AND c.status='cart'");
 		sb.append(" ORDER BY p.product_id");
 		String sql = sb.toString();
 		
@@ -182,14 +182,14 @@ public class ProductRepository {
 
 	public List<ProductEntity> adminProductSearchByName(String name)throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
-		sb.append(" ,s.stock_quantity, COUNT(c.user_id) AS rental_count FROM items p");
+		sb.append("SELECT DISTINCT p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date");
+		sb.append(" ,s.stock_quantity, IFNULL(pc.rental_count,0) AS rental_count FROM items p");
 		sb.append(" JOIN stock s ON p.product_id = s.product_id");
-		sb.append(" LEFT OUTER JOIN cart c");
-		sb.append(" ON p.product_id = c.product_id");
-		sb.append(" AND c.status = 'rental'");
+		sb.append(" LEFT OUTER JOIN (SELECT product_id,COUNT(user_id) AS rental_count FROM cart WHERE status='rental' GROUP BY product_id) pc");
+		sb.append(" ON p.product_id = pc.product_id");
+		sb.append(" JOIN cart c ON p.product_id = c.product_id");
+		sb.append(" AND c.status='cart'");
 		sb.append(" WHERE p.product_name LIKE ?");
-		sb.append(" GROUP BY p.product_id, p.product_category,p.product_name,p.arrival_date,p.release_date,s.stock_quantity");
 		sb.append(" ORDER BY p.product_id");
 		String sql = sb.toString();
 		
