@@ -127,5 +127,10 @@ public class CartService {
 		
 		return formlist;
 	}
+	
+	public int countPendingRentals() throws Exception {
+	    return cartRepository.countByStatus("cart"); 
+	}
+
 
 }

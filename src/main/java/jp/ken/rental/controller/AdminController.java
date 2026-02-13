@@ -71,6 +71,9 @@ public class AdminController {
             model.addAttribute("searchName", productName.trim());
         }
         model.addAttribute("productList", productList);
+        int pendingRentalCount = cartService.countPendingRentals();
+        model.addAttribute("pendingRentalCount", pendingRentalCount);
+
         return "admin";
     }
 

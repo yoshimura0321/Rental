@@ -191,4 +191,9 @@ public class CartRepository {
 		
 		return list;
 	}
+	public int countByStatus(String status) throws Exception {
+	    String sql = "SELECT COUNT(*) FROM cart WHERE status = ?";
+	    return jdbcTemplate.queryForObject(sql, Integer.class, status);
+	}
+
 }
