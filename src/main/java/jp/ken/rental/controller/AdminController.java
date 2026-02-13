@@ -59,9 +59,21 @@ public class AdminController {
     }
     
     @GetMapping("/admin")
-    public String adminPage() {
+    public String adminpage(@RequestParam(required = false) String productName, Model model) throws Exception {
+        List<ProductForm> productList;
+        if (productName == null || productName.trim().isEmpty()) {
+            productList = productSearchService.getLatest5Products();
+        } else {
+            ProductForm form = new ProductForm();
+            form.setProductName(productName.trim());
+            productList = productSearchService.getProductList(form);
+            model.addAttribute("headline", "検索結果");
+            model.addAttribute("searchName", productName.trim());
+        }
+        model.addAttribute("productList", productList);
         return "admin";
     }
+
     
     @GetMapping("/admin/product/new")
     public String itemInsert(ProductForm productform) {

@@ -40,31 +40,31 @@
 				<div class="card">
 					<h3>最近追加された商品</h3>
 					<table class="product-table">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>タイトル</th>
-								<th>種別</th>
-								<th>クリエイター</th>
-								<th>入荷日</th>
-								<th>発売日</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="product : ${recentProductlist}">
-								<td th:text="${product.productId}" class="productId"></td>
-								<td th:text="${product.productCategory}" class="productCategory"></td>
-								<td th:text="${product.productName}" class="productName"></td>
-								<td th:text="${product.creator}"class="creator"></td>
-								<td th:text="${product.arrivalDate != null ? #temporals.format(product.arrivalDate, 'yyyy/MM/dd') : ''}"></td>
-								<td th:text="${product.releaseDate != null ? #temporals.format(product.releaseDate, 'yyyy/MM/dd') : ''}"></td>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>種別</th>
+            <th>タイトル</th>
+            <th>クリエイター</th>
+            <th>入荷日</th>
+            <th>発売日</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="product : ${productList}">
+            <td th:text="${product.productId}" class="productId"></td>
+            <td th:text="${product.productCategory}" class="productCategory"></td>
+            <td th:text="${product.productName}" class="productName"></td>
+            <td th:text="${product.creator}" class="creator"></td>
+           <td th:text="${product.arrivalDate}" class="arrivalDate"></td>
+                        <td th:text="${product.releaseDate}" class="releaseDate"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(productList)}">
+            <td colspan="6">商品が登録されていません</td>
+        </tr>
+    </tbody>
+</table>
 
-							</tr>
-							<tr th:if="${#lists.isEmpty(recentProductlist)}">
-								<td colspan="6">商品が登録されていません</td>
-							</tr>
-						</tbody>
-					</table>
 			</main>
 		</div>
 	</div>
