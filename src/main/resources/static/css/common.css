@@ -268,4 +268,92 @@ html {
     }
 }
 
+/* カードリストのグリッド化 */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 24px;
+    width: 85%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
 
+/* 各カード */
+.card {
+    background: #1a2a3c;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* サムネイル画像 */
+/* 共通 */
+.card img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* CD → 正方形 */
+.cd-thumb {
+    aspect-ratio: 1 / 1;
+}
+
+/* DVD → 縦長 */
+.dvd-thumb {
+    aspect-ratio: 2 / 3;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+/* ホバーでちょい拡大 */
+.card:hover img {
+    transform: scale(1.05);
+}
+
+/* 情報エリア */
+.card-info {
+    padding: 12px;
+    text-align: center;
+    color: #fff;
+}
+
+.card-info h3 {
+    font-size: 16px;
+    margin: 8px 0 4px;
+}
+
+.card-info p {
+    font-size: 13px;
+    color: #ccc;
+    margin: 0 0 12px;
+}
+
+/* ボタン */
+.card-info button {
+    width: 100%;
+    padding: 8px 0;
+    font-size: 14px;
+    border-radius: 6px;
+    background: #FF8C00;
+    transition: 0.3s;
+}
+
+.card-info button:hover {
+    background: #e66a2a;
+}
+
+/* カテゴリー */
+.section-title {
+    color: #fff;
+    font-size: 22px;
+    margin: 50px auto 10px;
+    width: 85%;
+    max-width: 1200px;
+}

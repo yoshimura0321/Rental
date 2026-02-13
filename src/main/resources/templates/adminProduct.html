@@ -21,6 +21,7 @@
 					<div class="form-group">
 						<label>タイトル</label>
 						<input type="text" th:field="*{productName}">
+						<span th:if="${#fields.hasErrors('productName')}"th:errors="*{productName}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>種別</label>
@@ -36,14 +37,17 @@
 					<div class="form-group">
 						<label>アライバル</label>
 						<input type="date" th:field="*{arrivalDate}">
+						<span th:if="${#fields.hasErrors('arrivalDate')}"th:errors="*{arrivalDate}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>リリース</label>
 						<input type="date" th:field="*{releaseDate}">
+						<span th:if="${#fields.hasErrors('releaseDate')}"th:errors="*{releaseDate}" class="errors"></span>
 					</div>
 					<div class="form-group">
 						<label>商品画像</label>
 						<input type="file" th:field="*{imageFile}" accept="image/*">
+						<span th:if="${#fields.hasErrors('imageFile')}"th:errors="*{imageFile}" class="errors"></span>
 					</div>
 					<div class="form-actions">
 						<a th:href="@{/admin/product/list}" class="btn">戻る</a>
