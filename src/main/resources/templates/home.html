@@ -66,54 +66,9 @@
             🌟✨✨ カートに追加完了！✨✨🌟
         </div>
 
-        <div id="form-area">
-            <table class="table-common">
-                <tr>
-                    <th>プロダクトID</th>
-                    <th>プロダクトカテゴリー</th>
-                    <th>プロダクトネーム</th>
-                    <th>クリエイター</th>
-                    <th>アライバル</th>
-                    <th>リリース</th>
-                    <th>サムネイル</th>
-                    <th></th>
-                </tr>
-
-                <th:block th:each="p : ${productList}">
-                    <tr>
-                        <td th:text="${p.productId}" class="productId"></td>
-                        <td th:text="${p.productCategory}" class="productCategory"></td>
-                        <td th:text="${p.productName}" class="productName"></td>
-                        <td th:text="${p.creator}" class="creator"></td>
-                        <td th:text="${p.arrivalDate}" class="arrivalDate"></td>
-                        <td th:text="${p.releaseDate}" class="releaseDate"></td>
-                        <td style="width: 80px;">
-                            <img th:src="@{/images/{img}(img=${p.thumbnail})}"
-                                 alt="サムネイル" class="thumbnail"
-                                 style="width:80px; height:auto;">
-                        </td>
-                        <td>
-                            <div sec:authorize="isAuthenticated()">
-                                <th:block th:if="${addedProductIds != null and #lists.contains(addedProductIds, p.productId.toString())}">
-                                    <button type="button" disabled>追加済み</button>
-                                </th:block>
-                                <th:block th:unless="${addedProductIds != null and #lists.contains(addedProductIds, p.productId.toString())}">
-                                    <form th:action="@{/cart/add}" method="post">
-                                        <input type="hidden" name="productId" th:value="${p.productId}">
-                                        <input type="hidden" name="searchName" th:value="${searchName}">
-                                        <button type="submit">カートへ追加</button>
-                                    </form>
-                                </th:block>
-                            </div>
-                        </td>
-                    </tr>
-                </th:block>
-            </table>
-        
-        
         <h2 class="section-title">新着DVD</h2>
         <div class="card-list">
-			<th:block th:each="p : ${productList}"
+			<th:block th:each="p : ${dvdList}"
 			th:if="${p.productCategory == 'DVD'}">
 				<div class="card">
 					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
@@ -138,12 +93,11 @@
 						</div>
 					</div>
 				</div>
-			</div>
 			</th:block>
         </div>
         <h2 class="section-title">新着CD</h2>
         <div class="card-list">
-			<th:block th:each="p : ${productList}"
+			<th:block th:each="p : ${cdList}"
 			 th:if="${p.productCategory == 'CD'}">
 				<div class="card">
 					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
