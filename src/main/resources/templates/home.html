@@ -53,10 +53,6 @@
 <body>
 <div id="wrapper">
     <header th:insert="~{header :: header_area}"></header>
-    <header>
-        <h2><span class="section_title">HOME</span><br></h2>
-        <hr>
-    </header>
 
     <main>
         <span th:text="${errorMessage}"></span>
@@ -65,8 +61,6 @@
         <div id="cart-message" style="display: none;" class="cart-flash-big">
             🌟✨✨ カートに追加完了！✨✨🌟
         </div>
-
-        <h2 class="section-title">新着DVD</h2>
         <div class="card-list">
 			<th:block th:each="p : ${dvdList}"
 			th:if="${p.productCategory == 'DVD'}">
@@ -95,7 +89,7 @@
 				</div>
 			</th:block>
         </div>
-        <h2 class="section-title">新着CD</h2>
+
         <div class="card-list">
 			<th:block th:each="p : ${cdList}"
 			 th:if="${p.productCategory == 'CD'}">
