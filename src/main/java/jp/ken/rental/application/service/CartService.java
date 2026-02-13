@@ -103,5 +103,13 @@ public class CartService {
 		int num = cartRepository.doreturn(userId, productId);
 		return num;
 	}
+	
+	public List<CartForm> getDirectorRank()throws Exception{
+		List<CartEntity> entitylist =cartRepository.getiDirectorRank();
+		List<CartForm> formlist = convert(entitylist);
+		
+		
+		return formlist;
+	}
 
 }

@@ -8,11 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import jp.ken.rental.form.CartEntity;
 import jp.ken.rental.infrastructure.mapper.CartMapper;
+import jp.ken.rental.infrastructure.mapper.CartRankMapper;
 
 @Repository
 public class CartRepository {
 	
 	private RowMapper<CartEntity> cartMapper = new CartMapper();
+	private RowMapper<CartEntity> cartRankMapper=new CartRankMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public CartRepository(JdbcTemplate jdbcTemplate) {
@@ -135,5 +137,22 @@ public class CartRepository {
 		int num = jdbcTemplate.update(sql,userId,prductId);
 		
 		return num;
+	}
+	
+	public List<CartEntity> getiDirectorRank()throws Exception{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT p.creator,COUNT(c.product_id) AS rank_count");
+		sb.append(" FROM cart c");
+		sb.append(" JOIN items p");
+		sb.append(" ON c.product_id = p.product_id");
+		sb.append(" WHERE c.status='rental' OR c.status='return'");
+		sb.append(" GROUP BY p.creator");
+		String sql = sb.toString();
+		
+		List<CartEntity> list = jdbcTemplate.query(sql, cartRankMapper);
+		
+		return list;
+		
 	}
 }

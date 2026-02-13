@@ -16,4 +16,6 @@ public class CartEntity {
 	private UserEntity user;
 	
 	private int rentalLimit;
+	
+	private int rankCount;
 }
