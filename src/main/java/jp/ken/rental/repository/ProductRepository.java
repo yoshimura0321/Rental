@@ -99,7 +99,7 @@ public class ProductRepository {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO items ( product_category, product_name, creator, arrival_date, release_date, thumbnail)");
-		sb.append(" VALUES (?, ?, ?, ?, ?)");
+		sb.append(" VALUES (?, ?, ?, ?, ?,?)");
 		String sql = sb.toString();
 		
 		Object[] parameters = { productEntity.getProductCategory(),
@@ -115,6 +115,14 @@ public class ProductRepository {
 		return numberOfRow;
 	}
 	
+	//registitemの際にstockも登録
+	public int registstock(int stock)throws Exception{
+		String sql = "INSERT INTO stock (stock_quantity) VALUES (?)";
+		int num = jdbcTemplate.update(sql,stock);
+		
+		return num;
+	}
+	
 	public int deleteItem(int productId) throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("DELETE FROM items");
@@ -125,7 +133,13 @@ public class ProductRepository {
 		
 		return num;
 	}
-	
+	//stockのdelete
+	public int deleteStock(int productId)throws Exception{
+		String sql ="DELETE FROM stock WHERE product_id = ?";
+		int num =jdbcTemplate.update(sql,productId);
+		
+		return num;
+	}
 
 	public int updateProduct(ProductEntity productEntity)throws Exception{
 		
@@ -150,6 +164,14 @@ public class ProductRepository {
 		
 		return num;
 	}
+	//stockのupdate
+	public int updateStock(int productId,int stock)throws Exception{
+		String sql="UPDATE stock SET stock_quantity=? WHERE product_id=?";
+		int num = jdbcTemplate.update(sql,stock,productId);
+		
+		return num;
+	}
+	
 	public ProductEntity getProductById(int productId) throws Exception {
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE product_id = ?");

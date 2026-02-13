@@ -24,8 +24,10 @@ public class ProductInsertService {
 		
 		entity = convert(form);
 		
-		int resultRow = productRepository.registitem(entity);
-		
+		int resultRow = productRepository.registitem(entity)+productRepository.registstock(entity.getStockQuantity());
+		if(resultRow<2) {
+			throw new Exception("商品の登録に失敗しました");
+		}
 		return resultRow;
 		
 	}

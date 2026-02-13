@@ -5,9 +5,7 @@ import java.io.Serializable;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import jp.ken.rental.common.validator.groups.ValidGroup1;
-import jp.ken.rental.common.validator.groups.ValidGroup2;
 import lombok.Data;
 
 @Data
@@ -25,12 +23,12 @@ public class ProductForm implements Serializable{
 	@NotEmpty(message="クリエイターは必須入力です",groups=ValidGroup1.class)
 	private String creator;
 	
-	@NotEmpty(message="アライバルは必須入力です",groups=ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="カレンダーから日にちを選択して下さい",groups=ValidGroup2.class)
+	@NotEmpty(message="カレンダーから日にちを選択して下さい",groups=ValidGroup1.class)
+	//@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="カレンダーから日にちを選択して下さい",groups=ValidGroup2.class)
 	private String arrivalDate;
 	
-	@NotEmpty(message="リリースは必須入力です",groups=ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="カレンダーから日にちを選択して下さい",groups=ValidGroup2.class)
+	@NotEmpty(message="カレンダーから日にちを選択して下さい",groups=ValidGroup1.class)
+	//@Pattern(regexp = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$",message="カレンダーから日にちを選択して下さい",groups=ValidGroup2.class)
 	private String releaseDate;
 	
 	private String thumbnail;
