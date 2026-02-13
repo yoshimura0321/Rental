@@ -192,4 +192,168 @@ body {
 html {
     background-color: #d3d3d3 !important;
 }
+.cart-flash {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #ff6ec4, #7873f5);
+    color: white;
+    padding: 20px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 9999;
+    animation: popIn 0.5s ease-out, fadeOut 0.5s ease-in 1.5s forwards;
+}
 
+@keyframes popIn {
+    0% {
+        transform: translateX(-50%) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+}
+.cart-flash-big {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, #fff700, #ff00c8);
+    color: white;
+    padding: 40px 60px;
+    font-size: 36px;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    animation: popInBig 0.5s ease-out, sparkle 1s infinite alternate, fadeOutBig 0.5s ease-in 2s forwards;
+}
+
+@keyframes popInBig {
+    0% {
+        transform: translateX(-50%) scale(0.3);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutBig {
+    to {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+}
+
+@keyframes sparkle {
+    0% {
+        box-shadow: 0 0 20px #fff, 0 0 40px #ff0, 0 0 60px #f0f;
+    }
+    100% {
+        box-shadow: 0 0 40px #f0f, 0 0 80px #0ff, 0 0 100px #ff0;
+    }
+}
+
+/* カードリストのグリッド化 */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 24px;
+    width: 85%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* 各カード */
+.card {
+    background: #1a2a3c;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* サムネイル画像 */
+/* 共通 */
+.card img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* CD → 正方形 */
+.cd-thumb {
+    aspect-ratio: 1 / 1;
+}
+
+/* DVD → 縦長 */
+.dvd-thumb {
+    aspect-ratio: 2 / 3;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+/* ホバーでちょい拡大 */
+.card:hover img {
+    transform: scale(1.05);
+}
+
+/* 情報エリア */
+.card-info {
+    padding: 12px;
+    text-align: center;
+    color: #fff;
+}
+
+.card-info h3 {
+    font-size: 16px;
+    margin: 8px 0 4px;
+}
+
+.card-info p {
+    font-size: 13px;
+    color: #ccc;
+    margin: 0 0 12px;
+}
+
+/* ボタン */
+.card-info button {
+    width: 100%;
+    padding: 8px 0;
+    font-size: 14px;
+    border-radius: 6px;
+    background: #FF8C00;
+    transition: 0.3s;
+}
+
+.card-info button:hover {
+    background: #e66a2a;
+}
+
+/* カテゴリー */
+.section-title {
+    color: #fff;
+    font-size: 22px;
+    margin: 50px auto 10px;
+    width: 85%;
+    max-width: 1200px;
+}

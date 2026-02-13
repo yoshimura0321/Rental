@@ -13,6 +13,8 @@ public class AdminProductForm implements Serializable{
 	
 	private String productName;
 	
+	private String creator;
+	
 	private String arrivalDate;
 	
 	private String releaseDate;

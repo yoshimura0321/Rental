@@ -1,64 +1,247 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>ホーム画面</title>
-		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
-		
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>ホーム画面</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        .cart-flash-big {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, #fff700, #ff00c8);
+            color: white;
+            padding: 40px 60px;
+            font-size: 36px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            animation: popInBig 0.5s ease-out, sparkle 1s infinite alternate, fadeOutBig 0.5s ease-in 2s forwards;
+        }
+
+        @keyframes popInBig {
+            0% {
+                transform: translateX(-50%) scale(0.3);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutBig {
+            to {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8);
+            }
+        }
+
+        @keyframes sparkle {
+            0% {
+                box-shadow: 0 0 20px #fff, 0 0 40px #ff0, 0 0 60px #f0f;
+            }
+            100% {
+                box-shadow: 0 0 40px #f0f, 0 0 80px #0ff, 0 0 100px #ff0;
+            }
+        }
+    </style>
+</head>
 <body>
 <div id="wrapper">
-	<header th:insert="~{header :: header_area}"></header>
-	<header>
-		<h2><span class="section_title">HOME</span><br></h2>
-		<hr>
-	</header>
-	
-	<main> 
-		<span th:text="${errorMessage}"></span>
-		<span th:text="${successMessage}"></span>
-		<div id="form-area">
-			<table class="table-common">
-    <tr>
-        <th>プロダクトID</th>
-        <th>プロダクトカテゴリー</th>
-        <th>プロダクトネーム</th>
-        <th>アライバル</th>
-        <th>リリース</th>
-        <th>サムネイル</th>
-        <div sec:authorize="isAuthenticated()">
+    <header th:insert="~{header :: header_area}"></header>
+    <header>
+        <h2><span class="section_title">HOME</span><br></h2>
+        <hr>
+    </header>
+
+    <main>
+        <span th:text="${errorMessage}"></span>
+        <span th:text="${successMessage}"></span>
+
+        <div id="cart-message" style="display: none;" class="cart-flash-big">
+            🌟✨✨ カートに追加完了！✨✨🌟
         </div>
-    </tr>
-    
 
-    <th:block th:each="p : ${productList}">
-        <tr>
-            <td th:text="${p.productId}" class="productId"></td>
-            <td th:text="${p.productCategory}" class="productCategory"></td>
-            <td th:text="${p.productName}" class="productName"></td>
-            <td th:text="${p.arrivalDate}" class="arrivalDate"></td>
-            <td th:text="${p.releaseDate}" class="releaseDate"></td>
-            <td style="width: 80px;">
-				<img th:src="@{/images/{img}(img=${p.thumbnail})}"
-				alt="サムネイル" class="thumbnail"
-				style="width:80px; height:auto;">
-            </td>
-            <td>
-    <div sec:authorize="isAuthenticated()">
-        <form th:action="@{/cart/add}" method="post">
-            <input type="hidden" name="productId" th:value="${p.productId}">
-            <input type="hidden" name="searchName" th:value="${searchName}">
-            <button type="submit">カートへ追加</button>
-        </form>
-    </div>
-</td>
+        <div id="form-area">
+            <table class="table-common">
+                <tr>
+                    <th>プロダクトID</th>
+                    <th>プロダクトカテゴリー</th>
+                    <th>プロダクトネーム</th>
+                    <th>クリエイター</th>
+                    <th>アライバル</th>
+                    <th>リリース</th>
+                    <th>サムネイル</th>
+                    <th></th>
+                </tr>
 
-        </tr>
-    </th:block>
-</table>
-		
-		</div> 
-	</main>
+                <th:block th:each="p : ${productList}">
+                    <tr>
+                        <td th:text="${p.productId}" class="productId"></td>
+                        <td th:text="${p.productCategory}" class="productCategory"></td>
+                        <td th:text="${p.productName}" class="productName"></td>
+                        <td th:text="${p.creator}" class="creator"></td>
+                        <td th:text="${p.arrivalDate}" class="arrivalDate"></td>
+                        <td th:text="${p.releaseDate}" class="releaseDate"></td>
+                        <td style="width: 80px;">
+                            <img th:src="@{/images/{img}(img=${p.thumbnail})}"
+                                 alt="サムネイル" class="thumbnail"
+                                 style="width:80px; height:auto;">
+                        </td>
+                        <td>
+                            <div sec:authorize="isAuthenticated()">
+                                <th:block th:if="${addedProductIds != null and #lists.contains(addedProductIds, p.productId.toString())}">
+                                    <button type="button" disabled>追加済み</button>
+                                </th:block>
+                                <th:block th:unless="${addedProductIds != null and #lists.contains(addedProductIds, p.productId.toString())}">
+                                    <form th:action="@{/cart/add}" method="post">
+                                        <input type="hidden" name="productId" th:value="${p.productId}">
+                                        <input type="hidden" name="searchName" th:value="${searchName}">
+                                        <button type="submit">カートへ追加</button>
+                                    </form>
+                                </th:block>
+                            </div>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+        
+        
+        <h2 class="section-title">新着DVD</h2>
+        <div class="card-list">
+			<th:block th:each="p : ${productList}"
+			th:if="${p.productCategory == 'DVD'}">
+				<div class="card">
+					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
+					alt="サムネイル"
+					th:classappend="${p.productCategory == 'DVD'} ? ' dvd-thumb' : ' cd-thumb'">
+					<div class="card-info">
+						<h3 th:text="${p.productName}">タイトル</h3>
+						<p th:text="${p.productCategory}">カテゴリー</p>
+						<div sec:authorize="isAuthenticated()">
+							<th:block th:if="${addedProductIds != 
+							null and #lists.contains(addedProductIds, p.productId.toString())}">
+								<button type="button" disabled>追加済み</button>
+							</th:block>
+							<th:block th:unless="${addedProductIds != 
+							null and #lists.contains(addedProductIds, p.productId.toString())}">
+								<form th:action="@{/cart/add}" method="post">
+									<input type="hidden" name="productId" th:value="${p.productId}">
+									<input type="hidden" name="searchName" th:value="${searchName}">
+									<button type="submit">カートへ追加</button>
+								</form>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+			</th:block>
+        </div>
+        <h2 class="section-title">新着CD</h2>
+        <div class="card-list">
+			<th:block th:each="p : ${productList}"
+			 th:if="${p.productCategory == 'CD'}">
+				<div class="card">
+					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
+					alt="サムネイル"
+					th:classappend="${p.productCategory == 'DVD'} ? ' dvd-thumb' : ' cd-thumb'">
+					<div class="card-info">
+						<h3 th:text="${p.productName}">タイトル</h3>
+						<p th:text="${p.productCategory}">カテゴリー</p>
+						<div sec:authorize="isAuthenticated()">
+							<th:block th:if="${addedProductIds != 
+							null and #lists.contains(addedProductIds, p.productId.toString())}">
+								<button type="button" disabled>追加済み</button>
+							</th:block>
+							<th:block th:unless="${addedProductIds != 
+							null and #lists.contains(addedProductIds, p.productId.toString())}">
+								<form th:action="@{/cart/add}" method="post">
+									<input type="hidden" name="productId" th:value="${p.productId}">
+									<input type="hidden" name="searchName" th:value="${searchName}">
+									<button type="submit">カートへ追加</button>
+								</form>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+			</th:block>
+
+        </div>
+    </main>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const forms = document.querySelectorAll('form[action="/cart/add"]');
+        const messageBox = document.getElementById("cart-message");
+
+        function launchConfetti() {
+            const duration = 2000;
+            const animationEnd = Date.now() + duration;
+            const defaults = {
+                startVelocity: 50,
+                spread: 720,
+                ticks: 100,
+                zIndex: 10000,
+                scalar: 1.2
+            };
+
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                confetti(Object.assign({}, defaults, {
+                    particleCount: 100,
+                    origin: { x: Math.random(), y: Math.random() * 0.6 }
+                }));
+            }, 200);
+        }
+
+        forms.forEach(form => {
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            messageBox.style.display = "block";
+                            messageBox.classList.remove("cart-flash-big");
+                            void messageBox.offsetWidth;
+                            messageBox.classList.add("cart-flash-big");
+
+                            launchConfetti();
+
+                            const button = form.querySelector("button");
+                            button.disabled = true;
+                            button.textContent = "追加済み";
+
+                            setTimeout(() => {
+                                messageBox.style.display = "none";
+                            }, 2500);
+                        } else {
+                            alert("カートへの追加に失敗しました");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("エラー:", error);
+                        alert("通信エラーが発生しました");
+                    });
+            });
+        });
+    });
+</script>
 </body>
 </html>
