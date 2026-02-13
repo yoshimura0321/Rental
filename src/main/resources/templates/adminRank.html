@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ランキング</title>
+		<link th:href="@{/css/admin.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+		
+		</header>
+		<main>
+		<table>
+			<tr>
+				<th></th>
+				<th>監督名</th>
+				<th>レンタル件数</th>
+			</tr>
+			<tr th:each="director,stat :${directorList}">
+				<td th:text="${stat.count}"></td>
+				<td th:text="${director.product.creator}"></td>
+				<td th:text="${director.rankCount}"></td>
+			</tr>
+		</table>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
