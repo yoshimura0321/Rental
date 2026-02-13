@@ -287,7 +287,11 @@ public class AdminController {
     @GetMapping("admin/rank")
     public String torank(Model model)throws Exception{
     	List<CartForm> directorList = cartService.getDirectorRank();
+    	List<CartForm> musicianList = cartService.getMusicianRank();
+    	List<CartForm> productList = cartService.getProductRank();
     	model.addAttribute("directorList",directorList);
+    	model.addAttribute("musicianList",musicianList);
+    	model.addAttribute("productList",productList);
     	
     	return "adminRank";
     }
