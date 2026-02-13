@@ -45,6 +45,7 @@
 								<th>ID</th>
 								<th>タイトル</th>
 								<th>種別</th>
+								<th>クリエイター</th>
 								<th>入荷日</th>
 								<th>発売日</th>
 							</tr>
@@ -54,6 +55,7 @@
 								<td th:text="${product.productId}" class="productId"></td>
 								<td th:text="${product.productCategory}" class="productCategory"></td>
 								<td th:text="${product.productName}" class="productName"></td>
+								<td th:text="${product.creator}"class="creator"></td>
 								<td th:text="${product.arrivalDate != null ? #temporals.format(product.arrivalDate, 'yyyy/MM/dd') : ''}"></td>
 								<td th:text="${product.releaseDate != null ? #temporals.format(product.releaseDate, 'yyyy/MM/dd') : ''}"></td>
 

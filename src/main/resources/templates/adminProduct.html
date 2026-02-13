@@ -31,6 +31,10 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<label>クリエイター</label>
+						<input type="text" th:field="*{creator}">
+					</div>
+					<div class="form-group">
 						<label>アライバル</label>
 						<input type="date" th:field="*{arrivalDate}">
 						<span th:if="${#fields.hasErrors('arrivalDate')}"th:errors="*{arrivalDate}" class="errors"></span>
