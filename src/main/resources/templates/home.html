@@ -65,7 +65,6 @@
         <div id="cart-message" style="display: none;" class="cart-flash-big">
             🌟✨✨ カートに追加完了！✨✨🌟
         </div>
-<<<<<<< HEAD
 
         <div id="form-area">
             <table class="table-common">
@@ -110,7 +109,6 @@
                     </tr>
                 </th:block>
             </table>
-=======
         
         
         <h2 class="section-title">新着DVD</h2>
@@ -147,7 +145,6 @@
         <div class="card-list">
 			<th:block th:each="p : ${productList}"
 			 th:if="${p.productCategory == 'CD'}">
-			<div class="card">
 				<div class="card">
 					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
 					alt="サムネイル"
@@ -173,7 +170,7 @@
 				</div>
 			</div>
 			</th:block>
->>>>>>> main
+
         </div>
     </main>
 </div>
