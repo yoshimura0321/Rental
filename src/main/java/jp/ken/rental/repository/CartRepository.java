@@ -94,7 +94,7 @@ public class CartRepository {
 	//優先度の一つ上を探す
 	public CartEntity upSearch(int userId,int priority)throws Exception {
 		StringBuilder sb = createCommonSQL();
-		sb.append(" WHERE user_id=?,priority=?");
+		sb.append(" WHERE c.user_id=? AND c.priority=?");
 		String sql = sb.toString();
 		
 		return jdbcTemplate.queryForObject(sql,cartMapper,userId,priority-1);
@@ -103,7 +103,7 @@ public class CartRepository {
 	//優先度一つ下を探す
 	public CartEntity downSearch(int userId,int priority)throws Exception {
 		StringBuilder sb = createCommonSQL();
-		sb.append(" WHERE user_id=?,priority=?");
+		sb.append(" WHERE c.user_id=? AND c.priority=?");
 		String sql = sb.toString();
 		
 		return jdbcTemplate.queryForObject(sql,cartMapper,userId,priority+1);
