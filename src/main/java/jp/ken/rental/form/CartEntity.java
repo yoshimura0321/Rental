@@ -5,11 +5,15 @@ import lombok.Data;
 @Data
 public class CartEntity {
 	
+	private int cartId;
+	
 	private int userId;
 	
 	private int productId;
 	
 	private String status;
+	
+	private int priority;
 	
 	private ProductEntity product;
 	

@@ -21,6 +21,7 @@
 					<th>商品名</th>
 					<th>カテゴリ</th>
 					<th>削除</th>
+					<th>優先度変更</th>
 				</tr>
 					<th:block th:each="c : ${cartList}">
 						<tr><!--↓Listに加えたやつに変更してください！ -->
@@ -31,6 +32,20 @@
 									<input type="hidden" name="userId" th:value="${c.userId}">
 									<input type="hidden" name="productId" th:value="${c.productId}">
 									<input type="submit" value="削除" class="btn"></input>
+								</form>
+							</td>
+							<td>
+								<form th:action="@{/cart}" method="post">
+									<input type="hidden" name="userId" th:value="${c.userId}">
+									<input type="hidden" name="priority" th:value="${c.priority}">
+									<input type="hidden" name="cartId" th:value="${c.cartId}">
+									<input type="submit" name="up" value="↑" class="btn"></input>
+								</form>
+								<form th:action="@{/cart}" method="post">
+									<input type="hidden" name="userId" th:value="${c.userId}">
+									<input type="hidden" name="priority" th:value="${c.priority}">
+									<input type="hidden" name="cartId" th:value="${c.cartId}">
+									<input type="submit" name="down" value="↓" class="btn"></input>
 								</form>
 							</td>
 						</tr>

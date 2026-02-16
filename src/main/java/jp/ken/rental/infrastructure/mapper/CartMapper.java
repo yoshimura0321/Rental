@@ -27,9 +27,12 @@ public class CartMapper implements RowMapper<CartEntity> {
 		userEntity.setEmail(rs.getString("email"));
 		userEntity.setRentalCount(rs.getInt("rental_count"));
 		
+		cartEntity.setCartId(rs.getInt("cart_id"));
 		cartEntity.setUserId(rs.getInt("user_id"));
 		cartEntity.setProductId(rs.getInt("product_id"));
 		cartEntity.setStatus(rs.getString("status"));
+		cartEntity.setPriority(rs.getInt("priority"));
+		
 		cartEntity.setProduct(productEntity);
 		cartEntity.setUser(userEntity);
 		cartEntity.setRentalLimit(rs.getInt("rental_limit"));
