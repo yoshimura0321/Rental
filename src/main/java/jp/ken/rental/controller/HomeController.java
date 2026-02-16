@@ -56,17 +56,32 @@ public class HomeController {
                        Model model) throws Exception {
 
         boolean noName = (productName == null || productName.trim().isEmpty());
+        boolean noCategory = (productCategory == null || productCategory.isEmpty());
         
         List<ProductForm> cdList = new ArrayList<>();
         List<ProductForm> dvdList = new ArrayList<>();
 
-        if (noName) {
+        if (noName && noCategory) {
+            // 初期表示
             cdList = productSearchService.getLatest5ProductsByCategory("CD");
             dvdList = productSearchService.getLatest5ProductsByCategory("DVD");
+
+        } else if (noName) {
+            // カテゴリだけ押した
+            if ("CD".equals(productCategory)) {
+                cdList = productSearchService.getLatest5ProductsByCategory("CD");
+                dvdList = new ArrayList<>();
+            } else if ("DVD".equals(productCategory)) {
+                cdList = new ArrayList<>();
+                dvdList = productSearchService.getLatest5ProductsByCategory("DVD");
+            }
+
         } else {
+            // 検索
             ProductForm form = new ProductForm();
             form.setProductName(productName.trim());
             form.setProductCategory(productCategory);
+
             List<ProductForm> allList = productSearchService.getProductList(form);
 
             cdList = allList.stream().filter(p -> "CD".equals(p.getProductCategory())).toList();
@@ -74,7 +89,6 @@ public class HomeController {
 
             model.addAttribute("headline", "検索結果");
             model.addAttribute("searchName", productName.trim());
-            model.addAttribute("searchCategory", productCategory);
         }
 
         model.addAttribute("cdList", cdList);
@@ -91,6 +105,9 @@ public class HomeController {
                     .collect(Collectors.toList());
             }
         }
+        
+        model.addAttribute("searchName", productName);
+        model.addAttribute("searchCategory", productCategory);
         model.addAttribute("addedProductIds", addedProductIds);
 
         return "home";
