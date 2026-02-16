@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<title>マイページ登録情報更新完了画面</title>
 		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
 	<div id="wrapper">
@@ -51,10 +50,13 @@
 						<td th:text="${userForm.planName}"></td>
 					</tr>
 				</table>
+				<br>
 				<div class="button-area">
-					<a th:href="@{/mypage}">マイページに戻る</a>
-					<a th:href="@{/home}">HOMEへ戻る</a>
+					<a th:href="@{/mypage}" class="btn">マイページに戻る</a>
+					<a th:href="@{/home}" class="btn">HOMEへ戻る</a>
 				</div>
+
+
             </div>
 		</main>
 		<footer th:insert="~{footer :: footer_area}"></footer>
