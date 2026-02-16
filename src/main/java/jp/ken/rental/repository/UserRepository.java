@@ -49,7 +49,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			sb.append("SELECT");
 			sb.append(" user_id, user_name, email, tel, password, birth,");
 			sb.append(" address, credit, plan_name, rental_count, membership_month");
-			sb.append(" FROM users_table");
+			sb.append(" FROM users_profile");
 		
 			return sb;
 		}
@@ -69,7 +69,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		public int regist (UserEntity userEntity) throws Exception{
 	
 			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO users_table ( user_name, email, tel, password, birth,");
+			sb.append("INSERT INTO users_profile ( user_name, email, tel, password, birth,");
 			sb.append(" address, credit, plan_name, membership_month)");
 			sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			String sql = sb.toString();
@@ -108,7 +108,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		// userEntityごと渡されて、削除する
 		public int deleteUser(int userId) throws Exception{
 			StringBuilder sb = new StringBuilder();
-			sb.append("DELETE FROM users_table");
+			sb.append("DELETE FROM users_profile");
 			sb.append(" WHERE user_id = ?");
 			String sql = sb.toString();
 
@@ -134,7 +134,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		//会員情報更新ボタン
 		public int updateUser(UserEntity userEntity) throws Exception{
 			StringBuilder sb = new StringBuilder();
-			sb.append("UPDATE users_table");
+			sb.append("UPDATE users_profile");
 			sb.append(" SET user_name = ?, email = ?, tel = ?, password = ?,");
 			sb.append(" birth = ?, address = ?, credit = ?, plan_name = ?");
 			sb.append(" WHERE user_id = ?");
@@ -168,7 +168,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 		
 		public int userrental(int userId)throws Exception{
 			StringBuilder sb=new StringBuilder();
-			sb.append("UPDATE users_table");
+			sb.append("UPDATE users_profile");
 			sb.append(" SET rental_count=rental_count+1");
 			sb.append(" WHERE user_id = ?");
 			String sql = sb.toString();

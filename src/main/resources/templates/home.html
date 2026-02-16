@@ -59,61 +59,8 @@
         <span th:text="${successMessage}"></span>
 
         <div id="cart-message" style="display: none;" class="cart-flash-big">
-            🌟✨✨ レンタル希望に追加完了！✨✨🌟
+             ?? カートに追加完了！?? 
         </div>
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-        <div id="form-area">
-            <table class="table-common">
-                <tr>
-                    <th>プロダクトID</th>
-                    <th>プロダクトカテゴリー</th>
-                    <th>プロダクトネーム</th>
-                    <th>クリエイター</th>
-                    <th>アライバル</th>
-                    <th>リリース</th>
-                    <th>サムネイル</th>
-                    <th></th>
-                </tr>
-
-                <th:block th:each="p : ${productList}">
-                    <tr>
-                        <td th:text="${p.productId}" class="productId"></td>
-                        <td th:text="${p.productCategory}" class="productCategory"></td>
-                        <td th:text="${p.productName}" class="productName"></td>
-                        <td th:text="${p.creator}" class="creator"></td>
-                        <td th:text="${p.arrivalDate}" class="arrivalDate"></td>
-                        <td th:text="${p.releaseDate}" class="releaseDate"></td>
-                        <td style="width: 80px;">
-                            <img th:src="@{/images/{img}(img=${p.thumbnail})}"
-                                 alt="サムネイル" class="thumbnail"
-                                 style="width:80px; height:auto;">
-                        </td>
-                        <td>
-                            <div sec:authorize="isAuthenticated()">
-                                <th:block th:if="${addedProductIds != null and #lists.contains(addedProductIds, p.productId.toString())}">
-                                    <button type="button" disabled>追加済み</button>
-                                </th:block>
-                                <th:block th:unless="${addedProductIds != null and #lists.contains(addedProductIds, p.productId.toString())}">
-                                    <form th:action="@{/cart/add}" method="post">
-                                        <input type="hidden" name="productId" th:value="${p.productId}">
-                                        <input type="hidden" name="searchName" th:value="${searchName}">
-                                        <button type="submit">レンタル希望へ追加</button>
-                                    </form>
-                                </th:block>
-                            </div>
-                        </td>
-                    </tr>
-                </th:block>
-            </table>
-        
-        
-=======
->>>>>>> c8fd8b4fc444ab0f5d876223baf5bb091761dde9
-        <h2 class="section-title">新着DVD</h2>
-=======
->>>>>>> e99e0b163d87708e0878ad42821024b1ef5088b8
         <div class="card-list">
 			<th:block th:each="p : ${dvdList}"
 			th:if="${p.productCategory == 'DVD'}">
@@ -134,7 +81,7 @@
 								<form th:action="@{/cart/add}" method="post">
 									<input type="hidden" name="productId" th:value="${p.productId}">
 									<input type="hidden" name="searchName" th:value="${searchName}">
-									<button type="submit">レンタル希望へ追加</button>
+									<button type="submit">カートへ追加</button>
 								</form>
 							</th:block>
 						</div>
@@ -163,7 +110,7 @@
 								<form th:action="@{/cart/add}" method="post">
 									<input type="hidden" name="productId" th:value="${p.productId}">
 									<input type="hidden" name="searchName" th:value="${searchName}">
-									<button type="submit">レンタル希望へ追加</button>
+									<button type="submit">カートへ追加</button>
 								</form>
 							</th:block>
 						</div>
@@ -233,7 +180,7 @@
                                 messageBox.style.display = "none";
                             }, 2500);
                         } else {
-                            alert("レンタル希望への追加に失敗しました");
+                            alert("カートへの追加に失敗しました");
                         }
                     })
                     .catch(error => {
