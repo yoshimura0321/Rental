@@ -24,6 +24,7 @@ public class CartRepository {
 	public List<CartEntity> getCartByUserId(int userId)throws Exception{
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE c.user_id = ? AND c.status = 'cart'");
+		sb.append(" ORDER BY c.priority");
 		String sql = sb.toString();
 		
 		List<CartEntity> cartList = jdbcTemplate.query(sql,cartMapper,userId);
@@ -55,11 +56,11 @@ public class CartRepository {
 	
 	public int addCart(CartEntity cartEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO cart");
-		sb.append(" VALUES (?,?,?)");
+		sb.append("INSERT INTO cart (user_id,product_id,stasus,priority)");
+		sb.append(" VALUES (?,?,?,(SELECT MAX(priority) FROM cart WHERE status='cart' AND user_id=?)+1)");
 		String sql = sb.toString();
 		
-		Object[] parameters = { cartEntity.getUserId(),cartEntity.getProductId(),cartEntity.getStatus()};
+		Object[] parameters = { cartEntity.getUserId(),cartEntity.getProductId(),cartEntity.getStatus(),cartEntity.getUserId()};
 		
 		int num =0;
 		num = jdbcTemplate.update(sql,parameters);
@@ -81,10 +82,37 @@ public class CartRepository {
 		return num;
 	}
 	
+	//優先度の上下
+	public int switchpriority(int cartId1,int priority1,int cartId2,int priority2)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE cart SET priority=? WHERE cart_id=?");
+		String sql = sb.toString();
+		
+		return jdbcTemplate.update(sql,priority2,cartId1)+jdbcTemplate.update(sql,priority1,cartId2);
+	}
+	
+	//優先度の一つ上を探す
+	public CartEntity upSearch(int userId,int priority)throws Exception {
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE c.user_id=? AND c.priority=?");
+		String sql = sb.toString();
+		
+		return jdbcTemplate.queryForObject(sql,cartMapper,userId,priority-1);
+	}
+	
+	//優先度一つ下を探す
+	public CartEntity downSearch(int userId,int priority)throws Exception {
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE c.user_id=? AND c.priority=?");
+		String sql = sb.toString();
+		
+		return jdbcTemplate.queryForObject(sql,cartMapper,userId,priority+1);
+	}
+	
 	private StringBuilder createCommonSQL() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		sb.append(" c.user_id ,c.product_id, c.status, p.product_category, p.product_name");
+		sb.append(" c.cart_id,c.user_id ,c.product_id, c.status,c.priority, p.product_category, p.product_name");
 		sb.append(",u.user_name,u.address,u.email,u.rental_count,l.rental_limit");
 		sb.append(" FROM cart c");
 		sb.append(" JOIN items p");
@@ -195,5 +223,7 @@ public class CartRepository {
 	    String sql = "SELECT COUNT(*) FROM cart WHERE status = ?";
 	    return jdbcTemplate.queryForObject(sql, Integer.class, status);
 	}
+	
+	
 
 }

@@ -7,11 +7,15 @@ import lombok.Data;
 @Data
 public class CartForm implements Serializable {
 	
+	private String cartId;
+	
 	private String userId;
 	
 	private String productId;
 	
 	private String status;
+	
+	private String priority;
 	
 	private ProductForm product;
 	

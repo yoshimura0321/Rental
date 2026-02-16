@@ -73,6 +73,28 @@ public class CartController {
         }
         return "redirect:/cart";
     }
+    
+    @PostMapping(value="/cart",params="up")
+    public String uppriority(@RequestParam String userId,@RequestParam String priority,@RequestParam String cartId,RedirectAttributes ra)throws Exception{
+    	int num = cartService.upPriority(Integer.parseInt(userId), Integer.parseInt(cartId), Integer.parseInt(priority));
+    	
+    	if (num < 2) {
+            ra.addFlashAttribute("errorMessage", "優先度変更に失敗しました");
+        } 
+    	
+    	return "redirect:/cart";
+    }
+    
+    @PostMapping(value="/cart",params="down")
+    public String downpriority(@RequestParam String userId,@RequestParam String priority,@RequestParam String cartId,RedirectAttributes ra)throws Exception{
+    	int num = cartService.downPriority(Integer.parseInt(userId), Integer.parseInt(cartId), Integer.parseInt(priority));
+    	
+    	if (num < 2) {
+            ra.addFlashAttribute("errorMessage", "優先度変更に失敗しました");
+        } 
+    	
+    	return "redirect:/cart";
+    }
 
     @PostMapping("/cart/add")
     public String add(@RequestParam String productId,
