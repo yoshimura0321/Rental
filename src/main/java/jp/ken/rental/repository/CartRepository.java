@@ -89,7 +89,7 @@ public class CartRepository {
 		sb.append(" FROM cart c");
 		sb.append(" JOIN items p");
 		sb.append(" ON c.product_id = p.product_id");
-		sb.append(" JOIN users_table u");
+		sb.append(" JOIN users_profile u");
 		sb.append(" ON c.user_id = u.user_id");
 		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
 		
