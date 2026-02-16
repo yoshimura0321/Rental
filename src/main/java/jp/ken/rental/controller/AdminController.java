@@ -231,20 +231,20 @@ public class AdminController {
     	return "redirect:/admin/user/list";
     }
     
-    @GetMapping("/admin/rental")
-    public String toRental(@RequestParam(required = false)String productName, Model model)throws Exception {
-    	List<ProductForm> list=null;
-    	if(productName==null || productName.isBlank()) {
-    		list = productSearchService.getAdminProduct();
-    	}else {
-    		list = productSearchService.getAdminProductByName(productName);
-    	}
-    	model.addAttribute("productlist",list);
-    	return "adminCartList";
-    }
+//    @GetMapping("/admin/rental")
+//    public String toRental(@RequestParam(required = false)String productName, Model model)throws Exception {
+//    	List<ProductForm> list=null;
+//    	if(productName==null || productName.isBlank()) {
+//    		list = productSearchService.getAdminProduct();
+//    	}else {
+//    		list = productSearchService.getAdminProductByName(productName);
+//    	}
+//    	model.addAttribute("productlist",list);
+//    	return "adminCartList";
+//    }
     
     //rental改良版？
-    @GetMapping("/admin/rental2")
+    @GetMapping("/admin/rental")
     public String torental2(Model model)throws Exception {
     	List<CartForm> list = cartService.getRentalusers();
     	model.addAttribute("cartlist",list);
@@ -274,7 +274,7 @@ public class AdminController {
     	}else {
     		ra.addFlashAttribute("message","在庫が足りません");
     	}
-    	return "redirect:/admin/rental2";
+    	return "redirect:/admin/rental";
     }
     
     @GetMapping("/admin/return")
