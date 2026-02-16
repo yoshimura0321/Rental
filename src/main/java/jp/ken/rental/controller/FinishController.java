@@ -17,12 +17,12 @@ public class FinishController {
 	@GetMapping
 	public String toLogout(SessionStatus status) {
 		status.setComplete();
-		return "redirect:/login";
+		return "userFinish";
 	}
 	@PostMapping
 	public String toFinish() throws Exception {
 		
-		return "/login";
+		return "login";
 	}
 
 }
