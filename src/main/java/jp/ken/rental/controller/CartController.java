@@ -3,6 +3,7 @@ package jp.ken.rental.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -76,23 +77,29 @@ public class CartController {
     
     @PostMapping(value="/cart",params="up")
     public String uppriority(@RequestParam String userId,@RequestParam String priority,@RequestParam String cartId,RedirectAttributes ra)throws Exception{
+    	try {
     	int num = cartService.upPriority(Integer.parseInt(userId), Integer.parseInt(cartId), Integer.parseInt(priority));
     	
     	if (num < 2) {
             ra.addFlashAttribute("errorMessage", "優先度変更に失敗しました");
         } 
-    	
+    	}catch(EmptyResultDataAccessException e) {
+    		
+    	}
     	return "redirect:/cart";
     }
     
     @PostMapping(value="/cart",params="down")
     public String downpriority(@RequestParam String userId,@RequestParam String priority,@RequestParam String cartId,RedirectAttributes ra)throws Exception{
+    	try {
     	int num = cartService.downPriority(Integer.parseInt(userId), Integer.parseInt(cartId), Integer.parseInt(priority));
     	
     	if (num < 2) {
             ra.addFlashAttribute("errorMessage", "優先度変更に失敗しました");
         } 
-    	
+    	}catch(EmptyResultDataAccessException e) {
+    		
+    	}
     	return "redirect:/cart";
     }
 

@@ -135,12 +135,16 @@ public class CartService {
 	@Transactional(rollbackFor=Exception.class)
 	public int upPriority(int userId,int cartId,int priority)throws Exception{
 		CartEntity entity=cartRepository.upSearch(userId, priority);
-		int num = cartRepository.switchpriority(cartId, priority, entity.getCartId(), priority-1);
+		int num =0;
+		if(entity != null) {
+		num = cartRepository.switchpriority(cartId, priority, entity.getCartId(), priority-1);
 		
 		if(num<2) {
 			throw new Exception("優先度変更できませんでした");
 		}
-		
+		}else {
+			num =0;
+		}
 		return num;
 	}
 	
