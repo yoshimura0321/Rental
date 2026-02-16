@@ -59,7 +59,7 @@ public class CartRepository {
 	public int addCart(CartEntity cartEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO cart (user_id,product_id,status,priority)");
-		sb.append(" VALUES (?,?,?,,IFNULL((SELECT MAX(priority) FROM cart c WHERE user_id=? GROUP BY c.user_id),0)+1");
+		sb.append(" VALUES (?,?,?,IFNULL((SELECT MAX(priority) FROM cart c WHERE user_id=? GROUP BY c.user_id),0)+1)");
 		String sql = sb.toString();
 		
 		Object[] parameters = { cartEntity.getUserId(),cartEntity.getProductId(),cartEntity.getStatus(),cartEntity.getUserId()};
