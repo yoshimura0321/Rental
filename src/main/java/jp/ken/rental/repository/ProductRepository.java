@@ -185,7 +185,7 @@ public class ProductRepository {
 	
 	public ProductEntity getProductById(int productId) throws Exception {
 		StringBuilder sb = createCommonSQL();
-		sb.append(" WHERE product_id = ?");
+		sb.append(" WHERE p.product_id = ?");
 	    String sql = sb.toString();
 
 	    return jdbcTemplate.queryForObject(sql, productMapper, productId);
