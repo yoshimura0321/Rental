@@ -8,6 +8,11 @@
 	 <div th:fragment="header_area" class="header-area">
 		<nav>
 			<div class="bar">
+				
+				<a th:href="@{/home}" class="logo">
+					<img th:src="@{/images/shitennou-logo.png}" alt="四天王">
+				</a>
+				
 				<a th:href="@{/home}">HOME</a>
 				<a th:href="@{/cart}">レンタル希望</a>
 				<a th:href="@{/mypage}">マイページ</a>
