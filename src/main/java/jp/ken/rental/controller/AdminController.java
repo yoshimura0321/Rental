@@ -243,6 +243,15 @@ public class AdminController {
     	return "adminCartList";
     }
     
+    //rental改良版？
+    @GetMapping("/admin/rental2")
+    public String torental2(Model model)throws Exception {
+    	List<CartForm> list = cartService.getRentalusers();
+    	model.addAttribute("cartlist",list);
+    	
+    	return "adminRentalUser";
+    }
+    
     @GetMapping("/admin/rental/service")
     public String torentalservice(@RequestParam("productId") String productId,@RequestParam("productName") String productName, Model model)throws Exception{
     	List<CartForm> list = cartService.adminrental(Integer.parseInt(productId));
@@ -265,7 +274,7 @@ public class AdminController {
     	}else {
     		ra.addFlashAttribute("message","在庫が足りません");
     	}
-    	return "redirect:/admin/rental";
+    	return "redirect:/admin/rental2";
     }
     
     @GetMapping("/admin/return")
@@ -287,7 +296,7 @@ public class AdminController {
     	return "redirect:/admin/return";
     }
     
-    @GetMapping("admin/rank")
+    @GetMapping("/admin/rank")
     public String torank(Model model)throws Exception{
     	List<CartForm> directorList = cartService.getDirectorRank();
     	List<CartForm> musicianList = cartService.getMusicianRank();
@@ -298,4 +307,6 @@ public class AdminController {
     	
     	return "adminRank";
     }
+    
+    
 }

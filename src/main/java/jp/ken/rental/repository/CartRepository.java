@@ -9,12 +9,14 @@ import org.springframework.stereotype.Repository;
 import jp.ken.rental.form.CartEntity;
 import jp.ken.rental.infrastructure.mapper.CartMapper;
 import jp.ken.rental.infrastructure.mapper.CartRankMapper;
+import jp.ken.rental.infrastructure.mapper.CartrentalMapper;
 
 @Repository
 public class CartRepository {
 	
 	private RowMapper<CartEntity> cartMapper = new CartMapper();
 	private RowMapper<CartEntity> cartRankMapper=new CartRankMapper();
+	private RowMapper<CartEntity> cartrentalMapper = new CartrentalMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public CartRepository(JdbcTemplate jdbcTemplate) {
@@ -224,6 +226,29 @@ public class CartRepository {
 	    return jdbcTemplate.queryForObject(sql, Integer.class, status);
 	}
 	
-	
+	public List<CartEntity> getRentalusers()throws Exception{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT");
+		sb.append(" t.cart_id,t.user_id ,t.product_id, t.status,t.priority, p.product_category, p.product_name");
+		sb.append(",u.user_name,u.address,u.email,u.rental_count,l.rental_limit,t.available");
+		sb.append(" FROM (SELECT c.cart_id,c.user_id,c.product_id,c.status,c.priority,RANK() OVER (PARTITION BY c.user_id ORDER BY c.priority) AS ranking,available");
+		sb.append(" FROM cart c JOIN (SELECT s.product_id,(s.stock_quantity - IFNULL(r.rental_count,0)) AS available");
+		sb.append(" FROM stock s LEFT OUTER JOIN (SELECT product_id,COUNT(*) AS rental_count FROM cart WHERE status='rental' GROUP BY product_id)r");
+		sb.append(" ON s.product_id=r.product_id)a");
+		sb.append(" ON a.product_id=c.product_id WHERE c.status='cart' ) t");
+		sb.append(" JOIN items p");
+		sb.append(" ON t.product_id = p.product_id");
+		sb.append(" JOIN users_profile u");
+		sb.append(" ON t.user_id = u.user_id");
+		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
+		sb.append(" WHERE t.ranking=1 ORDER BY l.plan_id DESC,t.cart_id");
+		
+		String sql = sb.toString();
+		
+		List<CartEntity> list = jdbcTemplate.query(sql, cartrentalMapper);
+		
+		return list;
+	}
 
 }

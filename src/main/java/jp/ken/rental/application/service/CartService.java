@@ -155,5 +155,13 @@ public class CartService {
 		
 		return num;
 	}
+	
+	//レンタルのためのリスト
+	public List<CartForm> getRentalusers()throws Exception{
+		List<CartEntity> entityList=cartRepository.getRentalusers();
+		List<CartForm> formlist = convert(entityList);
+		
+		return formlist;
+	}
 
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>レンタル処理</title>
+		<link th:href="@{/css/admin.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>レンタル処理</h1>
+		</header>
+		
+		<a th:href="@{/admin/rental}" class="btn">一覧に戻る</a>
+		
+		<main>
+			<p th:if="${message}" th:text="${message}" 
+			th:classappend="${success} ? ' alert-success' : ' danger'"></p>
+			
+			<div class="card">
+				
+				<table class="product-table">
+					<thead>
+						<tr>
+							<th scope="col">ユーザーID</th>
+							<th scope="col">ユーザー名</th>
+							<th scope="col">メールアドレス</th>
+							<th scope="col">住所</th>
+							<th scope="col">作品名</th>
+							<th scope="col">状態</th>
+							<th scope="col">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cart : ${cartlist}">
+							<td th:text="${cart.userId}"></td>
+							<td th:text="${cart.user.userName}"></td>
+							<td th:text="${cart.user.email}"></td>
+							<td th:text="${cart.user.address}"></td>
+							<td th:text="${cart.product.productName}"></td>
+							
+							<!-- 状態表示 -->
+							<td>
+					
+								<span th:if="${cart.user.rentalCount < cart.rentalLimit and cart.available !=0 }" class="status lending">
+									貸出可
+								</span>
+								<span th:if="${cart.user.rentalCount == cart.rentalLimit}" class="status available">
+									レンタル制限
+								</span>
+								<span th:if="${cart.available==0}" class="status available">
+									在庫不足
+								</span>
+							</td>
+							
+							<!-- 操作 -->
+							<td>
+								<!-- 未貸出のときだけボタン表示 -->
+								<form th:if="${cart.user.rentalCount < cart.rentalLimit and cart.available !=0}"
+									  th:action="@{/admin/rental/service}"
+									  method="post"
+									  onsubmit="return confirm('このユーザーに貸し出しますか？');">
+									<button type="submit" class="btn">
+										このユーザーに貸出
+									</button>
+									<input type="hidden" name="productId" th:value="${cart.productId}">
+									<input type="hidden" name="userId" th:value="${cart.userId}">
+								</form>
+								
+								<!-- 貸出中のとき -->
+								<span th:if="${cart.user.rentalCount == cart.rentalLimit}" class="note" title="このユーザーは既に貸出中です">
+									操作不可
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
+</body>
+</html>
