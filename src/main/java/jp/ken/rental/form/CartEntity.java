@@ -15,6 +15,8 @@ public class CartEntity {
 	
 	private int priority;
 	
+	private int available;
+	
 	private ProductEntity product;
 	
 	private UserEntity user;
