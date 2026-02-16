@@ -180,8 +180,9 @@ public class AdminController {
     }
 
     @GetMapping("/admin/user/list")
-    public String toadaminuser(@RequestParam(required = false)String email,Model model)throws Exception {
+    public String toadaminuser(@RequestParam(required = false)String email,Model model,RedirectAttributes ra)throws Exception {
     	List<UserForm> formlist = new ArrayList<UserForm>();
+    	try {
     	if(email ==null || email.isBlank()) {
     		formlist = userSearchService.getAllUser();
     	}else {
@@ -194,6 +195,10 @@ public class AdminController {
     	model.addAttribute("userList",formlist);
     	
     	return "adminUserlist";
+    	} catch (Exception e) {
+            ra.addFlashAttribute("message", "検索中にエラーが発生しました");
+            return "redirect:/admin/user/list";
+        }
     }
     
     @PostMapping("/admin/user/delete")
