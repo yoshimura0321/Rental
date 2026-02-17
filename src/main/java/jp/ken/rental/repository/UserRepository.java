@@ -140,7 +140,7 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			sb.append(" WHERE user_id = ?");
 			String sql = sb.toString();
 
-			Object[] parameters = { userEntity.getUserName(), userEntity.getEmail(), userEntity.getTel(), bcpe.encode(userEntity.getPassword()),
+			Object[] parameters = { userEntity.getUserName(), userEntity.getEmail(), userEntity.getTel(), userEntity.getPassword(),
 					userEntity.getBirth(),userEntity.getAddress(), userEntity.getCredit(),
 					userEntity.getPlanName(), userEntity.getUserId()};
 
@@ -162,8 +162,8 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			sb2.append(" WHERE user_id= ?");
 			String sql2 = sb2.toString();
 			
-			return jdbcTemplate.update(sql,userEntity.getEmail(),userEntity.getUserId())+
-					jdbcTemplate.update(sql2,userEntity.getEmail(),userEntity.getUserId());
+			return jdbcTemplate.update(sql,"{bcrypt}" + bcpe.encode(userEntity.getPassword()),userEntity.getUserId())+
+					jdbcTemplate.update(sql2,"{bcrypt}" + bcpe.encode(userEntity.getPassword()),userEntity.getUserId());
 		}
 		
 		public int userrental(int userId)throws Exception{

@@ -28,6 +28,7 @@ public class SecurityConfig {
 				.requestMatchers("/cart").authenticated()
 				.requestMatchers("/cart/add").authenticated()
 				.requestMatchers("/mypage").authenticated()
+				.requestMatchers("/mypage/**").authenticated()
 				.requestMatchers("/css/**").permitAll()
 				.anyRequest().permitAll());
 		
