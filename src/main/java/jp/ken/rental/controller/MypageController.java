@@ -25,7 +25,7 @@ import jp.ken.rental.form.CartEntity;
 import jp.ken.rental.form.UserForm;
 
 @Controller
-@SessionAttributes({"cartList","idForm","userForm"})
+@SessionAttributes({"idForm","userForm"})
 public class MypageController {
 
     private final UserUpdateService userUpdateService;
