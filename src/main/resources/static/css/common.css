@@ -304,17 +304,31 @@ html {
 }
 
 /* カードリストのグリッド化 */
-.card-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 24px;
+.card-section {
     width: 85%;
     max-width: 1200px;
+    margin: 40px auto; /* 画面中央に寄せる */
+}
+
+.card-section h3 {
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 20px;
+    text-align: left; /* 左揃え */
+}
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 1fr; 
+    gap: 24px;
+    width: calc(5 * 220px + 4 * 24px);
     margin: 40px auto;
 }
 
 /* 各カード */
 .card {
+	width: 220px;
     background: #1a2a3c;
     border-radius: 12px;
     overflow: hidden;

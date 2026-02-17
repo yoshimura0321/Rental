@@ -61,62 +61,68 @@
         <div id="cart-message" style="display: none;" class="cart-flash-big">
              レンタル希望に追加完了！
         </div>
-        <div class="card-list">
-			<th:block th:each="p : ${dvdList}"
-			th:if="${p.productCategory == 'DVD'}">
-				<div class="card">
-					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
-					alt="サムネイル"
-					th:classappend="${p.productCategory == 'DVD'} ? ' dvd-thumb' : ' cd-thumb'">
-					<div class="card-info">
-						<h3 th:text="${p.productName}">タイトル</h3>
-						<p th:text="${p.productCategory}">カテゴリー</p>
-						<div sec:authorize="isAuthenticated()">
-							<th:block th:if="${addedProductIds != 
-							null and #lists.contains(addedProductIds, p.productId.toString())}">
-								<button type="button" disabled>追加済み</button>
-							</th:block>
-							<th:block th:unless="${addedProductIds != 
-							null and #lists.contains(addedProductIds, p.productId.toString())}">
-								<form th:action="@{/cart/add}" method="post">
-									<input type="hidden" name="productId" th:value="${p.productId}">
-									<input type="hidden" name="searchName" th:value="${searchName}">
-									<button type="submit">レンタル希望へ追加</button>
-								</form>
-							</th:block>
+        <div class="card-section">
+			<h3 th:if="${dvdHeadline != null}" th:text="${dvdHeadline}">DVD</h3>
+			<div class="card-list">
+				<th:block th:each="p : ${dvdList}"
+				th:if="${p.productCategory == 'DVD'}">
+					<div class="card">
+						<img th:src="@{/images/{img}(img=${p.thumbnail})}"
+						alt="サムネイル"
+						th:classappend="${p.productCategory == 'DVD'} ? ' dvd-thumb' : ' cd-thumb'">
+						<div class="card-info">
+							<h3 th:text="${p.productName}">タイトル</h3>
+							<p th:text="${p.productCategory}">カテゴリー</p>
+							<div sec:authorize="isAuthenticated()">
+								<th:block th:if="${addedProductIds != 
+								null and #lists.contains(addedProductIds, p.productId.toString())}">
+									<button type="button" disabled>追加済み</button>
+								</th:block>
+								<th:block th:unless="${addedProductIds != 
+								null and #lists.contains(addedProductIds, p.productId.toString())}">
+									<form th:action="@{/cart/add}" method="post">
+										<input type="hidden" name="productId" th:value="${p.productId}">
+										<input type="hidden" name="searchName" th:value="${searchName}">
+										<button type="submit">レンタル希望へ追加</button>
+									</form>
+								</th:block>
+							</div>
 						</div>
 					</div>
-				</div>
-			</th:block>
+				</th:block>
+			</div>
         </div>
-
-        <div class="card-list">
-			<th:block th:each="p : ${cdList}"
-			 th:if="${p.productCategory == 'CD'}">
-				<div class="card">
-					<img th:src="@{/images/{img}(img=${p.thumbnail})}"
-					alt="サムネイル"
-					th:classappend="${p.productCategory == 'DVD'} ? ' dvd-thumb' : ' cd-thumb'">
-					<div class="card-info">
-						<h3 th:text="${p.productName}">タイトル</h3>
-						<p th:text="${p.productCategory}">カテゴリー</p>
-						<div sec:authorize="isAuthenticated()">
-							<th:block th:if="${addedProductIds != 
-							null and #lists.contains(addedProductIds, p.productId.toString())}">
-								<button type="button" disabled>追加済み</button>
-							</th:block>
-							<th:block th:unless="${addedProductIds != 
-							null and #lists.contains(addedProductIds, p.productId.toString())}">
-								<form th:action="@{/cart/add}" method="post">
-									<input type="hidden" name="productId" th:value="${p.productId}">
-									<input type="hidden" name="searchName" th:value="${searchName}">
-									<button type="submit">レンタル希望へ追加</button>
-								</form>
-							</th:block>
+        
+        <div class="card-section">
+			<h3 th:if="${cdHeadline != null}" th:text="${cdHeadline}">CD</h3>
+			<div class="card-list">
+				<th:block th:each="p : ${cdList}"
+				 th:if="${p.productCategory == 'CD'}">
+					<div class="card">
+						<img th:src="@{/images/{img}(img=${p.thumbnail})}"
+						alt="サムネイル"
+						th:classappend="${p.productCategory == 'DVD'} ? ' dvd-thumb' : ' cd-thumb'">
+						<div class="card-info">
+							<h3 th:text="${p.productName}">タイトル</h3>
+							<p th:text="${p.productCategory}">カテゴリー</p>
+							<div sec:authorize="isAuthenticated()">
+								<th:block th:if="${addedProductIds != 
+								null and #lists.contains(addedProductIds, p.productId.toString())}">
+									<button type="button" disabled>追加済み</button>
+								</th:block>
+								<th:block th:unless="${addedProductIds != 
+								null and #lists.contains(addedProductIds, p.productId.toString())}">
+									<form th:action="@{/cart/add}" method="post">
+										<input type="hidden" name="productId" th:value="${p.productId}">
+										<input type="hidden" name="searchName" th:value="${searchName}">
+										<button type="submit">レンタル希望へ追加</button>
+									</form>
+								</th:block>
+							</div>
 						</div>
 					</div>
-				</div>
-			</th:block>
+				</th:block>
+			</div>
         </div>
     </main>
     <footer th:insert="~{footer :: footer_area}"></footer>
