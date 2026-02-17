@@ -166,6 +166,21 @@ public class CartRepository {
 		return list;
 	}
 	
+	//商品名でリターン検索
+	public List<CartEntity> getreturnlistByProductName(String name)throws Exception{
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE c.status='rental'");
+		sb.append(" AND p.product_name LIKE ?");
+		String sql = sb.toString();
+		
+		name = name.replace("%", "\\%").replace("_", "\\_");
+		name = "%" + name + "%";
+		
+		List<CartEntity> list = jdbcTemplate.query(sql, cartMapper,name);
+		
+		return list;
+	}
+	
 	public int doreturn(int userId,int prductId)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE cart SET status='return'");
@@ -260,6 +275,34 @@ public class CartRepository {
 		String sql = sb.toString();
 		
 		List<CartEntity> list = jdbcTemplate.query(sql, cartrentalMapper);
+		
+		return list;
+	}
+	
+	public List<CartEntity> getRentalusersByuser(String name)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT");
+		sb.append(" t.cart_id,t.user_id ,t.product_id, t.status,t.priority, p.product_category, p.product_name");
+		sb.append(",u.user_name,u.address,u.email,u.rental_count,l.rental_limit,t.available");
+		sb.append(" FROM (SELECT c.cart_id,c.user_id,c.product_id,c.status,c.priority,RANK() OVER (PARTITION BY c.user_id ORDER BY c.priority) AS ranking,available");
+		sb.append(" FROM cart c JOIN (SELECT s.product_id,(s.stock_quantity - IFNULL(r.rental_count,0)) AS available");
+		sb.append(" FROM stock s LEFT OUTER JOIN (SELECT product_id,COUNT(*) AS rental_count FROM cart WHERE status='rental' GROUP BY product_id)r");
+		sb.append(" ON s.product_id=r.product_id)a");
+		sb.append(" ON a.product_id=c.product_id WHERE c.status='cart' ) t");
+		sb.append(" JOIN items p");
+		sb.append(" ON t.product_id = p.product_id");
+		sb.append(" JOIN users_profile u");
+		sb.append(" ON t.user_id = u.user_id");
+		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
+		sb.append(" WHERE t.ranking=1 AND p.product_name LIKE ? ORDER BY l.plan_id DESC,t.cart_id");
+		
+		String sql = sb.toString();
+		
+		name = name.replace("%", "\\%").replace("_", "\\_");
+		name = "%" + name + "%";
+		
+		List<CartEntity> list = jdbcTemplate.query(sql, cartrentalMapper,name);
 		
 		return list;
 	}

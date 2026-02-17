@@ -101,6 +101,16 @@ public class CartService {
 		return formlist;
 	}
 	
+	//商品名でリターンリスト
+	public List<CartForm> getreturnlistByProductName(String name)throws Exception{
+		List<CartForm> formlist = null;
+		List<CartEntity> entitylist = cartRepository.getreturnlistByProductName(name);
+		
+		formlist = convert(entitylist);
+		
+		return formlist;
+	}
+	
 	@Transactional(rollbackFor=Exception.class)
 	public int doreturn(int userId,int productId)throws Exception{
 		int num = cartRepository.doreturn(userId, productId);
@@ -173,5 +183,12 @@ public class CartService {
 		
 		return formlist;
 	}
-
+	
+	//ユーザ名でのレンタルリスト
+	public List<CartForm> getRentalusersByuser(String name)throws Exception{
+		List<CartEntity> entityList=cartRepository.getRentalusersByuser(name);
+		List<CartForm> formlist = convert(entityList);
+		
+		return formlist;
+	}
 }
