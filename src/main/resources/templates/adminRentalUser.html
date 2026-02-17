@@ -45,10 +45,10 @@
 								<span th:if="${cart.user.rentalCount < cart.rentalLimit and cart.available !=0 }" class="status lending">
 									貸出可
 								</span>
-								<span th:if="${cart.user.rentalCount == cart.rentalLimit}" class="status available">
+								<span th:if="${cart.user.rentalCount >= cart.rentalLimit}" class="status available">
 									レンタル制限
 								</span>
-								<span th:if="${cart.available==0}" class="status available">
+								<span th:if="${cart.available<=0}" class="status available">
 									在庫不足
 								</span>
 							</td>

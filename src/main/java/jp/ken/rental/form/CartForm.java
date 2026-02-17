@@ -17,7 +17,7 @@ public class CartForm implements Serializable {
 	
 	private String priority;
 	
-	private String available;
+	private Integer available;
 	
 	private ProductForm product;
 	
