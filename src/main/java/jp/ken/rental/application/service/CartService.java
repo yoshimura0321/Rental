@@ -145,7 +145,7 @@ public class CartService {
 	}
 	
 	public int countPendingRentals() throws Exception {
-	    return cartRepository.countByStatus("cart"); 
+	    return cartRepository.countByStatus(); 
 	}
 	
 	public int countReturns() throws Exception {
