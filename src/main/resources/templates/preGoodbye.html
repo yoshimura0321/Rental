@@ -7,25 +7,40 @@
 <link th:href="@{/css/goodbye.css}" rel="stylesheet" type="text/css">
 
 <script>
+	//htmlが読み込まれたら発生するイベント設定
 document.addEventListener("DOMContentLoaded", function () {
+	
+	//btn要素を取得してbuttonに格納している
     const button = document.querySelector(".btn");
+    
+    //ボタンが逃げた回数を記録する変数
     let escapeCount = 0;
-
+    
+    //ボタンが逃げる回数を設定
     const maxEscapes = 3;
-
+    
+    //ボタンにマウスカーソルが乗った時に行うようにする
     button.addEventListener("mouseover", function () {
+		
+		//最大回数逃げてたらなにもしない
         if (escapeCount >= maxEscapes) return;
-
+        
+        //ボタンが画面からはみ出さないようにする設定
         const maxX = window.innerWidth - button.offsetWidth;
         const maxY = window.innerHeight - button.offsetHeight;
-
+        
+        //ランダムな座標を設定
         const randomX = Math.floor(Math.random() * maxX);
         const randomY = Math.floor(Math.random() * maxY);
-
+        
+        //要素を自由な位置に配置できるようにする。
         button.style.position = "absolute";
+        
+        //ランダムな座標に設定してる
         button.style.left = `${randomX}px`;
         button.style.top = `${randomY}px`;
-
+        
+        //逃げた回数を+1する
         escapeCount++;
     });
 });
