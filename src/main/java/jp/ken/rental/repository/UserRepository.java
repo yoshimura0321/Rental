@@ -175,5 +175,15 @@ import jp.ken.rental.infrastructure.mapper.UserRowMapper;
 			
 			return jdbcTemplate.update(sql,userId);
 		}
+		
+		public int rentalReset()throws Exception{
+			StringBuilder sb=new StringBuilder();
+			sb.append("UPDATE users_profile");
+			sb.append(" SET rental_count=0");
+			String sql = sb.toString();
+			
+			return jdbcTemplate.update(sql);
+		}
+		
 
 	}

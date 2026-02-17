@@ -20,6 +20,8 @@
 		<a th:href="@{/admin}" class="btn">戻る</a>
 		
 		<main>
+			<p th:if="${message}" th:text="${message}" 
+			th:classappend="${success} ? ' alert-success' : ' danger'"></p>
 			<div class="card">
 				<div class="list-header">
 					<a th:href="@{/admin/product/new}" class="btn">＋ 商品追加</a>

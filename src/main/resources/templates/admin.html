@@ -34,10 +34,13 @@
 					<li><a th:href="@{/admin/rental}">レンタル処理</a></li>
 					<li><a th:href="@{/admin/return}">返却処理</a></li>
 					<li><a th:href="@{/admin/rank}">ランキング</a></li>
+					<li><a th:href="@{/admin/reset}" onclick="return confirm('レンタル数をリセットしますか');" style="display:inline;">レンタル数リセット</a></li>
 					<li><a th:href="@{/logout}">ログアウト</a></li>
 				</ul>
 			</nav>
 			<main>
+				<p th:if="${message}" th:text="${message}" 
+			th:classappend="${success} ? ' alert-success' : ' danger'"></p>
 				<div class="card product-card">
 					<h3>最近追加された商品</h3>
 					<table class="product-table">

@@ -56,8 +56,13 @@ public class UserUpdateService {
 	public int rentaluser(int userId)throws Exception{
 		int num = userRepository.userrental(userId);
 		if (num == 0) {
-	        throw new Exception("rentalできませんでした");
+	        throw new Exception("レンタルできませんでした");
 	    }
 	    return num;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int rentalReset()throws Exception{
+		return userRepository.rentalReset();
 	}
 }

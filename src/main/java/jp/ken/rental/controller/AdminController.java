@@ -100,11 +100,12 @@ public class AdminController {
         int row = productInsertService.registItem(productform);
 
         if (row <2) {
-            redirectAttributes.addFlashAttribute("errorMessage", "登録に失敗しました。もう一度お試しください。");
+            redirectAttributes.addFlashAttribute("message", "登録に失敗しました。もう一度お試しください。");
             return "redirect:/admin";
         }
 
-        redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました！");
+        redirectAttributes.addFlashAttribute("message", "商品を登録しました！");
+        redirectAttributes.addFlashAttribute("success",true);
     	}
         return "redirect:/admin";
     }
@@ -139,9 +140,10 @@ public class AdminController {
         int num = productDeleteService.deleteProduct(Integer.parseInt(productId));
 
         if (num <2) {
-            redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました");
+            redirectAttributes.addFlashAttribute("message", "削除に失敗しました");
         } else {
-            redirectAttributes.addFlashAttribute("successMessage", "商品を削除しました");
+            redirectAttributes.addFlashAttribute("message", "商品を削除しました");
+            redirectAttributes.addFlashAttribute("success",true);
         }
 
         return "redirect:/admin/product/list";
@@ -172,11 +174,12 @@ public class AdminController {
         int row = productUpdateService.updateitem(productForm);
 
         if (row < 2) {
-            redirectAttributes.addFlashAttribute("errorMessage", "更新に失敗しました");
+            redirectAttributes.addFlashAttribute("message", "更新に失敗しました");
             return "redirect:/admin/Productlist";
         }
 
-        redirectAttributes.addFlashAttribute("successMessage", "商品を更新しました");
+        redirectAttributes.addFlashAttribute("message", "商品を更新しました");
+        redirectAttributes.addFlashAttribute("success",true);
     	}
         return "redirect:/admin/product/list";
     }
@@ -210,6 +213,7 @@ public class AdminController {
 			ra.addFlashAttribute("message", "削除に失敗しました");
 		}else {
 			ra.addFlashAttribute("message", "削除成功しました");
+			ra.addFlashAttribute("success",true);
 		}
     	
     	return "redirect:/admin/user/list";
@@ -233,6 +237,7 @@ public class AdminController {
 			ra.addFlashAttribute("message", "更新に失敗しました");
 		}else {
 			ra.addFlashAttribute("message", "更新成功しました");
+			ra.addFlashAttribute("success",true);
 		}
     	
     	return "redirect:/admin/user/list";
@@ -252,8 +257,14 @@ public class AdminController {
     
     //rental改良版？
     @GetMapping("/admin/rental")
-    public String torental2(Model model)throws Exception {
-    	List<CartForm> list = cartService.getRentalusers();
+    public String torental2(@RequestParam(required = false)String userName,Model model)throws Exception {
+    	List<CartForm> list=null;
+    	if(userName==null || userName.isBlank()) {
+    		list = cartService.getRentalusers();
+    		
+    	}else {	
+    		list=cartService.getRentalusersByuser(userName);
+    	}
     	model.addAttribute("cartlist",list);
     	
     	return "adminRentalUser";
@@ -277,6 +288,7 @@ public class AdminController {
     			ra.addFlashAttribute("message","レンタル処理失敗しました");
     		}else {
     			ra.addFlashAttribute("message","レンタル処理成功しました");
+    			ra.addFlashAttribute("success",true);
     		}
     	}else {
     		ra.addFlashAttribute("message","在庫が足りません");
@@ -285,8 +297,15 @@ public class AdminController {
     }
     
     @GetMapping("/admin/return")
-    public String toreturn(Model model)throws Exception {
-    	List<CartForm> list = cartService.getreturnlist();
+    public String toreturn(@RequestParam(required = false)String productName,Model model)throws Exception {
+    	List<CartForm> list=null;
+    	if(productName==null || productName.isBlank()) {
+    		list = cartService.getreturnlist();
+    		
+    	}else {	
+    		list=cartService.getreturnlistByProductName(productName);
+    	}
+    	
     	model.addAttribute("returnlist",list);
     	return "adminreturn";
     }
@@ -298,6 +317,7 @@ public class AdminController {
     		ra.addFlashAttribute("message","返却処理失敗しました");
     	}else {
     		ra.addFlashAttribute("message","返却処理成功しました");
+    		ra.addFlashAttribute("success",true);
     	}
     	
     	return "redirect:/admin/return";
@@ -315,5 +335,16 @@ public class AdminController {
     	return "adminRank";
     }
     
-    
+    @GetMapping("/admin/reset")
+    public String rentalreset(RedirectAttributes ra)throws Exception{
+    	int num = userUpdateService.rentalReset();
+    	if(num==0) {
+    		ra.addFlashAttribute("message","リセットに失敗しました");
+    	}else {
+    		ra.addFlashAttribute("message","リセットに成功しました");
+    		ra.addFlashAttribute("success",true);
+    	}
+    	
+    	return "redirect:/admin";
+    }
 }

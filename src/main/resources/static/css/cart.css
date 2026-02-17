@@ -93,3 +93,14 @@
         padding: 10px !important;
     }
 }
+/* ===========================
+   エラーメッセージ
+=========================== */
+.danger {
+    background: #ffe5e5;
+    border-left: 4px solid #d9534f;
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: #a94442;
+    margin-top: 10px;
+}

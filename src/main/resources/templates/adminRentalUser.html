@@ -9,6 +9,11 @@
 	<div id="wrapper">
 		<header>
 			<h1>レンタル処理</h1>
+			<form th:action="@{/admin/rental}" method="get" class="search-form">
+			<input type="text" name="userName" placeholder="ユーザー名で検索"
+			th:value="${param.userName}">
+			<button type="submit">検索</button>
+			</form>
 		</header>
 		
 		<a th:href="@{/admin}" class="btn">戻る</a>

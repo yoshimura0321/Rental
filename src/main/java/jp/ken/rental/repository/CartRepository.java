@@ -250,9 +250,23 @@ public class CartRepository {
 		
 		return list;
 	}
-	public int countByStatus(String status) throws Exception {
-	    String sql = "SELECT COUNT(*) FROM cart WHERE status = ?";
-	    return jdbcTemplate.queryForObject(sql, Integer.class, status);
+	public int countByStatus() throws Exception {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT");
+		sb.append(" COUNT(t.cart_id)");
+		sb.append(" FROM (SELECT c.cart_id,c.user_id,c.product_id,c.status,c.priority,RANK() OVER (PARTITION BY c.user_id ORDER BY c.priority) AS ranking,available");
+		sb.append(" FROM cart c JOIN (SELECT s.product_id,(s.stock_quantity - IFNULL(r.rental_count,0)) AS available");
+		sb.append(" FROM stock s LEFT OUTER JOIN (SELECT product_id,COUNT(*) AS rental_count FROM cart WHERE status='rental' GROUP BY product_id)r");
+		sb.append(" ON s.product_id=r.product_id)a");
+		sb.append(" ON a.product_id=c.product_id WHERE c.status='cart' ) t");
+		sb.append(" JOIN items p");
+		sb.append(" ON t.product_id = p.product_id");
+		sb.append(" JOIN users_profile u");
+		sb.append(" ON t.user_id = u.user_id");
+		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
+		sb.append(" WHERE t.ranking=1 AND t.available >0 AND u.rental_count < l.rental_limit");
+		String sql = sb.toString();
+	    return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 	public int countByRental(String status)throws Exception {
 	    String sql = "SELECT COUNT(*) FROM cart WHERE status = ?";
@@ -305,7 +319,7 @@ public class CartRepository {
 		sb.append(" JOIN users_profile u");
 		sb.append(" ON t.user_id = u.user_id");
 		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
-		sb.append(" WHERE t.ranking=1 AND p.product_name LIKE ? ORDER BY l.plan_id DESC,t.cart_id");
+		sb.append(" WHERE t.ranking=1 AND u.user_name LIKE ? ORDER BY l.plan_id DESC,t.cart_id");
 		
 		String sql = sb.toString();
 		

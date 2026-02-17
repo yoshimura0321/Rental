@@ -27,7 +27,7 @@
 				</tr>
 					<th:block th:each="c,stat : ${cartList}">
 						<tr th:if="${stat.count==1 and c.available <= 0}">
-							<td colspan="6" >優先度1位の商品の在庫がありません</td>
+							<td colspan="6" ><p th:classappend="danger">優先度1位の商品の在庫がありません</p></td>
 						</tr>
 						<tr><!--↓Listに加えたやつに変更してください！ -->
 							<td th:text="${stat.count}"></td>
