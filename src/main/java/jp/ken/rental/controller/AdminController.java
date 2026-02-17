@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.rental.application.service.CartService;
@@ -93,11 +94,13 @@ public class AdminController {
     @PostMapping(value = "/admin/product/new", params = "forward")
     public String forComplete(
     		@Validated(ValidGroupOrder.class)@ModelAttribute ProductForm productform, BindingResult result,
-            RedirectAttributes redirectAttributes) throws Exception {
+    		@RequestParam("imageFile") MultipartFile imageFile,
+    		RedirectAttributes redirectAttributes) throws Exception {
+    	
     	if(result.hasErrors()) {
     		return "adminProduct";
     	}else {
-        int row = productInsertService.registItem(productform);
+        int row = productInsertService.registItem(productform, imageFile);
 
         if (row <2) {
             redirectAttributes.addFlashAttribute("message", "登録に失敗しました。もう一度お試しください。");
@@ -109,6 +112,7 @@ public class AdminController {
     	}
         return "redirect:/admin";
     }
+    
     @GetMapping("/admin/product/list")
     public String home(@RequestParam(required=false) String productName, Model model) throws Exception {
     	List<ProductForm> productList=null;
@@ -167,20 +171,23 @@ public class AdminController {
     @PostMapping("/admin/product/update")
     public String updateConfirm(
     		@Validated(ValidGroupOrder.class)@ModelAttribute ProductForm productForm, BindingResult result,
+    		@RequestParam("imageFile") MultipartFile imageFile,
             RedirectAttributes redirectAttributes) throws Exception {
+    	
     	if(result.hasErrors()) {
     		return "adminProductUpdate";
-    	}else {
-        int row = productUpdateService.updateitem(productForm);
+    	}
+    	
+        int row = productUpdateService.updateitem(productForm, imageFile);
 
-        if (row < 2) {
+        if (row < 1) {
             redirectAttributes.addFlashAttribute("message", "更新に失敗しました");
             return "redirect:/admin/Productlist";
         }
 
         redirectAttributes.addFlashAttribute("message", "商品を更新しました");
         redirectAttributes.addFlashAttribute("success",true);
-    	}
+        
         return "redirect:/admin/product/list";
     }
 

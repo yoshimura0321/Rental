@@ -279,4 +279,62 @@ main h3 {
     background: #f9f9f9; /* hoverで色変えない */
 }
 
+/* ===========================
+   管理者ダッシュボード左右2カラム
+=========================== */
+.dashboard-main {
+    display: flex;
+    gap: 20px; /* 左右の余白 */
+    align-items: flex-start;
+    margin-top: 20px;
+}
 
+/* 左カラム：商品一覧 */
+.left-column {
+    flex: 3; 
+}
+
+/* 右カラム：レンタル/返却待ち */
+.right-column {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+/* 右カラム内のカード */
+.right-column .card {
+    width: 100%;              /* 親の横幅いっぱいに広げる */
+    box-sizing: border-box;   /* padding込みで幅が収まるように */
+    display: flex;            /* 縦方向に整列 */
+    flex-direction: column;
+    justify-content: flex-start; /* 上から順に配置 */
+    min-height: 120px;        /* 必要に応じて高さを確保 */
+    padding: 20px;            /* 元の余白を維持 */
+}
+
+/* 件数全体を中央寄せ */
+.right-column .card .pending-info {
+    text-align: center;      /* 件数＋単位を中央揃え */
+    margin-bottom: 10px;     /* ボタンとの間隔 */
+}
+
+/* 数字だけ目立たせる */
+.right-column .card .pending-count {
+    font-size: 2em;          /* 大きく */
+    font-weight: bold;
+    color: #0b1a44;          /* 紺色 */
+    margin-right: 5px;       /* 単位との間隔 */
+}
+
+/* 単位は少し小さめにして控えめに */
+.right-column .card .pending-unit {
+    font-size: 1em;
+    color: #333;
+}
+
+/* ボタンを中央に寄せる */
+.right-column .card .btn {
+    display: inline-block;   /* 横幅は文字に合わせる */
+    margin: 10px auto 0 auto; /* 上余白＋左右中央寄せ */
+}
