@@ -38,42 +38,48 @@
 				</ul>
 			</nav>
 			<main>
-				<div class="card">
+				<div class="card product-card">
 					<h3>最近追加された商品</h3>
 					<table class="product-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>種別</th>
-            <th>タイトル</th>
-            <th>クリエイター</th>
-            <th>入荷日</th>
-            <th>発売日</th>
-            <th>在庫量</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="product : ${productList}">
-            <td th:text="${product.productId}" class="productId"></td>
-            <td th:text="${product.productCategory}" class="productCategory"></td>
-            <td th:text="${product.productName}" class="productName"></td>
-            <td th:text="${product.creator}" class="creator"></td>
-           <td th:text="${product.arrivalDate}" class="arrivalDate"></td>
-                        <td th:text="${product.releaseDate}" class="releaseDate"></td>
-            <td th:text="${product.stockQuantity}" class="stockQuantity"></td>
-        </tr>
-        <tr th:if="${#lists.isEmpty(productList)}">
-            <td colspan="6">商品が登録されていません</td>
-        </tr>
-    </tbody>
-</table>
-
-
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>種別</th>
+								<th>タイトル</th>
+								<th>クリエイター</th>
+								<th>入荷日</th>
+								<th>発売日</th>
+								<th>在庫量</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="product : ${productList}">
+								<td th:text="${product.productId}" class="productId"></td>
+								<td th:text="${product.productCategory}" class="productCategory"></td>
+								<td th:text="${product.productName}" class="productName"></td>
+								<td th:text="${product.creator}" class="creator"></td>
+								<td th:text="${product.arrivalDate}" class="arrivalDate"></td>
+								<td th:text="${product.releaseDate}" class="releaseDate"></td>
+								<td th:text="${product.stockQuantity}" class="stockQuantity"></td>
+							</tr>
+							<tr th:if="${#lists.isEmpty(productList)}">
+								<td colspan="6">商品が登録されていません</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="side-panel">
+					<div class="card rental-card">
+						<h3>現在のレンタル待ち</h3>
+						<div class="pending-box">
+							<span class="pending-count" 
+							th:text="${pendingRentalCount}">0</span>
+							<span class="pending-unit">件</span>
+						</div>
+						<a class="detail-btn" th:href="@{/admin/rental}">詳細を見る</a>
+					</div>
+				</div>
 			</main>
-			<div class="rental-waiting-info">
-    現在のレンタル待ち件数：<span th:text="${pendingRentalCount}">0</span> 件
-    <br><a th:href="@{/admin/rental}">詳細を見る</a>
-</div>
 		</div>
 	</div>
 </body>
