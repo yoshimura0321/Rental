@@ -73,6 +73,8 @@ public class AdminController {
         model.addAttribute("productList", productList);
         int pendingRentalCount = cartService.countPendingRentals();
         model.addAttribute("pendingRentalCount", pendingRentalCount);
+        /*int returnCount = cartService.countReturns();
+        model.addAttribute("returnCount",returnCount);*/
 
         return "admin";
     }
@@ -196,7 +198,7 @@ public class AdminController {
     	
     	return "adminUserlist";
     	} catch (Exception e) {
-            ra.addFlashAttribute("message", "検索中にエラーが発生しました");
+            ra.addFlashAttribute("message", "ユーザーが見つかりません");
             return "redirect:/admin/user/list";
         }
     }
