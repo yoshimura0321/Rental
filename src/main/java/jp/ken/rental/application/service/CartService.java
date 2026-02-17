@@ -148,6 +148,9 @@ public class CartService {
 	    return cartRepository.countByStatus("cart"); 
 	}
 	
+	public int countReturns() throws Exception {
+		return cartRepository.countByRental("cart");
+	}
 	@Transactional(rollbackFor=Exception.class)
 	public int upPriority(int userId,int cartId,int priority)throws Exception{
 		CartEntity entity=cartRepository.upSearch(userId, priority);

@@ -71,14 +71,20 @@
 				<div class="side-panel">
 					<div class="card rental-card">
 						<h3>現在のレンタル待ち</h3>
-						<div class="pending-box">
+						
+					</div><div class="pending-box">
 							<span class="pending-count" 
 							th:text="${pendingRentalCount}">0</span>
 							<span class="pending-unit">件</span>
 						</div>
 						<a class="detail-btn" th:href="@{/admin/rental}">詳細を見る</a>
-					</div>
 				</div>
+				<div class="pending-box">
+							<span class="pending-count" 
+							th:text="${returnCount}">0</span>
+							<span class="pending-unit">件</span>
+						</div>
+						<a class="detail-btn" th:href="@{/admin/return}">詳細を見る</a>
 			</main>
 		</div>
 	</div>

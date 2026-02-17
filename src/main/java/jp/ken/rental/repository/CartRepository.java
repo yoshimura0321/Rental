@@ -2,6 +2,7 @@ package jp.ken.rental.repository;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -253,6 +254,15 @@ public class CartRepository {
 	    String sql = "SELECT COUNT(*) FROM cart WHERE status = ?";
 	    return jdbcTemplate.queryForObject(sql, Integer.class, status);
 	}
+	public int countByRental(String status)throws Exception {
+	    String sql = "SELECT COUNT(*) FROM cart WHERE status = ?";
+	    try {
+	        return jdbcTemplate.queryForObject(sql, Integer.class, "rental");
+	    } catch (EmptyResultDataAccessException e) {
+	        return 0; 
+	    }
+	}
+	
 	
 	public List<CartEntity> getRentalusers()throws Exception{
 		StringBuilder sb = new StringBuilder();
