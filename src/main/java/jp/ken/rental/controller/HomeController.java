@@ -61,19 +61,26 @@ public class HomeController {
         List<ProductForm> cdList = new ArrayList<>();
         List<ProductForm> dvdList = new ArrayList<>();
 
+        String cdHeadline = null;
+        String dvdHeadline = null;
+
         if (noName && noCategory) {
             // 初期表示
             cdList = productSearchService.getLatest5ProductsByCategory("CD");
             dvdList = productSearchService.getLatest5ProductsByCategory("DVD");
+            cdHeadline = "新着CD";
+            dvdHeadline = "新着DVD";
 
         } else if (noName) {
-            // カテゴリだけ押した
+            // カテゴリだけ選択
             if ("CD".equals(productCategory)) {
                 cdList = productSearchService.getLatest5ProductsByCategory("CD");
                 dvdList = new ArrayList<>();
+                cdHeadline = "CD";
             } else if ("DVD".equals(productCategory)) {
                 cdList = new ArrayList<>();
                 dvdList = productSearchService.getLatest5ProductsByCategory("DVD");
+                dvdHeadline = "DVD";
             }
 
         } else {
@@ -87,12 +94,19 @@ public class HomeController {
             cdList = allList.stream().filter(p -> "CD".equals(p.getProductCategory())).toList();
             dvdList = allList.stream().filter(p -> "DVD".equals(p.getProductCategory())).toList();
 
-            model.addAttribute("headline", "検索結果");
+            if (!cdList.isEmpty()) cdHeadline = "検索結果 - CD";
+            if (!dvdList.isEmpty()) dvdHeadline = "検索結果 - DVD";
+
             model.addAttribute("searchName", productName.trim());
         }
 
         model.addAttribute("cdList", cdList);
         model.addAttribute("dvdList", dvdList);
+        model.addAttribute("cdHeadline", cdHeadline);
+        model.addAttribute("dvdHeadline", dvdHeadline);
+        model.addAttribute("searchCategory", productCategory);
+
+        
         // カート情報
         UserForm user = getCurrentUser();
         List<String> addedProductIds = new ArrayList<>();
