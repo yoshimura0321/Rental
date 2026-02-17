@@ -76,6 +76,9 @@ public class CartService {
 	@Transactional(rollbackFor=Exception.class)
 	public int rental(int userId,int productId)throws Exception{
 		int num = cartRepository.rental(userId, productId);
+		if(num<2) {
+			throw new Exception("レンタル処理に失敗しました");
+		}
 		return num;
 	}
 	
@@ -101,6 +104,9 @@ public class CartService {
 	@Transactional(rollbackFor=Exception.class)
 	public int doreturn(int userId,int productId)throws Exception{
 		int num = cartRepository.doreturn(userId, productId);
+		if(num<2) {
+			throw new Exception("返却処理に失敗しました");
+		}
 		return num;
 	}
 	

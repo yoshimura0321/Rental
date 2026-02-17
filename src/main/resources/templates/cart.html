@@ -26,7 +26,7 @@
 					<th>優先度変更</th>
 				</tr>
 					<th:block th:each="c,stat : ${cartList}">
-						<tr th:if="${stat==1 and c.available==0}">
+						<tr th:if="${stat.count==1 and c.available <= 0}">
 							<td colspan="6" >優先度1位の商品の在庫がありません</td>
 						</tr>
 						<tr><!--↓Listに加えたやつに変更してください！ -->
@@ -34,8 +34,8 @@
 							<td th:text="${c.product.productName}"></td>
 							<td th:text="${c.product.productCategory}"></td>
 							<td>
-								<span th:if="${c.available==0}">×</span>
-								<span th:if="${c.available!=0}">〇</span>
+								<span th:if="${c.available <= 0}">×</span>
+								<span th:if="${c.available > 0}">〇</span>
 							</td>
 							<td>
 								<form th:action="@{/cart}" method="post">

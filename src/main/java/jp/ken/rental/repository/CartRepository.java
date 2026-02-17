@@ -146,7 +146,12 @@ public class CartRepository {
 		sb.append(" WHERE user_id=? AND product_id=? AND status='cart'");
 		String sql = sb.toString();
 		
-		int num = jdbcTemplate.update(sql,userId,productId);
+		StringBuilder sb2 = new StringBuilder();
+		sb2.append("UPDATE stock SET rent_count=rent_count+1");
+		sb2.append(" WHERE product_id=?");
+		String sql2 = sb2.toString();
+		
+		int num = jdbcTemplate.update(sql,userId,productId)+jdbcTemplate.update(sql2,productId);
 		
 		return num;
 	}
@@ -167,7 +172,12 @@ public class CartRepository {
 		sb.append(" WHERE user_id=? AND product_id=?");
 		String sql = sb.toString();
 		
-		int num = jdbcTemplate.update(sql,userId,prductId);
+		StringBuilder sb2 = new StringBuilder();
+		sb2.append("UPDATE stock SET rent_count=rent_count-1");
+		sb2.append(" WHERE product_id=?");
+		String sql2 = sb2.toString();
+		
+		int num = jdbcTemplate.update(sql,userId,prductId)+jdbcTemplate.update(sql2,prductId);
 		
 		return num;
 	}
