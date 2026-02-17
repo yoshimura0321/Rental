@@ -115,13 +115,16 @@ public class CartRepository {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
 		sb.append(" c.cart_id,c.user_id ,c.product_id, c.status,c.priority, p.product_category, p.product_name");
-		sb.append(",u.user_name,u.address,u.email,u.rental_count,l.rental_limit");
+		sb.append(",u.user_name,u.address,u.email,u.rental_count,l.rental_limit,a.available");
 		sb.append(" FROM cart c");
 		sb.append(" JOIN items p");
 		sb.append(" ON c.product_id = p.product_id");
 		sb.append(" JOIN users_profile u");
 		sb.append(" ON c.user_id = u.user_id");
 		sb.append(" JOIN plan l ON u.plan_name=l.plan_name");
+		sb.append(" JOIN (SELECT s.product_id,s.stock_quantity,(s.stock_quantity - IFNULL(r.rental_count,0)) AS available FROM stock s LEFT OUTER JOIN (SELECT product_id,COUNT(*) AS rental_count FROM cart WHERE status='rental' GROUP BY product_id) r ");
+		sb.append(" ON s.product_id=r.product_id)a");
+		sb.append(" ON a.product_id=c.product_id");
 		
 		
 		return sb;

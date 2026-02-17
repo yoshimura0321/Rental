@@ -32,6 +32,7 @@ public class CartMapper implements RowMapper<CartEntity> {
 		cartEntity.setProductId(rs.getInt("product_id"));
 		cartEntity.setStatus(rs.getString("status"));
 		cartEntity.setPriority(rs.getInt("priority"));
+		cartEntity.setAvailable(rs.getInt("available"));
 		
 		cartEntity.setProduct(productEntity);
 		cartEntity.setUser(userEntity);
