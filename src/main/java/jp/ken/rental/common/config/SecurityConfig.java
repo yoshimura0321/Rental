@@ -25,6 +25,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/home").permitAll()
 				.requestMatchers("/regist").permitAll()
+				.requestMatchers("/confirm").permitAll()
 				.requestMatchers("/cart").authenticated()
 				.requestMatchers("/cart/add").authenticated()
 				.requestMatchers("/mypage").authenticated()
@@ -33,7 +34,7 @@ public class SecurityConfig {
 				.requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
 				.requestMatchers("/css/**").permitAll()
 				.requestMatchers("/images/**").permitAll()
-				.anyRequest().authenticated());
+				.anyRequest().permitAll());
 		
 		http.formLogin(login -> login
 				.defaultSuccessUrl("/home")
