@@ -36,12 +36,12 @@
 						<span th:if="${#fields.hasErrors('creator')}"th:errors="*{creator}" class="errors"></span>
 					</div>
 					<div class="form-group">
-						<label>アライバル</label>
+						<label>入荷日</label>
 						<input type="date" th:field="*{arrivalDate}">
 						<span th:if="${#fields.hasErrors('arrivalDate')}"th:errors="*{arrivalDate}" class="errors"></span>
 					</div>
 					<div class="form-group">
-						<label>リリース</label>
+						<label>発売日</label>
 						<input type="date" th:field="*{releaseDate}">
 						<span th:if="${#fields.hasErrors('releaseDate')}"th:errors="*{releaseDate}" class="errors"></span>
 					</div>
