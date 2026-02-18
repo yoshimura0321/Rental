@@ -37,6 +37,9 @@
 						</tr>
 					</thead>
 					<tbody>
+						<tr th:if="${#lists.isEmpty(cartlist)}">
+						 <td colspan="7">レンタル希望のお客様はおりません。</td>
+					</tr>
 						<tr th:each="cart : ${cartlist}">
 							<td th:text="${cart.userId}"></td>
 							<td th:text="${cart.user.userName}"></td>
