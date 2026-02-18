@@ -169,9 +169,15 @@ public class ProductRepository {
 			    productEntity.getReleasedate(),
 			    productEntity.getThumbnail(),
 			    productEntity.getProductId()};
+		
+		StringBuilder sb2 = new StringBuilder();
+		sb2.append("UPDATE stock");
+		sb2.append(" SET stock_quantity=?");
+		sb2.append(" WHERE product_id = ?");
+		String sql2 =sb2.toString();
 
 		
-		int num = jdbcTemplate.update(sql, parameters);
+		int num = jdbcTemplate.update(sql, parameters)+jdbcTemplate.update(sql2,productEntity.getStockQuantity(),productEntity.getProductId());
 		
 		return num;
 	}

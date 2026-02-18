@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>エラーページ</title>
+	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>エラーページ</h1>
+			<hr>
+		</header>
+		<main>
+			<div>
+				<form th:action="@{/logout}" method="post">
+					<div class="errors">権限が不足しているのでアクセスできません</div>
+					<div class="form-row">
+							<input type="submit" name="logout" value="戻る" class="btn">
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
