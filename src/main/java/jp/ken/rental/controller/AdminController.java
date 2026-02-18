@@ -116,7 +116,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("message", "商品を登録しました！");
         redirectAttributes.addFlashAttribute("success",true);
     	}
-        return "redirect:/admin";
+        return "redirect:/admin/product/list";
     }
     
     @GetMapping("/admin/product/list")
