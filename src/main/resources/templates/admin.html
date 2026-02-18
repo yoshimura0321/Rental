@@ -26,6 +26,10 @@
 			 <div th:if="${successMessage}" class="alert alert-success">
 			 <p th:text="${successMessage}"></p></div>
 		
+		<form th:action="@{/logout}" method="post">
+							<input type="submit" class="btn" value="ログアウト"></input>
+						</form>
+		
 		<div class="container">
 			<nav>
 				<ul>
@@ -35,7 +39,7 @@
 					<li><a th:href="@{/admin/return}">返却処理</a></li>
 					<li><a th:href="@{/admin/rank}">ランキング</a></li>
 					<li><a th:href="@{/admin/reset}" onclick="return confirm('レンタル数をリセットしますか');" style="display:inline;">レンタル数リセット</a></li>
-					<li><a th:href="@{/logout}">ログアウト</a></li>
+					
 				</ul>
 			</nav>
 			<main class="dashboard-main">
