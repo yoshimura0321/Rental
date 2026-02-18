@@ -58,6 +58,12 @@ public class AdminController {
         this.cartService=cartService;
     }
     
+    @GetMapping("/accessdenied")
+    public String todenied(Model model) {
+    	model.addAttribute("error","admin権限がありません");
+    	return "error/error";
+    }
+    
     @GetMapping("/admin")
     public String adminpage(@RequestParam(required = false) String productName, Model model) throws Exception {
         List<ProductForm> productList;

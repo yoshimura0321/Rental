@@ -29,14 +29,19 @@ public class SecurityConfig {
 				.requestMatchers("/cart/add").authenticated()
 				.requestMatchers("/mypage").authenticated()
 				.requestMatchers("/mypage/**").authenticated()
+				.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+				.requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
 				.requestMatchers("/css/**").permitAll()
-				.anyRequest().permitAll());
+				.anyRequest().authenticated());
 		
 		http.formLogin(login -> login
 				.defaultSuccessUrl("/home")
 				.loginPage("/login")
 				.failureUrl("/login?error")
 				.permitAll());
+		
+		http.exceptionHandling(e ->e
+				.accessDeniedPage("/accessdenied"));
 		
 		
 		return http.build();
