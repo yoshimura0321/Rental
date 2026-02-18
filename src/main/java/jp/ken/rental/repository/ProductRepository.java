@@ -83,7 +83,7 @@ public class ProductRepository {
 	public List<ProductEntity> getProductByArrivalDate() throws Exception {
 	    StringBuilder sb = createCommonSQL();
 	    
-	    sb.append(" ORDER BY p.arrival_date DESC");
+	    sb.append(" ORDER BY p.arrival_date DESC,p.product_id DESC");
 	    sb.append(" LIMIT 5");
 	    
 	    String sql = sb.toString();
