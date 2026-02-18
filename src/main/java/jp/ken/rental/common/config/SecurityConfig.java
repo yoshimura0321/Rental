@@ -32,7 +32,8 @@ public class SecurityConfig {
 				.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 				.requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
 				.requestMatchers("/css/**").permitAll()
-				.anyRequest().permitAll());
+				.requestMatchers("/images/**").permitAll()
+				.anyRequest().authenticated());
 		
 		http.formLogin(login -> login
 				.defaultSuccessUrl("/home")

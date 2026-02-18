@@ -30,6 +30,7 @@
 						<th>商品名</th>
 						<th>ユーザーID</th>
 						<th>ユーザー名</th>
+						<th>メールアドレス</th>
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -41,6 +42,7 @@
 						<td th:text="${cart.product.productName}"></td>
 						<td th:text="${cart.userId}"></td>
 						<td th:text="${cart.user.userName}"></td>
+						<td th:text="${cart.user.email}"></td>
 						<td>
 							<form th:action="@{/admin/return}" method="post">
 								<button type="submit" class="btn">返却</button>
