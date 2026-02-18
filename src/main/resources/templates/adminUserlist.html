@@ -21,7 +21,8 @@
 		
 		<main>
 			<div class="card">
-				<span th:text="${message}"></span>
+				<p th:if="${message}" th:text="${message}" 
+			th:classappend="${success} ? ' alert-success' : ' danger'"></p>
 				<table class="product-table">
 					<thead>
 						<tr>

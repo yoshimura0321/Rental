@@ -23,6 +23,7 @@ import jp.ken.rental.application.service.UserDeleteService;
 import jp.ken.rental.application.service.UserSearchService;
 import jp.ken.rental.application.service.UserUpdateService;
 import jp.ken.rental.common.validator.groups.ValidGroupOrder;
+import jp.ken.rental.form.CartEntity;
 import jp.ken.rental.form.CartForm;
 import jp.ken.rental.form.ProductForm;
 import jp.ken.rental.form.UserForm;
@@ -221,6 +222,13 @@ public class AdminController {
     
     @PostMapping("/admin/user/delete")
     public String admindelete(@RequestParam String userId,RedirectAttributes ra)throws Exception {
+    	List<CartEntity> list = cartService.getCurrentRentals(Integer.parseInt(userId));
+    	
+    	if(list.size()!=0) {
+    		ra.addFlashAttribute("message","レンタル中のユーザーは削除できません");
+    		return "redirect:/admin/user/list";
+    	}
+    	
     	int num = userDeleteService.deleteUser(Integer.parseInt(userId))+userDeleteService.securitydelete(Integer.parseInt(userId));
     	if(num <3) {
 			ra.addFlashAttribute("message", "削除に失敗しました");

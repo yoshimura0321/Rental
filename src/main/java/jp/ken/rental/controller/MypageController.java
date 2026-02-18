@@ -131,6 +131,13 @@ public class MypageController {
     
     @PostMapping("/mypage/goodbye")
     public String delete(@ModelAttribute("idForm") UserForm idForm, Model model,HttpServletRequest request,SessionStatus status)throws Exception {
+    	
+    	List<CartEntity> list = cartService.getCurrentRentals(Integer.parseInt(idForm.getUserId()) );
+    	
+    	if(list.size()!=0) {
+    		model.addAttribute("error","レンタル中に退会はできません");
+    		return "error/error";
+    	}
     	int num = userDeleteService.deleteUser(Integer.parseInt(idForm.getUserId()))+userDeleteService.securitydelete(Integer.parseInt(idForm.getUserId()));
     	if(num <2) {
     		model.addAttribute("error","削除に失敗しました");
