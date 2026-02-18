@@ -62,7 +62,7 @@ public class AdminController {
     @GetMapping("/accessdenied")
     public String todenied(Model model) {
     	model.addAttribute("error","admin権限がありません");
-    	return "error/error";
+    	return "error/4xx";
     }
     
     @GetMapping("/admin")
