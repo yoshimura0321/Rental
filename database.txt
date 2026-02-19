@@ -1,0 +1,150 @@
+CREATE DATABASE IF NOT EXISTS rentaldb;
+
+DROP TABLE rentaldb.users_profile;
+
+CREATE TABLE rentaldb.users_profile
+	( user_id int(8) PRIMARY KEY AUTO_INCREMENT
+	, user_name VARCHAR(100) NOT NULL
+	, email VARCHAR(255) NOT NULL
+	, tel VARCHAR(20) NOT NULL
+	, password VARCHAR(255) NOT NULL
+	, birth DATE NOT NULL
+	, address VARCHAR(500) NOT NULL
+	, credit VARCHAR(20)
+	, plan_name VARCHAR(50) NOT NULL
+	, rental_count INT(8) default (0)
+	,  membership_month date NOT NULL
+	);
+
+INSERT INTO rentaldb.users_profile VALUES (10000000,'山田太郎','yamada@ken.com','08011111111','a','2025-01-27','福岡','1','try',2,'2025-1-28');
+INSERT INTO rentaldb.users_profile VALUES (10000001,'佐藤花子','satou@ken.com','08011111111','b','2025-01-27','福岡','1','gold',0,'2025-1-28');
+INSERT INTO rentaldb.users_profile VALUES (10000002,'鈴木一郎','suzuki@ken.com','08011111111','a','2025-01-27','愛知','1','try',2,'2025-1-28');
+INSERT INTO rentaldb.users_profile VALUES (10000003,'四天王','top4@ken.com','08012345678','ken','2026-01-27','福岡','1111222233334444','try',0,'2025-1-28');
+
+DROP TABLE rentaldb.plan;
+
+CREATE TABLE rentaldb.plan
+	( plan_id int(8) PRIMARY KEY
+	, plan_name VARCHAR(50) NOT NULL
+	, plan_price int(8) NOT NULL
+	, rental_limit int(8) NOT NULL
+	);
+
+INSERT INTO rentaldb.plan VALUES (1,'try',324,2);
+INSERT INTO rentaldb.plan VALUES (2,'bronze',1080,6);
+INSERT INTO rentaldb.plan VALUES (3,'silver',2160,12);
+INSERT INTO rentaldb.plan VALUES (4,'gold',5400,9999999);
+
+DROP TABLE rentaldb.items;
+
+CREATE TABLE rentaldb.items
+	( product_id int(8) PRIMARY KEY AUTO_INCREMENT
+	, product_category VARCHAR(50) NOT NULL
+	, product_name VARCHAR(100) NOT NULL
+	,arrival_date DATE NOT NULL
+	,release_date DATE NOT NULL
+	,thumbnail VARCHAR(255)
+	,creator VARCHAR(100)
+ 	);
+
+INSERT INTO rentaldb.items VALUES (1,'DVD','春の雪','2006-01-27','2005-10-29','dvd_001.jpg','行定勲');
+INSERT INTO rentaldb.items VALUES (2,'DVD','ハリーポッターと賢者の石','2002-01-27','2001-12-01','dvd_002.jpg','クリス・コロンバス');
+INSERT INTO rentaldb.items VALUES (3,'DVD','ハリーポッターと秘密の部屋','2002-12-27','2002-11-23','dvd_003.jpg','クリス・コロンバス');
+INSERT INTO rentaldb.items VALUES (4,'DVD','ハリーポッターとアズカバンの囚人','2004-06-27','2004-06-26','dvd_004.jpg','アルフォンソ・キュアロン');
+INSERT INTO rentaldb.items VALUES (5,'DVD','ハリーポッターと炎のゴブレット','2005-12-27','2005-11-26','dvd_005.jpg','マイク・ニューウェル');
+INSERT INTO rentaldb.items VALUES (6,'DVD','ハリーポッターと不死鳥の騎士団','2007-08-27','2007-07-20','dvd_006.jpg','デヴィッド・イェーツ');
+INSERT INTO rentaldb.items VALUES (7,'DVD','ハリーポッターと謎のプリンス','2009-08-27','2009-07-15','dvd_007.jpg','デヴィッド・イェーツ');
+INSERT INTO rentaldb.items VALUES (8,'DVD','ハリーポッターと死の秘宝 PART1','2010-12-27','2010-11-19','dvd_008.jpg','デヴィッド・イェーツ');
+INSERT INTO rentaldb.items VALUES (9,'DVD','ハリーポッターと死の秘宝 PART2','2011-08-27','2011-07-15','dvd_009.jpg','デヴィッド・イェーツ');
+
+INSERT INTO rentaldb.items VALUES (12,'CD','LOVE ALL SERVE ALL','2022-03-28','2022-03-23','cd_003.jpg','藤井 風');
+INSERT INTO rentaldb.items VALUES (13,'CD','Prema','2025-09-09','2025-09-05','cd_004.jpg','藤井 風');
+INSERT INTO rentaldb.items VALUES (14,'CD','Never Grow Up','2019-8-8','2019-8-7','cd_005.jpg','ちゃんみな');
+INSERT INTO rentaldb.items VALUES (15,'CD','Naked','2023-5-1','2023-4-26','cd_006.jpg','ちゃんみな');
+INSERT INTO rentaldb.items VALUES (17,'CD','核','2026-01-23','2026-01-23','cd_001.jpg','XG');
+INSERT INTO rentaldb.items VALUES (16,'CD','ハレンチ','2021-10-14','2021-10-13','cd_007.jpg','ちゃんみな');
+INSERT INTO rentaldb.items VALUES (18,'DVD','ルックバック','2026-01-23','2026-01-21','dvd_011.jpg','押山清高');
+INSERT INTO rentaldb.items VALUES (19,'DVD','ウィキッド ふたりの魔女','2026-01-24','2025-11-21','dvd_012.jpg','Jon M. Chu');
+INSERT INTO rentaldb.items VALUES (20,'DVD','ズートピア','2026-01-25','2026-01-25','dvd_013.jpg','Byron Howard');
+INSERT INTO rentaldb.items VALUES (21,'DVD','ズートピア２','2026-01-26','2025-11-26','dvd_014.jpg','Byron Howard');
+
+
+DROP TABLE rentaldb.stock;
+
+CREATE TABLE rentaldb.stock
+	( product_id int(8) PRIMARY KEY AUTO_INCREMENT
+	, stock_quantity int(8) NOT NULL
+	, rent_count int(8) default (0)
+	);
+
+INSERT INTO rentaldb.stock VALUES (1,3,1);
+INSERT INTO rentaldb.stock VALUES (2,3,1);
+INSERT INTO rentaldb.stock VALUES (3,3,0);
+INSERT INTO rentaldb.stock VALUES (4,3,0);
+INSERT INTO rentaldb.stock VALUES (5,3,0);
+INSERT INTO rentaldb.stock VALUES (6,3,0);
+INSERT INTO rentaldb.stock VALUES (7,3,0);
+INSERT INTO rentaldb.stock VALUES (8,3,0);
+INSERT INTO rentaldb.stock VALUES (9,3,0);
+INSERT INTO rentaldb.stock VALUES (17,1,0);
+
+INSERT INTO rentaldb.stock VALUES (12,3,0);
+INSERT INTO rentaldb.stock VALUES (13,1,0);
+INSERT INTO rentaldb.stock VALUES (14,3,0);
+INSERT INTO rentaldb.stock VALUES (15,3,0);
+INSERT INTO rentaldb.stock VALUES (16,3,0);
+
+INSERT INTO rentaldb.stock VALUES (18,3,0);
+INSERT INTO rentaldb.stock VALUES (19,3,0);
+INSERT INTO rentaldb.stock VALUES (20,3,0);
+INSERT INTO rentaldb.stock VALUES (21,3,0);
+
+DROP TABLE rentaldb.cart;
+
+CREATE TABLE rentaldb.cart
+	( cart_id int PRIMARY KEY AUTO_INCREMENT
+	, user_id int
+	, product_id int
+	, status VARCHAR(10)
+	, priority int 
+	);
+
+INSERT INTO rentaldb.cart VALUES (1, 10000000,1,'return',1);
+INSERT INTO rentaldb.cart VALUES (2, 10000000,2,'return',2);
+INSERT INTO rentaldb.cart VALUES (3, 10000001,1,'return',1);
+INSERT INTO rentaldb.cart VALUES (4, 10000001,3,'return',2);
+INSERT INTO rentaldb.cart VALUES (5, 10000001,4,'return',3);
+INSERT INTO rentaldb.cart VALUES (6, 10000001,5,'return',4);
+INSERT INTO rentaldb.cart VALUES (7, 10000000,13,'rental',3);
+
+
+DROP TABLE rentaldb.users;
+
+CREATE TABLE rentaldb.users
+	( user_id int PRIMARY KEY AUTO_INCREMENT
+	, username VARCHAR(255) 
+	, password VARCHAR(255)
+	,enabled int
+	);
+
+INSERT INTO rentaldb.users VALUES (10000000,'yamada@ken.com','{bcrypt}$2a$10$BEhdYiO8i1osczk4F8gtbesCUH8Eqoixixk/EMz4P8LqOd4251ZTG',1);
+
+INSERT INTO rentaldb.users VALUES (10000001,'satou@ken.com','{bcrypt}$2a$10$9U5LoH6ArZ3dTvUeYBsKCuuApkKat1/o8EJn3Nubf8mPOL/KVcuw2',1);
+
+INSERT INTO rentaldb.users VALUES (10000002,'suzuki@ken.com','{bcrypt}$2a$10$BEhdYiO8i1osczk4F8gtbesCUH8Eqoixixk/EMz4P8LqOd4251ZTG',1);
+
+INSERT INTO rentaldb.users VALUES (10000003,'top4@ken.com','{bcrypt}$2a$10$lzQ.A61Dl6KCalI1jcA3guRyzu5wST4BrsgBocFchcc0fIi0rURPm',1);
+
+
+DROP TABLE rentaldb.authorities;
+
+CREATE TABLE rentaldb.authorities
+	( user_id int PRIMARY KEY AUTO_INCREMENT
+	, username VARCHAR(255)
+	,authority text
+	);
+
+INSERT INTO rentaldb.authorities VALUES (10000000,'yamada@ken.com','ROLE_USER');
+INSERT INTO rentaldb.authorities VALUES (10000001,'satou@ken.com','ROLE_ADMIN');
+INSERT INTO rentaldb.authorities VALUES (10000002,'suzuki@ken.com','ROLE_USER');
+INSERT INTO rentaldb.authorities VALUES (10000003,'top4@ken.com','ROLE_USER');
